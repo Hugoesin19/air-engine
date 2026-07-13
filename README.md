@@ -39,8 +39,7 @@ The core (`core`, `analyzer`) has **zero external dependencies** and knows only 
 _Coming soon — MVP in progress._
 
 ```bash
-# Expected CLI shape (not yet implemented)
-air-engine verify trace.json --contract policy.yaml
+uv run air-engine validate examples/trace_valid_minimal.json
 ```
 
 ## Roadmap
@@ -56,6 +55,7 @@ air-engine verify trace.json --contract policy.yaml
 
 ## Reference specification
 
+- [MVP Roadmap](docs/MVP_ROADMAP.md) — implementation plan and progress tracker
 - [Architecture specs](docs/architecture/) — formal AIR schema and contract model (in progress)
 - [Architecture Decision Records](docs/adrs/) — foundational design decisions
 
@@ -67,6 +67,7 @@ uv run ruff check .
 uv run ruff format --check .
 uv run mypy src
 uv run pytest
+uv run air-engine validate examples/trace_valid_minimal.json
 ```
 
 ## License

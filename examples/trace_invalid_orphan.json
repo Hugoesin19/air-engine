@@ -1,0 +1,37 @@
+{
+  "air_schema_version": "1.0.0",
+  "trace_id": "01930000-0000-7000-8000-000000000003",
+  "root_id": "01930000-0000-7000-8000-000000000210",
+  "nodes": [
+    {
+      "id": "01930000-0000-7000-8000-000000000210",
+      "labels": {
+        "semantic_type": "semantic",
+        "event_type": "run_start"
+      }
+    },
+    {
+      "id": "01930000-0000-7000-8000-000000000211",
+      "labels": {
+        "semantic_type": "semantic",
+        "event_type": "step_a"
+      }
+    },
+    {
+      "id": "01930000-0000-7000-8000-000000000212",
+      "labels": {
+        "semantic_type": "semantic",
+        "event_type": "orphan_step"
+      }
+    }
+  ],
+  "control_edges": [
+    {
+      "id": "01930000-0000-7000-8000-000000000220",
+      "source": "01930000-0000-7000-8000-000000000210",
+      "target": "01930000-0000-7000-8000-000000000211",
+      "kind": "causes"
+    }
+  ],
+  "referential_edges": []
+}

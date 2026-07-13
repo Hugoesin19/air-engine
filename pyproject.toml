@@ -21,6 +21,9 @@ classifiers = [
 [project.urls]
 Repository = "https://github.com/Hugoesin19/air-engine"
 
+[project.scripts]
+air-engine = "air_engine.interfaces.cli.main:main"
+
 [build-system]
 requires = ["hatchling>=1.27"]
 build-backend = "hatchling.build"
