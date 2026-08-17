@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import argparse
 
-from air_engine.interfaces.cli.commands import validate
+from air_engine.interfaces.cli.commands import validate, verify
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -14,6 +14,7 @@ def build_parser() -> argparse.ArgumentParser:
     )
     subparsers = parser.add_subparsers(dest="command", required=True)
     validate.register(subparsers)
+    verify.register(subparsers)
     return parser
 
 

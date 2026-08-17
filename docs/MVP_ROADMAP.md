@@ -5,8 +5,8 @@
 > Reference: Project Bible (Part VII) · [ADRs](adrs/) · [Architecture](architecture/)
 
 **Last updated:** 2026-08-17  
-**Current phase:** Sprint 3 — First Contract + Diagnostic  
-**MVP status:** 🟡 In progress (Sprint 2 complete)
+**Current phase:** Sprint 4 — Full Contract Catalog (MVP)  
+**MVP status:** 🟡 In progress (Sprint 3 complete)
 
 ---
 
@@ -29,7 +29,7 @@ The MVP validates that the formal model, AIR representation, and verification en
 |----|------------|------------|----------|
 | H1 | AIR models async execution without losing causality | 🟡 | Parser + examples + CLI validate |
 | H2 | State reconstructs deterministically from topology only | 🟡 | `ordering.py`, `state.py`, unit tests |
-| H3 | Contracts detect violations without false positives | ⬜ | |
+| H3 | Contracts detect violations without false positives | 🟡 | structural invariants + diagnostic + verify CLI |
 | H4 | Model stays agnostic to origin framework | ⬜ | |
 
 ---
@@ -97,18 +97,19 @@ Do **not** build entire layers in isolation before the slice works.
 
 ---
 
-### Sprint 3 — First Contract + Diagnostic
+### Sprint 3 — First Contract + Diagnostic ✅
 
 **Goal:** One invariant → structured diagnostic.
 
-- [ ] `src/air_engine/contracts/model.py` — `Contract`, `Property`, `Invariant`
-- [ ] `src/air_engine/contracts/loader.py` — YAML/JSON loader
-- [ ] `src/air_engine/contracts/builtins/structural.py` — no cycles, reachability
-- [ ] `src/air_engine/analyzer/diagnostic.py`
-- [ ] `src/air_engine/analyzer/evaluator.py`
-- [ ] `src/air_engine/analyzer/engine.py`
-- [ ] `examples/policy_mvp.yaml`
-- [ ] `tests/unit/analyzer/test_evaluator.py`
+- [x] `src/air_engine/contracts/model.py` — `Contract`, `Property`, `Invariant`
+- [x] `src/air_engine/contracts/loader.py` — YAML/JSON loader
+- [x] `src/air_engine/contracts/builtins/structural.py` — no cycles, reachability
+- [x] `src/air_engine/analyzer/diagnostic.py`
+- [x] `src/air_engine/analyzer/evaluator.py`
+- [x] `src/air_engine/analyzer/engine.py`
+- [x] `examples/policy_mvp.yaml`
+- [x] `tests/unit/analyzer/test_evaluator.py`
+- [x] `src/air_engine/interfaces/cli/commands/verify.py` — verify CLI
 
 **Done when:** `verify` returns pass/fail + explanation for structural rules.
 
@@ -184,6 +185,7 @@ adapters → parser → core ← analyzer ← contracts
 | 2026-07-13 | Sprint 0 | AIR core model, topology validation, schema spec, examples, 9 unit tests | Sprint 1 parser + CLI |
 | 2026-07-13 | Sprint 1 | JSON parser, `air-engine validate`, 10 new integration/CLI tests | Sprint 2 state reconstruction |
 | 2026-08-17 | Sprint 2 | Canonical ordering, state reconstruction, labeling, 9 new unit tests | Sprint 3 contracts + diagnostic |
+| 2026-08-17 | Sprint 3 | Contracts, evaluator, diagnostic, verify CLI, policy_mvp.yaml, 8 new tests | Sprint 4 full contract catalog |
 
 ---
 

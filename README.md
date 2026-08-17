@@ -40,6 +40,7 @@ _Coming soon — MVP in progress._
 
 ```bash
 uv run air-engine validate examples/trace_valid_minimal.json
+uv run air-engine verify examples/trace_valid_minimal.json --contract examples/policy_mvp.yaml
 ```
 
 ## Roadmap
@@ -68,6 +69,7 @@ uv run ruff format --check .
 uv run mypy src
 uv run pytest
 uv run air-engine validate examples/trace_valid_minimal.json
+uv run air-engine verify examples/trace_valid_minimal.json --contract examples/policy_mvp.yaml
 ```
 
 ## License

@@ -1,0 +1,4 @@
+air_schema_version: "1.0.0"
+invariants:
+  - id: no_causal_cycles
+  - id: root_reachability
