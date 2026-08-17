@@ -75,13 +75,9 @@ def evaluate_token_budget(trace: Trace, spec: InvariantSpec) -> tuple[str, ...]:
 
     if counted_nodes == 0 or total_tokens <= max_tokens:
         return ()
-    total_display = (
-        int(total_tokens) if total_tokens.is_integer() else total_tokens
-    )
+    total_display = int(total_tokens) if total_tokens.is_integer() else total_tokens
     budget_display = int(max_tokens) if max_tokens.is_integer() else max_tokens
-    message = (
-        f"Token usage {total_display} exceeds budget {budget_display}"
-    )
+    message = f"Token usage {total_display} exceeds budget {budget_display}"
     return (message,)
 
 
