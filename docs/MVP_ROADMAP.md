@@ -4,9 +4,9 @@
 > **Update this file** at the start/end of each work session.  
 > Reference: Project Bible (Part VII) · [ADRs](adrs/) · [Architecture](architecture/)
 
-**Last updated:** 2026-07-13  
-**Current phase:** Sprint 2 — Ordering + State Reconstruction  
-**MVP status:** 🟡 In progress (Sprint 1 complete)
+**Last updated:** 2026-08-17  
+**Current phase:** Sprint 3 — First Contract + Diagnostic  
+**MVP status:** 🟡 In progress (Sprint 2 complete)
 
 ---
 
@@ -28,7 +28,7 @@ The MVP validates that the formal model, AIR representation, and verification en
 | ID | Hypothesis | Validated? | Evidence |
 |----|------------|------------|----------|
 | H1 | AIR models async execution without losing causality | 🟡 | Parser + examples + CLI validate |
-| H2 | State reconstructs deterministically from topology only | ⬜ | |
+| H2 | State reconstructs deterministically from topology only | 🟡 | `ordering.py`, `state.py`, unit tests |
 | H3 | Contracts detect violations without false positives | ⬜ | |
 | H4 | Model stays agnostic to origin framework | ⬜ | |
 
@@ -82,16 +82,16 @@ Do **not** build entire layers in isolation before the slice works.
 
 ---
 
-### Sprint 2 — Ordering + State Reconstruction
+### Sprint 2 — Ordering + State Reconstruction ✅
 
 **Goal:** Deterministic state at any node (ADR-004, ADR-005).
 
-- [ ] `src/air_engine/core/ordering.py` — `O_can` canonical linear extension
-- [ ] `src/air_engine/core/state.py` — reduction `⊕` over causal ancestors
-- [ ] `src/air_engine/core/labeling.py` — `λ_V`, `λ_E` projection
-- [ ] `src/air_engine/analyzer/state_builder.py`
-- [ ] `tests/unit/core/test_ordering.py`
-- [ ] `tests/unit/core/test_state.py`
+- [x] `src/air_engine/core/ordering.py` — `O_can` canonical linear extension
+- [x] `src/air_engine/core/state.py` — reduction `⊕` over causal ancestors
+- [x] `src/air_engine/core/labeling.py` — `λ_V`, `λ_E` projection
+- [x] `src/air_engine/analyzer/state_builder.py`
+- [x] `tests/unit/core/test_ordering.py`
+- [x] `tests/unit/core/test_state.py`
 
 **Done when:** same trace → same state at node N, always.
 
@@ -183,6 +183,7 @@ adapters → parser → core ← analyzer ← contracts
 | 2026-07-13 | Bootstrap | Repo structure, tooling, CI, ADRs 001–005 | Sprint 0 |
 | 2026-07-13 | Sprint 0 | AIR core model, topology validation, schema spec, examples, 9 unit tests | Sprint 1 parser + CLI |
 | 2026-07-13 | Sprint 1 | JSON parser, `air-engine validate`, 10 new integration/CLI tests | Sprint 2 state reconstruction |
+| 2026-08-17 | Sprint 2 | Canonical ordering, state reconstruction, labeling, 9 new unit tests | Sprint 3 contracts + diagnostic |
 
 ---
 
