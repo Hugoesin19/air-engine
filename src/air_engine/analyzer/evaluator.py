@@ -5,7 +5,7 @@ from __future__ import annotations
 import re
 
 from air_engine.analyzer.diagnostic import Violation
-from air_engine.contracts.builtins.structural import STRUCTURAL_EVALUATORS
+from air_engine.contracts.builtins import BUILTIN_EVALUATORS
 from air_engine.contracts.errors import UnknownInvariantError
 from air_engine.contracts.model import Contract, InvariantSpec
 from air_engine.core.trace import Trace
@@ -14,12 +14,13 @@ from air_engine.core.types import NodeId
 _NODE_ID_PATTERNS = (
     re.compile(r"at node: (\S+)$"),
     re.compile(r"via E_c: (\S+)$"),
+    re.compile(r"ToolCall at node: (\S+) has"),
 )
 
 
 def evaluate_invariant(trace: Trace, spec: InvariantSpec) -> tuple[Violation, ...]:
     """Evaluate a single invariant against a trace."""
-    evaluator = STRUCTURAL_EVALUATORS.get(spec.id)
+    evaluator = BUILTIN_EVALUATORS.get(spec.id)
     if evaluator is None:
         msg = f"Unknown invariant id: {spec.id}"
         raise UnknownInvariantError(msg)

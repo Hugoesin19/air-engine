@@ -15,3 +15,7 @@ class ContractLoadError(ContractError):
 
 class UnknownInvariantError(ContractError):
     """Raised when a contract references an unsupported invariant id."""
+
+
+class InvalidInvariantParamError(ContractError):
+    """Raised when an invariant is missing or has invalid parameters."""

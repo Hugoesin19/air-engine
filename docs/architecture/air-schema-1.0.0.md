@@ -49,6 +49,8 @@ The structural node has no intrinsic meaning; semantics live only in `labels`.
 | `semantic_type` | `"semantic"` | Layer-2 type classification |
 | `event_type` | `"tool_call"` | Domain event name |
 | `name` | `"search"` | Human-readable identifier |
+| `timestamp_ms` | `600` | Wall-clock offset in milliseconds (metrics) |
+| `tokens` | `150` | Token usage on LLM invoke nodes (metrics) |
 
 ---
 
@@ -96,6 +98,8 @@ The structural node has no intrinsic meaning; semantics live only in `labels`.
 | [`examples/trace_valid_minimal.json`](../../examples/trace_valid_minimal.json) | Minimal valid trace |
 | [`examples/trace_invalid_cycle.json`](../../examples/trace_invalid_cycle.json) | Violates DAG axiom |
 | [`examples/trace_invalid_orphan.json`](../../examples/trace_invalid_orphan.json) | Violates reachability axiom |
+| [`examples/trace_invalid_missing_tool_return.json`](../../examples/trace_invalid_missing_tool_return.json) | Valid topology, missing ToolReturn |
+| [`examples/policy_mvp.yaml`](../../examples/policy_mvp.yaml) | Full MVP contract catalog |
 
 ---
 

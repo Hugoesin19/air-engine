@@ -96,9 +96,16 @@ def _orphan_trace() -> Trace:
 
 def test_load_policy_mvp_yaml() -> None:
     contract = load_policy_file(EXAMPLES_DIR / "policy_mvp.yaml")
-    assert len(contract.invariants) == 2
-    assert contract.invariants[0].id == "no_causal_cycles"
-    assert contract.invariants[1].id == "root_reachability"
+    assert len(contract.invariants) == 6
+    invariant_ids = [spec.id for spec in contract.invariants]
+    assert invariant_ids == [
+        "no_causal_cycles",
+        "root_reachability",
+        "no_orphans",
+        "tool_call_has_return",
+        "max_trace_duration",
+        "token_budget",
+    ]
 
 
 def test_verify_valid_trace_passes() -> None:

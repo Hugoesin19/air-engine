@@ -5,8 +5,8 @@
 > Reference: Project Bible (Part VII) · [ADRs](adrs/) · [Architecture](architecture/)
 
 **Last updated:** 2026-08-17  
-**Current phase:** Sprint 4 — Full Contract Catalog (MVP)  
-**MVP status:** 🟡 In progress (Sprint 3 complete)
+**Current phase:** Sprint 5 — Adapters + Polish  
+**MVP status:** 🟡 In progress (Sprint 4 complete)
 
 ---
 
@@ -16,11 +16,11 @@ The MVP validates that the formal model, AIR representation, and verification en
 
 ### Success Criteria (all required)
 
-- [ ] Import a real async execution log (or static equivalent)
-- [ ] Convert it to canonical AIR topology without losing causality
-- [ ] Reconstruct intermediate state at any arbitrary node
-- [ ] Run predefined contracts on the graph
-- [ ] Produce a deterministic `Diagnostic` artifact
+- [x] Import a real async execution log (or static equivalent)
+- [x] Convert it to canonical AIR topology without losing causality
+- [x] Reconstruct intermediate state at any arbitrary node
+- [x] Run predefined contracts on the graph
+- [x] Produce a deterministic `Diagnostic` artifact
 - [ ] Same diagnostic for the same trace regardless of execution platform
 
 ### Hypotheses Under Test
@@ -28,8 +28,8 @@ The MVP validates that the formal model, AIR representation, and verification en
 | ID | Hypothesis | Validated? | Evidence |
 |----|------------|------------|----------|
 | H1 | AIR models async execution without losing causality | 🟡 | Parser + examples + CLI validate |
-| H2 | State reconstructs deterministically from topology only | 🟡 | `ordering.py`, `state.py`, unit tests |
-| H3 | Contracts detect violations without false positives | 🟡 | structural invariants + diagnostic + verify CLI |
+| H2 | State reconstructs deterministically from topology only | ✅ | `ordering.py`, `state.py`, e2e state test |
+| H3 | Contracts detect violations without false positives | ✅ | full MVP catalog + semantic/metrics tests |
 | H4 | Model stays agnostic to origin framework | ⬜ | |
 
 ---
@@ -115,19 +115,20 @@ Do **not** build entire layers in isolation before the slice works.
 
 ---
 
-### Sprint 4 — Full Contract Catalog (MVP)
+### Sprint 4 — Full Contract Catalog (MVP) ✅
 
 **Goal:** All MVP invariants from Project Bible Part VII §2.3.
 
-- [ ] Structural: no causal cycles, root reachability, no orphans
-- [ ] Semantic: `ToolCall` → reachable `ToolReturn` in `E_c`
-- [ ] Metrics: max trace duration, token budget
-- [ ] `src/air_engine/contracts/builtins/semantic.py`
-- [ ] `src/air_engine/contracts/builtins/metrics.py`
-- [ ] `src/air_engine/interfaces/cli/commands/verify.py`
-- [ ] `tests/e2e/test_mvp_flow.py` — full pipeline fixtures
+- [x] Structural: no causal cycles, root reachability, no orphans
+- [x] Semantic: `ToolCall` → reachable `ToolReturn` in `E_c`
+- [x] Metrics: max trace duration, token budget
+- [x] `src/air_engine/contracts/builtins/semantic.py`
+- [x] `src/air_engine/contracts/builtins/metrics.py`
+- [x] `examples/policy_mvp.yaml` — full catalog
+- [x] `examples/trace_invalid_missing_tool_return.json`
+- [x] `tests/e2e/test_mvp_flow.py` — full pipeline fixtures
 
-**Done when:** all success criteria checkboxes above are ✅.
+**Done when:** all success criteria checkboxes above are ✅ (except cross-platform, deferred to Sprint 5).
 
 ---
 
@@ -186,6 +187,7 @@ adapters → parser → core ← analyzer ← contracts
 | 2026-07-13 | Sprint 1 | JSON parser, `air-engine validate`, 10 new integration/CLI tests | Sprint 2 state reconstruction |
 | 2026-08-17 | Sprint 2 | Canonical ordering, state reconstruction, labeling, 9 new unit tests | Sprint 3 contracts + diagnostic |
 | 2026-08-17 | Sprint 3 | Contracts, evaluator, diagnostic, verify CLI, policy_mvp.yaml, 8 new tests | Sprint 4 full contract catalog |
+| 2026-08-17 | Sprint 4 | Semantic + metrics invariants, full policy, e2e pipeline, 13 new tests | Sprint 5 adapters + polish |
 
 ---
 

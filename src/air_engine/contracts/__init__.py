@@ -3,6 +3,7 @@
 from air_engine.contracts.errors import (
     ContractError,
     ContractLoadError,
+    InvalidInvariantParamError,
     UnknownInvariantError,
 )
 from air_engine.contracts.loader import load_policy_file, parse_contract_payload
@@ -13,6 +14,7 @@ __all__ = [
     "ContractError",
     "ContractLoadError",
     "InvariantSpec",
+    "InvalidInvariantParamError",
     "UnknownInvariantError",
     "load_policy_file",
     "parse_contract_payload",

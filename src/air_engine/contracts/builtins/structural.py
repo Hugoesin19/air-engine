@@ -79,4 +79,5 @@ def evaluate_root_reachability(trace: Trace, _spec: InvariantSpec) -> tuple[str,
 STRUCTURAL_EVALUATORS: dict[str, InvariantEvaluator] = {
     "no_causal_cycles": evaluate_no_causal_cycles,
     "root_reachability": evaluate_root_reachability,
+    "no_orphans": evaluate_root_reachability,
 }
