@@ -5,8 +5,8 @@
 > Reference: Project Bible (Part VII) · [ADRs](adrs/) · [Architecture](architecture/)
 
 **Last updated:** 2026-08-17  
-**Current phase:** Sprint 5 — Adapters + Polish  
-**MVP status:** 🟡 In progress (Sprint 4 complete)
+**Current phase:** MVP complete — Sprint 5 done  
+**MVP status:** 🟢 Complete
 
 ---
 
@@ -21,7 +21,7 @@ The MVP validates that the formal model, AIR representation, and verification en
 - [x] Reconstruct intermediate state at any arbitrary node
 - [x] Run predefined contracts on the graph
 - [x] Produce a deterministic `Diagnostic` artifact
-- [ ] Same diagnostic for the same trace regardless of execution platform
+- [x] Same diagnostic for the same trace regardless of execution platform
 
 ### Hypotheses Under Test
 
@@ -30,7 +30,7 @@ The MVP validates that the formal model, AIR representation, and verification en
 | H1 | AIR models async execution without losing causality | 🟡 | Parser + examples + CLI validate |
 | H2 | State reconstructs deterministically from topology only | ✅ | `ordering.py`, `state.py`, e2e state test |
 | H3 | Contracts detect violations without false positives | ✅ | full MVP catalog + semantic/metrics tests |
-| H4 | Model stays agnostic to origin framework | ⬜ | |
+| H4 | Model stays agnostic to origin framework | ✅ | langgraph + openai adapters → same diagnostic |
 
 ---
 
@@ -132,17 +132,17 @@ Do **not** build entire layers in isolation before the slice works.
 
 ---
 
-### Sprint 5 — Adapters + Polish
+### Sprint 5 — Adapters + Polish ✅
 
 **Goal:** Reference adapter + CLI output polish.
 
-- [ ] `src/air_engine/adapters/json/` — static JSON adapter
-- [ ] `src/air_engine/adapters/langgraph/` — reference implementation
-- [ ] `src/air_engine/adapters/openai/` — reference implementation (optional for MVP)
-- [ ] CLI: DAG ASCII render, metrics summary, error listing
-- [ ] `src/air_engine/interfaces/library/` — programmatic API
-- [ ] `tests/integration/adapters/`
-- [ ] CI: canonical trace fixtures validation (future step)
+- [x] `src/air_engine/adapters/json/` — static JSON adapter
+- [x] `src/air_engine/adapters/langgraph/` — reference implementation
+- [x] `src/air_engine/adapters/openai/` — reference implementation
+- [x] CLI: DAG ASCII render, metrics summary, error listing
+- [x] `src/air_engine/interfaces/library/` — programmatic API
+- [x] `tests/integration/adapters/`
+- [x] CI: canonical trace fixtures validation
 
 **Done when:** real framework telemetry → same diagnostic as manual JSON.
 
@@ -188,6 +188,7 @@ adapters → parser → core ← analyzer ← contracts
 | 2026-08-17 | Sprint 2 | Canonical ordering, state reconstruction, labeling, 9 new unit tests | Sprint 3 contracts + diagnostic |
 | 2026-08-17 | Sprint 3 | Contracts, evaluator, diagnostic, verify CLI, policy_mvp.yaml, 8 new tests | Sprint 4 full contract catalog |
 | 2026-08-17 | Sprint 4 | Semantic + metrics invariants, full policy, e2e pipeline, 13 new tests | Sprint 5 adapters + polish |
+| 2026-08-17 | Sprint 5 | Adapters, library API, CLI render, adapter tests, CI fixtures | Post-MVP (v1 adapters) |
 
 ---
 

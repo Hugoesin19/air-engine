@@ -1,0 +1,40 @@
+{
+  "format_version": "langgraph.run.v1",
+  "run_id": "lg-run-01930000-0001",
+  "events": [
+    {
+      "id": "lg-node-010",
+      "type": "chain_start",
+      "timestamp_ms": 0
+    },
+    {
+      "id": "lg-node-011",
+      "type": "on_chat_model_start",
+      "timestamp_ms": 100,
+      "tokens": 150
+    },
+    {
+      "id": "lg-node-012",
+      "type": "on_tool_start",
+      "name": "search",
+      "timestamp_ms": 200
+    },
+    {
+      "id": "lg-node-013",
+      "type": "on_tool_end",
+      "name": "search",
+      "timestamp_ms": 500
+    },
+    {
+      "id": "lg-node-014",
+      "type": "chain_end",
+      "timestamp_ms": 600
+    }
+  ],
+  "reads": [
+    {
+      "source": "lg-node-012",
+      "target": "lg-node-011"
+    }
+  ]
+}

@@ -47,3 +47,8 @@ jobs:
             exit 0
           fi
           exit "$exit_code"
+
+      - name: Canonical fixtures
+        run: |
+          uv run air-engine validate examples/trace_valid_minimal.json
+          uv run air-engine verify examples/trace_valid_minimal.json --contract examples/policy_mvp.yaml

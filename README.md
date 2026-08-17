@@ -36,18 +36,33 @@ The core (`core`, `analyzer`) has **zero external dependencies** and knows only 
 
 ## Quick example
 
-_Coming soon — MVP in progress._
-
 ```bash
-uv run air-engine validate examples/trace_valid_minimal.json
-uv run air-engine verify examples/trace_valid_minimal.json --contract examples/policy_mvp.yaml
+# Validate structure + metrics
+uv run air-engine validate examples/trace_valid_minimal.json --show-dag
+
+# Verify against the full MVP policy
+uv run air-engine verify examples/trace_valid_minimal.json \
+  --contract examples/policy_mvp.yaml --show-metrics
+
+# LangGraph / OpenAI telemetry → same verification (via library)
+uv run python -c "
+from air_engine.interfaces.library import load_trace, verify
+from pathlib import Path
+p = Path('examples/policy_mvp.yaml')
+for src, path in [
+    ('langgraph', 'examples/langgraph_run_minimal.json'),
+    ('openai', 'examples/openai_run_minimal.json'),
+]:
+    d = verify(path, p, source=src)
+    print(src, 'PASS' if d.passed else 'FAIL')
+"
 ```
 
 ## Roadmap
 
 | Phase | Focus | Outcome |
 |-------|-------|---------|
-| **MVP** | Core validation | Basic capture + AIR + static contracts |
+| **MVP** | Core validation | ✅ AIR + contracts + adapters + CLI |
 | **v1** | Source agnosticism | Multiple adapters and external frameworks |
 | **v2** | Normative expressiveness | Formal contract DSL |
 | **v3** | Ergonomics | Local GUI and topology editor |

@@ -9,6 +9,7 @@ from pathlib import Path
 from air_engine.analyzer import verify_trace
 from air_engine.contracts import load_policy_file
 from air_engine.core.errors import AirEngineError
+from air_engine.interfaces.cli.render import render_control_dag, summarize_trace_metrics
 from air_engine.parser import parse_trace_file
 
 
@@ -27,6 +28,16 @@ def register(subparsers: argparse._SubParsersAction[argparse.ArgumentParser]) ->
         type=Path,
         required=True,
         help="Path to the contract policy YAML or JSON file",
+    )
+    parser.add_argument(
+        "--show-dag",
+        action="store_true",
+        help="Print an ASCII render of the control-flow DAG",
+    )
+    parser.add_argument(
+        "--show-metrics",
+        action="store_true",
+        help="Print derived duration and token metrics",
     )
     parser.set_defaults(handler=run)
 
@@ -47,6 +58,14 @@ def run(args: argparse.Namespace) -> int:
         print(f"  trace_id: {diagnostic.trace_id}")
         print(f"  contract: {contract_file}")
         print("  violations: 0")
+        if args.show_metrics:
+            print("  metrics:")
+            for line in summarize_trace_metrics(trace).splitlines():
+                print(f"    {line}")
+        if args.show_dag:
+            print("  control_dag:")
+            for line in render_control_dag(trace).splitlines():
+                print(f"    {line}")
         return 0
 
     print(f"FAIL: {trace_file}", file=sys.stderr)
@@ -61,4 +80,12 @@ def run(args: argparse.Namespace) -> int:
             f"  - [{violation.invariant_id}]{location}: {violation.message}",
             file=sys.stderr,
         )
+    if args.show_metrics:
+        print("  metrics:", file=sys.stderr)
+        for line in summarize_trace_metrics(trace).splitlines():
+            print(f"    {line}", file=sys.stderr)
+    if args.show_dag:
+        print("  control_dag:", file=sys.stderr)
+        for line in render_control_dag(trace).splitlines():
+            print(f"    {line}", file=sys.stderr)
     return 1

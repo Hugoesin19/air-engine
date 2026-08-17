@@ -7,6 +7,7 @@ import sys
 from pathlib import Path
 
 from air_engine.core.errors import AirEngineError
+from air_engine.interfaces.cli.render import render_control_dag, summarize_trace_metrics
 from air_engine.parser import parse_trace_file
 
 
@@ -20,6 +21,16 @@ def register(subparsers: argparse._SubParsersAction[argparse.ArgumentParser]) ->
         type=Path,
         help="Path to the AIR trace JSON file",
     )
+    parser.add_argument(
+        "--show-dag",
+        action="store_true",
+        help="Print an ASCII render of the control-flow DAG",
+    )
+    parser.add_argument(
+        "--show-metrics",
+        action="store_true",
+        help="Print derived duration and token metrics",
+    )
     parser.set_defaults(handler=run)
 
 
@@ -31,12 +42,12 @@ def run(args: argparse.Namespace) -> int:
         print(f"Validation failed: {exc}", file=sys.stderr)
         return 1
 
-    node_count = len(trace.nodes)
-    control_count = len(trace.control_edges)
-    referential_count = len(trace.referential_edges)
     print(f"Valid AIR trace: {trace_file}")
     print(f"  trace_id: {trace.trace_id}")
-    print(f"  nodes: {node_count}")
-    print(f"  control_edges: {control_count}")
-    print(f"  referential_edges: {referential_count}")
+    print(summarize_trace_metrics(trace))
+
+    if args.show_dag:
+        print("  control_dag:")
+        for line in render_control_dag(trace).splitlines():
+            print(f"    {line}")
     return 0
