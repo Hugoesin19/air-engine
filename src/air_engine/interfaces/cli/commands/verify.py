@@ -10,7 +10,7 @@ from air_engine.analyzer import verify_trace
 from air_engine.contracts import load_policy_file
 from air_engine.core.errors import AirEngineError
 from air_engine.interfaces.cli.render import render_control_dag, summarize_trace_metrics
-from air_engine.parser import parse_trace_file
+from air_engine.interfaces.library.api import TraceSource, load_trace
 
 
 def register(subparsers: argparse._SubParsersAction[argparse.ArgumentParser]) -> None:
@@ -39,14 +39,21 @@ def register(subparsers: argparse._SubParsersAction[argparse.ArgumentParser]) ->
         action="store_true",
         help="Print derived duration and token metrics",
     )
+    parser.add_argument(
+        "--source",
+        choices=["air", "capture", "langgraph", "openai"],
+        default="air",
+        help="External trace format adapter to use before verification",
+    )
     parser.set_defaults(handler=run)
 
 
 def run(args: argparse.Namespace) -> int:
     trace_file: Path = args.trace_file
     contract_file: Path = args.contract
+    source: TraceSource = args.source
     try:
-        trace = parse_trace_file(trace_file)
+        trace = load_trace(trace_file, source=source)
         contract = load_policy_file(contract_file)
         diagnostic = verify_trace(trace, contract)
     except AirEngineError as exc:

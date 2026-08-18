@@ -1,0 +1,50 @@
+name: Verify AIR Trace
+description: Validate and verify a trace against an air-engine contract policy.
+
+inputs:
+  trace-file:
+    description: Path to the trace or capture log file.
+    required: true
+  contract-file:
+    description: Path to the contract policy YAML or JSON file.
+    required: true
+  source:
+    description: Trace source adapter (air, capture, langgraph, openai).
+    required: false
+    default: air
+  working-directory:
+    description: Repository root containing pyproject.toml.
+    required: false
+    default: .
+
+runs:
+  using: composite
+  steps:
+    - name: Install uv
+      uses: astral-sh/setup-uv@v5
+      with:
+        enable-cache: true
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: "3.12"
+
+    - name: Install air-engine
+      shell: bash
+      working-directory: ${{ inputs.working-directory }}
+      run: uv sync --frozen
+
+    - name: Validate AIR trace
+      if: inputs.source == 'air'
+      shell: bash
+      working-directory: ${{ inputs.working-directory }}
+      run: uv run air-engine validate "${{ inputs.trace-file }}"
+
+    - name: Verify trace against contract
+      shell: bash
+      working-directory: ${{ inputs.working-directory }}
+      run: >
+        uv run air-engine verify "${{ inputs.trace-file }}"
+        --contract "${{ inputs.contract-file }}"
+        --source "${{ inputs.source }}"

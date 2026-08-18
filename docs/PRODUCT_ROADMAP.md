@@ -5,7 +5,7 @@
 > Reference: [Project Bible](../projectBilde.pdf) · [MVP Roadmap](MVP_ROADMAP.md) · [ADRs](adrs/) · [Architecture](architecture/)
 
 **Last updated:** 2026-08-18  
-**Current phase:** Sprint 7 — GitHub Action + Fixture CI  
+**Current phase:** Sprint 8 — Policy Packs + Diagnostic Export  
 **Product status:** 🟡 Post-MVP (v1 in progress)  
 **MVP baseline:** 🟢 Complete — tag `mvp-v0.1.0` recommended before Sprint 6
 
@@ -70,7 +70,7 @@ v1 is **product-ready open source**: another developer can adopt air-engine in C
 - [ ] **Capture layer** records a deterministic agent run as a serializable event log
 - [ ] **Mock agent demo** runs locally with zero network calls and produces a verify PASS
 - [ ] **Replay fixtures** — golden captured runs checked into `examples/` and CI
-- [ ] **GitHub Action** runs `validate` + `verify` on PRs using fixtures only
+- [x] **GitHub Action** runs `validate` + `verify` on PRs using fixtures only
 - [ ] **Policy packs** — user-selectable YAML templates (`strict`, `dev`) with documented params
 - [ ] **Diagnostic artifact** — machine-readable export (JSON; SARIF or JUnit for CI parsers)
 - [ ] **Expanded contract catalog** — at least 3 new business-oriented invariants
@@ -83,7 +83,7 @@ v1 is **product-ready open source**: another developer can adopt air-engine in C
 |----|------------|------------|----------|
 | H5 | Capture → adapter → verify works without live LLM calls | ✅ | mock agent + capture adapter + e2e PASS |
 | H6 | Users can tailor policies (YAML) per project without code changes | ⬜ | |
-| H7 | CI integration catches regressions on fixture traces | ⬜ | |
+| H7 | CI integration catches regressions on fixture traces | ✅ | golden-fixtures job + verify_golden_fixtures.py |
 | H8 | Mock-first path is sufficient to demo commercial value | ⬜ | |
 
 ---
@@ -124,15 +124,17 @@ Priority order when unsure:
 
 ---
 
-### Sprint 7 — GitHub Action + Fixture CI
+### Sprint 7 — GitHub Action + Fixture CI ✅
 
 **Goal:** PR gate using air-engine; CI never calls external APIs.
 
-- [ ] `.github/actions/verify-trace/` — composite action (validate + verify)
-- [ ] Workflow: verify golden fixtures on every PR
-- [ ] Workflow: mock agent e2e job (generate log → verify)
-- [ ] Document fork usage in README (copy action into consumer repos)
-- [ ] Exit codes and output stable for CI parsers
+- [x] `.github/actions/verify-trace/` — composite action (validate + verify)
+- [x] Workflow: verify golden fixtures on every PR
+- [x] Workflow: mock agent e2e job (generate log → verify)
+- [x] Document fork usage in README (copy action into consumer repos)
+- [x] Exit codes and output stable for CI parsers
+- [x] `scripts/ci/verify_golden_fixtures.py`
+- [x] `verify --source` CLI flag for capture/langgraph/openai logs
 
 **Done when:** PR fails if a deliberately broken fixture is committed; passes on main.
 
@@ -262,6 +264,7 @@ event log → adapters → parser → core ← analyzer ← contracts
 |------|---------|-----------|------|
 | 2026-08-17 | Roadmap | PRODUCT_ROADMAP.md created; Sprint 6 defined | Sprint 6 capture + mock agent |
 | 2026-08-18 | Sprint 6 | Capture spec, ADR-006, RunRecorder, capture adapter, mock agent, e2e PASS | Sprint 7 GitHub Action + fixture CI |
+| 2026-08-18 | Sprint 7 | Composite verify action, golden fixture CI script, mock-agent workflow, verify --source | Sprint 8 policy packs + diagnostic export |
 
 ---
 

@@ -87,6 +87,40 @@ print(verify('examples/demo_agent/artifacts/mock_run.json', policy, source='capt
 - [Architecture specs](docs/architecture/) — formal AIR schema and contract model
 - [Architecture Decision Records](docs/adrs/) — foundational design decisions
 
+## CI integration
+
+This repository runs three CI jobs on every push and pull request:
+
+- `quality` — lint, typecheck, and pytest
+- `golden-fixtures` — stable CLI exit codes on canonical pass/fail examples
+- `mock-agent-pipeline` — deterministic mock agent → capture log → verify
+
+Run the same fixture gate locally:
+
+```bash
+uv run python scripts/ci/verify_golden_fixtures.py
+```
+
+### Reuse in another repository
+
+Copy `.github/actions/verify-trace/` into your project, then call it after your agent writes a trace or capture log:
+
+```yaml
+- uses: ./.github/actions/verify-trace
+  with:
+    trace-file: artifacts/run.json
+    contract-file: policies/mvp.yaml
+    source: capture
+```
+
+Requirements for consumer repos:
+
+- Python 3.12+
+- `uv` available in the workflow
+- `pyproject.toml` with `air-engine` installed, or run from a checkout of this repo
+
+For canonical AIR traces, keep `source: air` (default). The action will run `validate` before `verify`.
+
 ## Development
 
 ```bash

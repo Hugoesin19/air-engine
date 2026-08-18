@@ -31,3 +31,17 @@ def test_cli_verify_fails_on_missing_contract() -> None:
         ],
     )
     assert exit_code == 1
+
+
+def test_cli_verify_capture_source_passes_on_mock_run() -> None:
+    exit_code = run(
+        [
+            "verify",
+            str(EXAMPLES_DIR / "demo_agent" / "artifacts" / "mock_run.json"),
+            "--contract",
+            str(EXAMPLES_DIR / "policies" / "mvp.yaml"),
+            "--source",
+            "capture",
+        ],
+    )
+    assert exit_code == 0
