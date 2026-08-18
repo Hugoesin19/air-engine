@@ -1,0 +1,12 @@
+air_schema_version: "1.0.0"
+invariants:
+  - id: no_causal_cycles
+  - id: root_reachability
+  - id: no_orphans
+  - id: tool_call_has_return
+  - id: max_trace_duration
+    params:
+      max_ms: 10000
+  - id: token_budget
+    params:
+      max_tokens: 10000

@@ -44,6 +44,9 @@ uv run air-engine validate examples/trace_valid_minimal.json --show-dag
 uv run air-engine verify examples/trace_valid_minimal.json \
   --contract examples/policy_mvp.yaml --show-metrics
 
+# Generate a deterministic mock agent run with zero API cost
+uv run python examples/demo_agent/run.py
+
 # LangGraph / OpenAI telemetry → same verification (via library)
 uv run python -c "
 from air_engine.interfaces.library import load_trace, verify
@@ -56,6 +59,14 @@ for src, path in [
     d = verify(path, p, source=src)
     print(src, 'PASS' if d.passed else 'FAIL')
 "
+
+# Capture log → AIR → verify
+uv run python -c "
+from pathlib import Path
+from air_engine.interfaces.library import verify
+policy = Path('examples/policies/mvp.yaml')
+print(verify('examples/demo_agent/artifacts/mock_run.json', policy, source='capture').passed)
+"
 ```
 
 ## Roadmap
@@ -63,7 +74,7 @@ for src, path in [
 | Phase | Focus | Outcome |
 |-------|-------|---------|
 | **MVP** | Core validation | ✅ AIR + contracts + adapters + CLI |
-| **v1** | Source agnosticism | Multiple adapters and external frameworks |
+| **v1** | Source agnosticism + CI | Capture, mock agent, GitHub Action — [Product Roadmap](docs/PRODUCT_ROADMAP.md) |
 | **v2** | Normative expressiveness | Formal contract DSL |
 | **v3** | Ergonomics | Local GUI and topology editor |
 | **v4** | Scalability | Distributed verification |
@@ -71,8 +82,9 @@ for src, path in [
 
 ## Reference specification
 
-- [MVP Roadmap](docs/MVP_ROADMAP.md) — implementation plan and progress tracker
-- [Architecture specs](docs/architecture/) — formal AIR schema and contract model (in progress)
+- [MVP Roadmap](docs/MVP_ROADMAP.md) — Sprints 0–5 (complete)
+- [Product Roadmap](docs/PRODUCT_ROADMAP.md) — post-MVP plan (Sprints 6+)
+- [Architecture specs](docs/architecture/) — formal AIR schema and contract model
 - [Architecture Decision Records](docs/adrs/) — foundational design decisions
 
 ## Development

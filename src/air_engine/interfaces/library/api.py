@@ -6,6 +6,7 @@ from pathlib import Path
 from typing import Literal
 
 from air_engine.adapters import (
+    adapt_capture_file,
     adapt_json_file,
     adapt_langgraph_file,
     adapt_openai_file,
@@ -18,7 +19,7 @@ from air_engine.core.state import ExecutionState
 from air_engine.core.trace import Trace
 from air_engine.core.types import NodeId
 
-TraceSource = Literal["air", "langgraph", "openai"]
+TraceSource = Literal["air", "capture", "langgraph", "openai"]
 
 
 def load_trace(path: Path | str, *, source: TraceSource = "air") -> Trace:
@@ -26,6 +27,8 @@ def load_trace(path: Path | str, *, source: TraceSource = "air") -> Trace:
     resolved = Path(path)
     if source == "air":
         return adapt_json_file(resolved)
+    if source == "capture":
+        return adapt_capture_file(resolved)
     if source == "langgraph":
         return adapt_langgraph_file(resolved)
     if source == "openai":

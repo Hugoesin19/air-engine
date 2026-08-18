@@ -5,7 +5,7 @@
 > Reference: Project Bible (Part VII) · [ADRs](adrs/) · [Architecture](architecture/)
 
 **Last updated:** 2026-08-17  
-**Current phase:** MVP complete — Sprint 5 done  
+**Current phase:** MVP complete — see [Product Roadmap](PRODUCT_ROADMAP.md) for Sprints 6+  
 **MVP status:** 🟢 Complete
 
 ---
@@ -202,6 +202,7 @@ adapters → parser → core ← analyzer ← contracts
 
 ## Related Documents
 
+- [Product Roadmap](PRODUCT_ROADMAP.md) — post-MVP sprints (v1 → commercial path)
 - [ADR Index](adrs/README.md)
 - [Architecture specs](architecture/README.md) — add `air-schema-1.0.0.md` in Sprint 0
 - [README](../README.md) — user-facing overview

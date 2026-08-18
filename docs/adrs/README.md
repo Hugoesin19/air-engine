@@ -13,6 +13,7 @@ ADRs are **immutable**. To change a decision, publish a new ADR that explicitly 
 | [003](003-two-edge-domains.md) | Bipartition of control and information edges | Accepted |
 | [004](004-functional-state.md) | Functional state reconstruction | Accepted |
 | [005](005-uuidv7-order.md) | UUIDv7 as canonical linearization | Accepted |
+| [006](006-capture-boundaries.md) | Capture writes event logs, not AIR or diagnostics | Accepted |
 
 ## Template
 

@@ -1,5 +1,7 @@
 """External-format adapters that translate telemetry into AIR traces."""
 
+from air_engine.adapters.capture.adapter import adapt_file as adapt_capture_file
+from air_engine.adapters.capture.adapter import adapt_payload as adapt_capture_payload
 from air_engine.adapters.errors import (
     AdapterError,
     AdapterValidationError,
@@ -18,6 +20,8 @@ __all__ = [
     "AdapterError",
     "AdapterValidationError",
     "UnsupportedFormatError",
+    "adapt_capture_file",
+    "adapt_capture_payload",
     "adapt_json_file",
     "adapt_json_payload",
     "adapt_langgraph_file",
