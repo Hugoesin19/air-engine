@@ -4,7 +4,12 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from air_engine.interfaces.library import load_trace, state_at, verify
+from air_engine.interfaces.library import (
+    load_trace,
+    state_at,
+    verify,
+    write_diagnostic_json,
+)
 
 EXAMPLES_DIR = Path(__file__).resolve().parents[2] / "examples"
 
@@ -35,3 +40,14 @@ def test_library_state_at_node() -> None:
         "llm_invoke",
         "tool_call",
     ]
+
+
+def test_library_write_diagnostic_json(tmp_path: Path) -> None:
+    diagnostic = verify(
+        EXAMPLES_DIR / "trace_valid_minimal.json",
+        EXAMPLES_DIR / "policies" / "mvp.yaml",
+    )
+    output = tmp_path / "diagnostic.json"
+    write_diagnostic_json(diagnostic, output)
+    assert output.exists()
+    assert '"passed": true' in output.read_text(encoding="utf-8").lower()

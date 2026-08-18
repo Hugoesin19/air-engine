@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import json
 from pathlib import Path
 
 from air_engine.interfaces.cli.main import run
@@ -45,3 +46,40 @@ def test_cli_verify_capture_source_passes_on_mock_run() -> None:
         ],
     )
     assert exit_code == 0
+
+
+def test_cli_verify_output_writes_diagnostic_json(tmp_path: Path) -> None:
+    output = tmp_path / "diagnostic.json"
+    exit_code = run(
+        [
+            "verify",
+            str(EXAMPLES_DIR / "trace_valid_minimal.json"),
+            "--contract",
+            str(EXAMPLES_DIR / "policies" / "mvp.yaml"),
+            "--output",
+            str(output),
+        ],
+    )
+    assert exit_code == 0
+    payload = json.loads(output.read_text(encoding="utf-8"))
+    assert payload["passed"] is True
+    assert payload["diagnostic_schema_version"] == "1.0.0"
+    assert payload["violation_count"] == 0
+
+
+def test_cli_verify_output_on_failure(tmp_path: Path) -> None:
+    output = tmp_path / "diagnostic.json"
+    exit_code = run(
+        [
+            "verify",
+            str(EXAMPLES_DIR / "trace_valid_minimal.json"),
+            "--contract",
+            str(EXAMPLES_DIR / "policies" / "strict.yaml"),
+            "--output",
+            str(output),
+        ],
+    )
+    assert exit_code == 1
+    payload = json.loads(output.read_text(encoding="utf-8"))
+    assert payload["passed"] is False
+    assert payload["violation_count"] >= 1

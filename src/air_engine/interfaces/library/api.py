@@ -13,6 +13,11 @@ from air_engine.adapters import (
 )
 from air_engine.analyzer import verify_trace
 from air_engine.analyzer.diagnostic import Diagnostic
+from air_engine.analyzer.export import (
+    diagnostic_to_dict,
+    diagnostic_to_json,
+    write_diagnostic_json,
+)
 from air_engine.analyzer.state_builder import build_state_at_node
 from air_engine.contracts import load_policy_file
 from air_engine.core.state import ExecutionState
@@ -20,6 +25,16 @@ from air_engine.core.trace import Trace
 from air_engine.core.types import NodeId
 
 TraceSource = Literal["air", "capture", "langgraph", "openai"]
+
+__all__ = [
+    "TraceSource",
+    "diagnostic_to_dict",
+    "diagnostic_to_json",
+    "load_trace",
+    "state_at",
+    "verify",
+    "write_diagnostic_json",
+]
 
 
 def load_trace(path: Path | str, *, source: TraceSource = "air") -> Trace:

@@ -87,6 +87,23 @@ print(verify('examples/demo_agent/artifacts/mock_run.json', policy, source='capt
 - [Architecture specs](docs/architecture/) — formal AIR schema and contract model
 - [Architecture Decision Records](docs/adrs/) — foundational design decisions
 
+## Policy packs
+
+Ready-made contracts in `examples/policies/` — swap the YAML file only to change verification strictness:
+
+| File | Use case |
+|------|----------|
+| `mvp.yaml` | Default CI gate (10 s / 10 000 tokens) |
+| `strict.yaml` | Tight limits (500 ms / 100 tokens) |
+| `dev.yaml` | Relaxed local runs |
+
+```bash
+uv run air-engine verify examples/trace_valid_minimal.json --contract examples/policies/strict.yaml
+uv run air-engine verify examples/trace_valid_minimal.json --contract examples/policies/mvp.yaml --output diagnostic.json
+```
+
+See [docs/policies/README.md](docs/policies/README.md) and [Diagnostic JSON schema](docs/architecture/diagnostic-schema-1.0.0.md).
+
 ## CI integration
 
 This repository runs three CI jobs on every push and pull request:

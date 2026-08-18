@@ -7,6 +7,7 @@ import sys
 from pathlib import Path
 
 from air_engine.analyzer import verify_trace
+from air_engine.analyzer.export import write_diagnostic_json
 from air_engine.contracts import load_policy_file
 from air_engine.core.errors import AirEngineError
 from air_engine.interfaces.cli.render import render_control_dag, summarize_trace_metrics
@@ -45,6 +46,11 @@ def register(subparsers: argparse._SubParsersAction[argparse.ArgumentParser]) ->
         default="air",
         help="External trace format adapter to use before verification",
     )
+    parser.add_argument(
+        "--output",
+        type=Path,
+        help="Write the verification diagnostic as JSON to this file",
+    )
     parser.set_defaults(handler=run)
 
 
@@ -59,6 +65,13 @@ def run(args: argparse.Namespace) -> int:
     except AirEngineError as exc:
         print(f"Verification failed: {exc}", file=sys.stderr)
         return 1
+
+    if args.output is not None:
+        try:
+            write_diagnostic_json(diagnostic, args.output)
+        except OSError as exc:
+            print(f"Unable to write diagnostic: {exc}", file=sys.stderr)
+            return 1
 
     if diagnostic.passed:
         print(f"PASS: {trace_file}")

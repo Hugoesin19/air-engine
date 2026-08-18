@@ -5,7 +5,7 @@
 > Reference: [Project Bible](../projectBilde.pdf) · [MVP Roadmap](MVP_ROADMAP.md) · [ADRs](adrs/) · [Architecture](architecture/)
 
 **Last updated:** 2026-08-18  
-**Current phase:** Sprint 8 — Policy Packs + Diagnostic Export  
+**Current phase:** Sprint 9 — Expanded Contract Catalog  
 **Product status:** 🟡 Post-MVP (v1 in progress)  
 **MVP baseline:** 🟢 Complete — tag `mvp-v0.1.0` recommended before Sprint 6
 
@@ -140,16 +140,16 @@ Priority order when unsure:
 
 ---
 
-### Sprint 8 — Policy Packs + Diagnostic Export
+### Sprint 8 — Policy Packs + Diagnostic Export ✅
 
 **Goal:** Users pick policies per case; CI consumes structured output.
 
-- [ ] `examples/policies/strict.yaml` — tight duration/token limits
-- [ ] `examples/policies/dev.yaml` — relaxed limits for local runs
-- [ ] `docs/policies/README.md` — param reference for each invariant
-- [ ] `air-engine verify --output diagnostic.json` (or library export)
-- [ ] Diagnostic JSON schema doc in `docs/architecture/`
-- [ ] Tests: same trace + different policies → different PASS/FAIL as expected
+- [x] `examples/policies/strict.yaml` — tight duration/token limits
+- [x] `examples/policies/dev.yaml` — relaxed limits for local runs
+- [x] `docs/policies/README.md` — param reference for each invariant
+- [x] `air-engine verify --output diagnostic.json` (or library export)
+- [x] Diagnostic JSON schema doc in `docs/architecture/`
+- [x] Tests: same trace + different policies → different PASS/FAIL as expected
 
 **Done when:** user can swap policy file only (no code) and change verification outcome.
 
@@ -265,6 +265,7 @@ event log → adapters → parser → core ← analyzer ← contracts
 | 2026-08-17 | Roadmap | PRODUCT_ROADMAP.md created; Sprint 6 defined | Sprint 6 capture + mock agent |
 | 2026-08-18 | Sprint 6 | Capture spec, ADR-006, RunRecorder, capture adapter, mock agent, e2e PASS | Sprint 7 GitHub Action + fixture CI |
 | 2026-08-18 | Sprint 7 | Composite verify action, golden fixture CI script, mock-agent workflow, verify --source | Sprint 8 policy packs + diagnostic export |
+| 2026-08-18 | Sprint 8 | Policy packs (strict/dev), diagnostic JSON export, policy docs, schema spec | Sprint 9 expanded contract catalog |
 
 ---
 
