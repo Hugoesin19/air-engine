@@ -10,3 +10,20 @@ invariants:
   - id: token_budget
     params:
       max_tokens: 10000
+  - id: max_llm_invocations
+    params:
+      max: 10
+  - id: max_tool_calls
+    params:
+      max: 10
+  - id: tool_name_allowlist
+    params:
+      allowed:
+        - search
+  - id: required_event_sequence
+    params:
+      sequence:
+        - run_start
+        - llm_invoke
+        - tool_return
+        - run_end

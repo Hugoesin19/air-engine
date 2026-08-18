@@ -4,7 +4,10 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
-from air_engine.core.types import AIR_SCHEMA_VERSION, LabelValue
+from air_engine.core.types import AIR_SCHEMA_VERSION
+
+ParamScalar = str | int | float | bool | None
+ParamValue = ParamScalar | tuple[ParamScalar, ...]
 
 
 @dataclass(frozen=True, slots=True)
@@ -12,7 +15,7 @@ class InvariantSpec:
     """A single verifiable invariant declared in a contract."""
 
     id: str
-    params: dict[str, LabelValue]
+    params: dict[str, ParamValue]
 
 
 @dataclass(frozen=True, slots=True)

@@ -5,7 +5,7 @@
 > Reference: [Project Bible](../projectBilde.pdf) · [MVP Roadmap](MVP_ROADMAP.md) · [ADRs](adrs/) · [Architecture](architecture/)
 
 **Last updated:** 2026-08-18  
-**Current phase:** Sprint 9 — Expanded Contract Catalog  
+**Current phase:** Sprint 10 — Real Adapter Formats  
 **Product status:** 🟡 Post-MVP (v1 in progress)  
 **MVP baseline:** 🟢 Complete — tag `mvp-v0.1.0` recommended before Sprint 6
 
@@ -155,21 +155,21 @@ Priority order when unsure:
 
 ---
 
-### Sprint 9 — Expanded Contract Catalog (business rules)
+### Sprint 9 — Expanded Contract Catalog (business rules) ✅
 
 **Goal:** More real-world invariants; still deterministic builtins (not DSL yet).
 
 Candidates (pick ≥3 for v1):
 
-- [ ] `max_llm_invocations` — cap count of `llm_invoke` nodes
-- [ ] `tool_name_allowlist` — param `allowed: [search, calc]`
-- [ ] `required_event_sequence` — param ordered event types subset
-- [ ] `max_tool_calls` — cap tool_call nodes
+- [x] `max_llm_invocations` — cap count of `llm_invoke` nodes
+- [x] `tool_name_allowlist` — param `allowed: [search, calc]`
+- [x] `required_event_sequence` — param ordered event types subset
+- [x] `max_tool_calls` — cap tool_call nodes
 - [ ] `forbidden_referential_edges` — restrict E_r patterns (optional)
 
-- [ ] `src/air_engine/contracts/builtins/` — new modules per category
-- [ ] Update `examples/policies/*.yaml` with new rules
-- [ ] Unit tests per invariant + false-positive checks on valid trace
+- [x] `src/air_engine/contracts/builtins/` — new modules per category
+- [x] Update `examples/policies/*.yaml` with new rules
+- [x] Unit tests per invariant + false-positive checks on valid trace
 
 **Done when:** at least 3 new invariants ship with tests and policy examples.
 
@@ -266,6 +266,7 @@ event log → adapters → parser → core ← analyzer ← contracts
 | 2026-08-18 | Sprint 6 | Capture spec, ADR-006, RunRecorder, capture adapter, mock agent, e2e PASS | Sprint 7 GitHub Action + fixture CI |
 | 2026-08-18 | Sprint 7 | Composite verify action, golden fixture CI script, mock-agent workflow, verify --source | Sprint 8 policy packs + diagnostic export |
 | 2026-08-18 | Sprint 8 | Policy packs (strict/dev), diagnostic JSON export, policy docs, schema spec | Sprint 9 expanded contract catalog |
+| 2026-08-18 | Sprint 9 | Business invariants (llm/tool caps, allowlist, event sequence), list params | Sprint 10 real adapter formats |
 
 ---
 

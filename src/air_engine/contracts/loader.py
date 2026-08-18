@@ -10,8 +10,8 @@ from typing import Any
 import yaml
 
 from air_engine.contracts.errors import ContractLoadError
-from air_engine.contracts.model import Contract, InvariantSpec
-from air_engine.core.types import AIR_SCHEMA_VERSION, LabelValue
+from air_engine.contracts.model import Contract, InvariantSpec, ParamScalar, ParamValue
+from air_engine.core.types import AIR_SCHEMA_VERSION
 
 _REQUIRED_FIELDS = ("air_schema_version", "invariants")
 
@@ -94,14 +94,26 @@ def _parse_invariant(item: object, index: int) -> InvariantSpec:
         msg = f"{prefix}.params must be an object when provided"
         raise ContractLoadError(msg)
 
-    params: dict[str, LabelValue] = {}
+    params: dict[str, ParamValue] = {}
     for key, value in params_raw.items():
         if not isinstance(key, str):
             msg = f"{prefix}.params keys must be strings"
             raise ContractLoadError(msg)
-        if not isinstance(value, (str, int, float, bool)) and value is not None:
-            msg = f"{prefix}.params['{key}'] must be a primitive JSON value"
-            raise ContractLoadError(msg)
-        params[key] = value
+        params[key] = _materialize_param_value(value, f"{prefix}.params['{key}']")
 
     return InvariantSpec(id=invariant_id, params=params)
+
+
+def _materialize_param_value(value: object, prefix: str) -> ParamValue:
+    if value is None or isinstance(value, (str, int, float, bool)):
+        return value
+    if isinstance(value, list):
+        items: list[ParamScalar] = []
+        for index, item in enumerate(value):
+            if item is not None and not isinstance(item, (str, int, float, bool)):
+                msg = f"{prefix}[{index}] must be a primitive JSON value"
+                raise ContractLoadError(msg)
+            items.append(item)
+        return tuple(items)
+    msg = f"{prefix} must be a primitive JSON value or a list of primitives"
+    raise ContractLoadError(msg)

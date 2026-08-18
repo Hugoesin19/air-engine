@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
+from air_engine.contracts import load_policy_file
 from air_engine.interfaces.library import verify
 
 EXAMPLES_DIR = Path(__file__).resolve().parents[2] / "examples"
@@ -16,6 +17,20 @@ def test_valid_trace_passes_mvp_and_dev_policies() -> None:
     dev = verify(VALID_TRACE, POLICIES_DIR / "dev.yaml")
     assert mvp.passed is True
     assert dev.passed is True
+
+
+def test_mvp_policy_pack_includes_business_rules() -> None:
+    contract = load_policy_file(POLICIES_DIR / "mvp.yaml")
+    by_id = {spec.id: spec for spec in contract.invariants}
+    assert by_id["max_llm_invocations"].params["max"] == 10
+    assert by_id["max_tool_calls"].params["max"] == 10
+    assert by_id["tool_name_allowlist"].params["allowed"] == ("search",)
+    assert by_id["required_event_sequence"].params["sequence"] == (
+        "run_start",
+        "llm_invoke",
+        "tool_return",
+        "run_end",
+    )
 
 
 def test_valid_trace_fails_strict_policy() -> None:
