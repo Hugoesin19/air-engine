@@ -19,6 +19,7 @@ class FixtureCase:
     source: str
     expect_validate: int | None
     expect_verify: int | None
+    contract: Path = POLICY
 
 
 FIXTURES: tuple[FixtureCase, ...] = (
@@ -64,6 +65,22 @@ FIXTURES: tuple[FixtureCase, ...] = (
         expect_validate=None,
         expect_verify=0,
     ),
+    FixtureCase(
+        name="valid_trace_strict_policy",
+        trace=ROOT / "examples" / "trace_valid_minimal.json",
+        source="air",
+        expect_validate=None,
+        expect_verify=1,
+        contract=ROOT / "examples" / "policies" / "strict.yaml",
+    ),
+    FixtureCase(
+        name="valid_trace_dev_policy",
+        trace=ROOT / "examples" / "trace_valid_minimal.json",
+        source="air",
+        expect_validate=None,
+        expect_verify=0,
+        contract=ROOT / "examples" / "policies" / "dev.yaml",
+    ),
 )
 
 
@@ -90,7 +107,7 @@ def verify_fixtures() -> list[str]:
                     "verify",
                     str(case.trace),
                     "--contract",
-                    str(POLICY),
+                    str(case.contract),
                     "--source",
                     case.source,
                 ]

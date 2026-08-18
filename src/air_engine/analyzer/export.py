@@ -42,4 +42,5 @@ def diagnostic_to_json(diagnostic: Diagnostic, *, indent: int = 2) -> str:
 def write_diagnostic_json(diagnostic: Diagnostic, path: Path | str) -> None:
     """Write a diagnostic JSON artifact to disk."""
     output = Path(path)
+    output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text(f"{diagnostic_to_json(diagnostic)}\n", encoding="utf-8")

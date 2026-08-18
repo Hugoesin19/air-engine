@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import json
 from pathlib import Path
 
 from air_engine.interfaces.library import (
@@ -49,5 +50,6 @@ def test_library_write_diagnostic_json(tmp_path: Path) -> None:
     )
     output = tmp_path / "diagnostic.json"
     write_diagnostic_json(diagnostic, output)
-    assert output.exists()
-    assert '"passed": true' in output.read_text(encoding="utf-8").lower()
+    payload = json.loads(output.read_text(encoding="utf-8"))
+    assert payload["passed"] is True
+    assert payload["diagnostic_schema_version"] == "1.0.0"

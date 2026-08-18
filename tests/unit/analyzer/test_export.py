@@ -61,8 +61,9 @@ def test_write_diagnostic_json_round_trip(tmp_path: Path) -> None:
         passed=True,
         violations=(),
     )
-    output = tmp_path / "diagnostic.json"
+    output = tmp_path / "nested" / "artifacts" / "diagnostic.json"
     write_diagnostic_json(diagnostic, output)
     payload = json.loads(output.read_text(encoding="utf-8"))
     assert payload["trace_id"] == "trace-003"
+    assert payload["passed"] is True
     assert diagnostic_to_json(diagnostic).endswith("}")

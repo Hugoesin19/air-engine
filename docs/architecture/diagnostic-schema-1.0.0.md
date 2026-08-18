@@ -65,7 +65,7 @@ Violations are ordered by contract invariant declaration order, then by message 
   "violations": [
     {
       "invariant_id": "max_trace_duration",
-      "message": "Trace duration 600ms exceeds limit 500ms (from timestamp_ms labels)",
+      "message": "Trace duration 600.0ms exceeds limit 500.0ms (from timestamp_ms labels)",
       "node_id": null
     },
     {
