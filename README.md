@@ -150,6 +150,26 @@ uv run air-engine validate examples/trace_valid_minimal.json
 uv run air-engine verify examples/trace_valid_minimal.json --contract examples/policy_mvp.yaml
 ```
 
+## Product status
+
+air-engine is an **open-source product under active development**, started as a Final Year Project and evolving toward a production-ready verification tool for AI-agent workflows.
+
+- **MVP:** complete (AIR core, contracts, adapters, CLI)
+- **v1 (in progress):** capture, mock-first demos, CI gates, policy packs, diagnostic export
+- **Later:** formal contract DSL, tooling UX, scalable verification
+
+This repository is the source of truth for design and implementation. Contributions and feedback are welcome under the license below.
+
+## Authorship
+
+Designed and implemented by **Hugo** ([@Hugoesin19](https://github.com/Hugoesin19)).
+
+Copyright (c) 2026 Hugoesin19. All rights reserved under the MIT License terms.
+
+If you reference this work academically or commercially, please keep attribution to the original repository: [github.com/Hugoesin19/air-engine](https://github.com/Hugoesin19/air-engine).
+
 ## License
 
-MIT — see [LICENSE](LICENSE).
+Released under the **MIT License** — see [LICENSE](LICENSE).
+
+You may use, modify, and redistribute the software, including in commercial products, provided the copyright notice and license text are retained. The software is provided as-is, without warranty.
