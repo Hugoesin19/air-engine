@@ -7,17 +7,23 @@ from air_engine.core.types import ControlEdgeKind, SemanticNodeType
 _EVENT_ALIASES: dict[str, str] = {
     "run_start": "run_start",
     "chain_start": "run_start",
+    "on_chain_start": "run_start",
     "llm_invoke": "llm_invoke",
     "llm_call": "llm_invoke",
     "on_chat_model_start": "llm_invoke",
     "on_chat_model_end": "llm_invoke",
+    "on_llm_start": "llm_invoke",
+    "on_llm_end": "llm_invoke",
     "tool_call": "tool_call",
     "on_tool_start": "tool_call",
+    "function_call": "tool_call",
     "tool_return": "tool_return",
     "tool_output": "tool_return",
     "on_tool_end": "tool_return",
+    "function_call_output": "tool_return",
     "run_end": "run_end",
     "chain_end": "run_end",
+    "on_chain_end": "run_end",
 }
 
 

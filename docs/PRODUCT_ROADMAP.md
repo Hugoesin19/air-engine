@@ -4,8 +4,8 @@
 > **Update this file** at the start/end of each work session.  
 > Reference: [Project Bible](../projectBilde.pdf) · [MVP Roadmap](MVP_ROADMAP.md) · [ADRs](adrs/) · [Architecture](architecture/)
 
-**Last updated:** 2026-08-18  
-**Current phase:** Sprint 10 — Real Adapter Formats  
+**Last updated:** 2026-08-24  
+**Current phase:** Sprint 12 — Trace Comparison + Regression  
 **Product status:** 🟡 Post-MVP (v1 in progress)  
 **MVP baseline:** 🟢 Complete — tag `mvp-v0.1.0` recommended before Sprint 6
 
@@ -67,15 +67,15 @@ v1 is **product-ready open source**: another developer can adopt air-engine in C
 
 ### Success Criteria (all required for v1 ✅)
 
-- [ ] **Capture layer** records a deterministic agent run as a serializable event log
-- [ ] **Mock agent demo** runs locally with zero network calls and produces a verify PASS
-- [ ] **Replay fixtures** — golden captured runs checked into `examples/` and CI
+- [x] **Capture layer** records a deterministic agent run as a serializable event log
+- [x] **Mock agent demo** runs locally with zero network calls and produces a verify PASS
+- [x] **Replay fixtures** — golden captured runs checked into `examples/` and CI
 - [x] **GitHub Action** runs `validate` + `verify` on PRs using fixtures only
-- [ ] **Policy packs** — user-selectable YAML templates (`strict`, `dev`) with documented params
-- [ ] **Diagnostic artifact** — machine-readable export (JSON; SARIF or JUnit for CI parsers)
-- [ ] **Expanded contract catalog** — at least 3 new business-oriented invariants
-- [ ] **User docs** — 5-minute quickstart from install to first PASS/FAIL
-- [ ] **Live API path documented** but optional; mock path is the default onboarding
+- [x] **Policy packs** — user-selectable YAML templates (`strict`, `dev`) with documented params
+- [x] **Diagnostic artifact** — machine-readable export (JSON; SARIF or JUnit for CI parsers)
+- [x] **Expanded contract catalog** — at least 3 new business-oriented invariants
+- [x] **User docs** — 5-minute quickstart from install to first PASS/FAIL
+- [x] **Live API path documented** but optional; mock path is the default onboarding
 
 ### Hypotheses Under Test (post-MVP)
 
@@ -175,28 +175,28 @@ Candidates (pick ≥3 for v1):
 
 ---
 
-### Sprint 10 — Real Adapter Formats (still fixture-driven)
+### Sprint 10 — Real Adapter Formats (still fixture-driven) ✅
 
 **Goal:** Adapters match *real* export shapes; validation uses recorded files, not live SDK.
 
-- [ ] Document mapping: OpenAI Responses / tool-call shapes → `openai.run.v1`
-- [ ] Document mapping: LangGraph callback events → `langgraph.run.v1`
-- [ ] `examples/fixtures/recorded/` — anonymized real-shaped captures (manual or exported once)
-- [ ] Adapter regression tests: fixture → same event sequence as golden AIR
-- [ ] Optional: `AIR_ENGINE_LIVE=1` script stub for user-owned API key (not CI)
+- [x] Document mapping: OpenAI Responses / tool-call shapes → `openai.run.v1`
+- [x] Document mapping: LangGraph callback events → `langgraph.run.v1`
+- [x] `examples/fixtures/recorded/` — anonymized real-shaped captures (manual or exported once)
+- [x] Adapter regression tests: fixture → same event sequence as golden AIR
+- [x] Optional: `AIR_ENGINE_LIVE=1` script stub for user-owned API key (not CI)
 
 **Done when:** a recorded OpenAI-shaped fixture verifies PASS without calling OpenAI in tests.
 
 ---
 
-### Sprint 11 — CI Report Formats
+### Sprint 11 — CI Report Formats ✅
 
 **Goal:** air-engine plugs into existing CI UX.
 
-- [ ] JUnit XML output mode (for GitHub/GitLab test summary)
-- [ ] or SARIF output mode (for security/code scanning tabs)
-- [ ] `verify --format junit|json|sarif|text`
-- [ ] GitHub Action uploads report artifact
+- [x] JUnit XML output mode (for GitHub/GitLab test summary)
+- [x] SARIF output mode (for security/code scanning tabs)
+- [x] `verify --format junit|json|sarif|text`
+- [x] GitHub Action uploads report artifact
 
 **Done when:** failed verify shows as a check annotation or test failure in GitHub UI.
 
@@ -267,6 +267,8 @@ event log → adapters → parser → core ← analyzer ← contracts
 | 2026-08-18 | Sprint 7 | Composite verify action, golden fixture CI script, mock-agent workflow, verify --source | Sprint 8 policy packs + diagnostic export |
 | 2026-08-18 | Sprint 8 | Policy packs (strict/dev), diagnostic JSON export, policy docs, schema spec | Sprint 9 expanded contract catalog |
 | 2026-08-18 | Sprint 9 | Business invariants (llm/tool caps, allowlist, event sequence), list params | Sprint 10 real adapter formats |
+| 2026-08-24 | Sprint 10 | Recorded OpenAI Responses + LangGraph callbacks, mapping docs, live stub | Sprint 11 CI report formats |
+| 2026-08-24 | Sprint 11 | verify --format json/junit/sarif, GitHub annotations, Action artifact/SARIF | Sprint 12 trace comparison |
 
 ---
 
@@ -276,7 +278,7 @@ event log → adapters → parser → core ← analyzer ← contracts
 |----|----------|----------|-------------|
 | B1 | No API budget for dev/CI | Mock-first; live API opt-in only | No |
 | B2 | Capture emits openai.run.v1 vs native format | Native capture log + adapter | Yes → ADR-006 |
-| B3 | JUnit vs SARIF for CI reports | Decide in Sprint 11 | Maybe ADR-007 |
+| B3 | JUnit vs SARIF for CI reports | Ship both (`--format junit` and `sarif`) | No |
 
 ---
 

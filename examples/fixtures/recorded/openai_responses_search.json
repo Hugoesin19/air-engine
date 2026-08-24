@@ -1,0 +1,42 @@
+{
+  "object": "response",
+  "id": "resp_recorded_anonymized_0001",
+  "created_at": 1710000000,
+  "status": "completed",
+  "model": "gpt-4.1-mini",
+  "metadata": {
+    "anonymized": true,
+    "note": "Recorded-shaped OpenAI Responses fixture. No live API call."
+  },
+  "output": [
+    {
+      "id": "msg_recorded_011",
+      "type": "message",
+      "role": "assistant",
+      "content": [
+        {
+          "type": "output_text",
+          "text": "[redacted]"
+        }
+      ]
+    },
+    {
+      "id": "fc_recorded_012",
+      "type": "function_call",
+      "call_id": "call_search_1",
+      "name": "search",
+      "arguments": "{\"query\":\"[redacted]\"}"
+    },
+    {
+      "id": "fc_out_recorded_013",
+      "type": "function_call_output",
+      "call_id": "call_search_1",
+      "output": "[redacted tool result]"
+    }
+  ],
+  "usage": {
+    "input_tokens": 80,
+    "output_tokens": 70,
+    "total_tokens": 150
+  }
+}

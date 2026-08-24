@@ -9,9 +9,13 @@ from typing import Any
 from air_engine.adapters._sequential import adapt_sequential_events
 from air_engine.adapters.errors import AdapterValidationError, UnsupportedFormatError
 from air_engine.adapters.json.adapter import load_external_json
+from air_engine.adapters.langgraph.normalize import (
+    LANGGRAPH_RUN_V1,
+    is_langgraph_callbacks,
+    is_langgraph_run_v1,
+    normalize_callbacks_payload,
+)
 from air_engine.core.trace import Trace
-
-_FORMAT_VERSION = "langgraph.run.v1"
 
 
 def adapt_file(path: Path) -> Trace:
@@ -22,11 +26,14 @@ def adapt_file(path: Path) -> Trace:
 
 def adapt_payload(payload: Mapping[str, Any]) -> Trace:
     """Translate a LangGraph run export payload into an AIR trace."""
-    version = payload.get("format_version")
-    if version != _FORMAT_VERSION:
+    if is_langgraph_callbacks(payload):
+        payload = normalize_callbacks_payload(payload)
+    elif not is_langgraph_run_v1(payload):
+        version = payload.get("format_version")
         msg = (
-            f"Unsupported LangGraph format_version: {version!r} "
-            f"(expected {_FORMAT_VERSION!r})"
+            "Unsupported LangGraph payload: expected format_version "
+            f"{LANGGRAPH_RUN_V1!r} or callback events "
+            f"(got format_version={version!r})"
         )
         raise UnsupportedFormatError(msg)
 

@@ -67,6 +67,10 @@ from air_engine.interfaces.library import verify
 policy = Path('examples/policies/mvp.yaml')
 print(verify('examples/demo_agent/artifacts/mock_run.json', policy, source='capture').passed)
 "
+
+# Recorded OpenAI Responses shape (no live API)
+uv run air-engine verify examples/fixtures/recorded/openai_responses_search.json \
+  --contract examples/policies/mvp.yaml --source openai
 ```
 
 ## Roadmap
@@ -110,7 +114,22 @@ This repository runs three CI jobs on every push and pull request:
 
 - `quality` — lint, typecheck, and pytest
 - `golden-fixtures` — stable CLI exit codes on canonical pass/fail examples
-- `mock-agent-pipeline` — deterministic mock agent → capture log → verify
+- `mock-agent-pipeline` — deterministic mock agent → capture log → verify (uploads SARIF)
+
+Machine-readable reports:
+
+```bash
+uv run air-engine verify examples/trace_valid_minimal.json \
+  --contract examples/policies/mvp.yaml --format json
+
+uv run air-engine verify examples/trace_valid_minimal.json \
+  --contract examples/policies/strict.yaml --format junit --output report.xml
+
+uv run air-engine verify examples/trace_valid_minimal.json \
+  --contract examples/policies/mvp.yaml --format sarif --output report.sarif
+```
+
+On GitHub Actions, failed verifies also emit `::error` annotations. The composite action uploads the report as an artifact (and SARIF when `report-format: sarif`).
 
 Run the same fixture gate locally:
 
@@ -128,6 +147,8 @@ Copy `.github/actions/verify-trace/` into your project, then call it after your 
     trace-file: artifacts/run.json
     contract-file: policies/mvp.yaml
     source: capture
+    report-format: junit
+    report-file: air-engine-report.xml
 ```
 
 Requirements for consumer repos:

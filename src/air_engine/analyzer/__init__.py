@@ -8,6 +8,11 @@ from air_engine.analyzer.export import (
     diagnostic_to_json,
     write_diagnostic_json,
 )
+from air_engine.analyzer.reports import (
+    diagnostic_to_junit,
+    diagnostic_to_sarif,
+    write_report,
+)
 from air_engine.analyzer.state_builder import build_state_at_node
 
 __all__ = [
@@ -17,6 +22,9 @@ __all__ = [
     "build_state_at_node",
     "diagnostic_to_dict",
     "diagnostic_to_json",
+    "diagnostic_to_junit",
+    "diagnostic_to_sarif",
     "verify_trace",
     "write_diagnostic_json",
+    "write_report",
 ]

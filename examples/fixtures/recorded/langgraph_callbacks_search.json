@@ -1,0 +1,73 @@
+{
+  "object": "langgraph.callback_events",
+  "run_id": "lg-recorded-anonymized-0001",
+  "metadata": {
+    "anonymized": true,
+    "note": "Recorded-shaped LangGraph callback dump. No live API call."
+  },
+  "events": [
+    {
+      "event": "on_chain_start",
+      "name": "LangGraph",
+      "run_id": "lg-recorded-anonymized-0001",
+      "parent_ids": [],
+      "data": {
+        "input": {
+          "query": "[redacted]"
+        }
+      }
+    },
+    {
+      "event": "on_chat_model_start",
+      "name": "ChatOpenAI",
+      "run_id": "lg-llm-recorded-011",
+      "parent_ids": ["lg-recorded-anonymized-0001"],
+      "data": {}
+    },
+    {
+      "event": "on_chat_model_end",
+      "name": "ChatOpenAI",
+      "run_id": "lg-llm-recorded-011",
+      "parent_ids": ["lg-recorded-anonymized-0001"],
+      "data": {
+        "output": {
+          "generations": [[{"text": "[redacted]"}]],
+          "llm_output": {
+            "token_usage": {
+              "prompt_tokens": 80,
+              "completion_tokens": 70,
+              "total_tokens": 150
+            }
+          }
+        }
+      }
+    },
+    {
+      "event": "on_tool_start",
+      "name": "search",
+      "run_id": "lg-tool-recorded-012",
+      "parent_ids": ["lg-recorded-anonymized-0001"],
+      "data": {
+        "input": "[redacted]"
+      }
+    },
+    {
+      "event": "on_tool_end",
+      "name": "search",
+      "run_id": "lg-tool-recorded-012",
+      "parent_ids": ["lg-recorded-anonymized-0001"],
+      "data": {
+        "output": "[redacted tool result]"
+      }
+    },
+    {
+      "event": "on_chain_end",
+      "name": "LangGraph",
+      "run_id": "lg-recorded-anonymized-0001",
+      "parent_ids": [],
+      "data": {
+        "output": "[redacted]"
+      }
+    }
+  ]
+}

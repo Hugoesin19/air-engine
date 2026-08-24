@@ -16,6 +16,14 @@ inputs:
     description: Repository root containing pyproject.toml.
     required: false
     default: .
+  report-format:
+    description: Report format written to report-file (json, junit, or sarif).
+    required: false
+    default: sarif
+  report-file:
+    description: Path for the uploaded diagnostic report.
+    required: false
+    default: air-engine-report.sarif
 
 runs:
   using: composite
@@ -48,3 +56,20 @@ runs:
         uv run air-engine verify "${{ inputs.trace-file }}"
         --contract "${{ inputs.contract-file }}"
         --source "${{ inputs.source }}"
+        --format "${{ inputs.report-format }}"
+        --output "${{ inputs.report-file }}"
+
+    - name: Upload verification report
+      if: ${{ always() }}
+      uses: actions/upload-artifact@v4
+      with:
+        name: air-engine-report
+        path: ${{ inputs.working-directory }}/${{ inputs.report-file }}
+        if-no-files-found: warn
+
+    - name: Upload SARIF
+      if: ${{ always() && inputs.report-format == 'sarif' }}
+      continue-on-error: true
+      uses: github/codeql-action/upload-sarif@v3
+      with:
+        sarif_file: ${{ inputs.working-directory }}/${{ inputs.report-file }}

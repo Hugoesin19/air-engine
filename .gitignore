@@ -213,3 +213,10 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Local CLI report artifacts (verify --output examples)
+/report.xml
+/report.sarif
+/diagnostic.json
+/air-engine-report.sarif
+/air-engine-report.xml

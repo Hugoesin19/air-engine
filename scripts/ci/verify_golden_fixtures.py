@@ -81,6 +81,28 @@ FIXTURES: tuple[FixtureCase, ...] = (
         expect_verify=0,
         contract=ROOT / "examples" / "policies" / "dev.yaml",
     ),
+    FixtureCase(
+        name="recorded_openai_responses",
+        trace=ROOT
+        / "examples"
+        / "fixtures"
+        / "recorded"
+        / "openai_responses_search.json",
+        source="openai",
+        expect_validate=None,
+        expect_verify=0,
+    ),
+    FixtureCase(
+        name="recorded_langgraph_callbacks",
+        trace=ROOT
+        / "examples"
+        / "fixtures"
+        / "recorded"
+        / "langgraph_callbacks_search.json",
+        source="langgraph",
+        expect_validate=None,
+        expect_verify=0,
+    ),
 )
 
 

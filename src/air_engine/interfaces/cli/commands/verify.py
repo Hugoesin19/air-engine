@@ -3,15 +3,23 @@
 from __future__ import annotations
 
 import argparse
+import os
 import sys
 from pathlib import Path
 
 from air_engine.analyzer import verify_trace
-from air_engine.analyzer.export import write_diagnostic_json
+from air_engine.analyzer.reports import (
+    ReportFormat,
+    github_error_annotations,
+    render_report,
+    write_report,
+)
 from air_engine.contracts import load_policy_file
 from air_engine.core.errors import AirEngineError
 from air_engine.interfaces.cli.render import render_control_dag, summarize_trace_metrics
 from air_engine.interfaces.library.api import TraceSource, load_trace
+
+_MACHINE_FORMATS = ("json", "junit", "sarif")
 
 
 def register(subparsers: argparse._SubParsersAction[argparse.ArgumentParser]) -> None:
@@ -47,9 +55,16 @@ def register(subparsers: argparse._SubParsersAction[argparse.ArgumentParser]) ->
         help="External trace format adapter to use before verification",
     )
     parser.add_argument(
+        "--format",
+        choices=["text", "json", "junit", "sarif"],
+        default="text",
+        dest="report_format",
+        help="Stdout report format (text, json, junit, or sarif)",
+    )
+    parser.add_argument(
         "--output",
         type=Path,
-        help="Write the verification diagnostic as JSON to this file",
+        help="Write a diagnostic report to this file",
     )
     parser.set_defaults(handler=run)
 
@@ -58,6 +73,7 @@ def run(args: argparse.Namespace) -> int:
     trace_file: Path = args.trace_file
     contract_file: Path = args.contract
     source: TraceSource = args.source
+    report_format: str = args.report_format
     try:
         trace = load_trace(trace_file, source=source)
         contract = load_policy_file(contract_file)
@@ -67,11 +83,33 @@ def run(args: argparse.Namespace) -> int:
         return 1
 
     if args.output is not None:
+        file_format: ReportFormat = "json"
+        if report_format == "junit":
+            file_format = "junit"
+        elif report_format == "sarif":
+            file_format = "sarif"
+        elif report_format == "json":
+            file_format = "json"
         try:
-            write_diagnostic_json(diagnostic, args.output)
+            write_report(diagnostic, args.output, fmt=file_format)
         except OSError as exc:
             print(f"Unable to write diagnostic: {exc}", file=sys.stderr)
             return 1
+
+    if os.environ.get("GITHUB_ACTIONS") == "true":
+        for line in github_error_annotations(diagnostic):
+            print(line, file=sys.stderr)
+
+    if report_format in _MACHINE_FORMATS:
+        machine_format: ReportFormat = (
+            "junit"
+            if report_format == "junit"
+            else "sarif"
+            if report_format == "sarif"
+            else "json"
+        )
+        print(render_report(diagnostic, machine_format))
+        return 0 if diagnostic.passed else 1
 
     if diagnostic.passed:
         print(f"PASS: {trace_file}")
