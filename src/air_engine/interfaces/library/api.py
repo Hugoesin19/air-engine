@@ -11,8 +11,9 @@ from air_engine.adapters import (
     adapt_langgraph_file,
     adapt_openai_file,
 )
-from air_engine.analyzer import verify_trace
+from air_engine.analyzer import compare_diagnostics, verify_trace
 from air_engine.analyzer.diagnostic import Diagnostic
+from air_engine.analyzer.diff import DiagnosticDiff
 from air_engine.analyzer.export import (
     diagnostic_to_dict,
     diagnostic_to_json,
@@ -28,6 +29,8 @@ TraceSource = Literal["air", "capture", "langgraph", "openai"]
 
 __all__ = [
     "TraceSource",
+    "DiagnosticDiff",
+    "compare_traces",
     "diagnostic_to_dict",
     "diagnostic_to_json",
     "load_trace",
@@ -62,6 +65,21 @@ def verify(
     trace = load_trace(trace_path, source=source)
     contract = load_policy_file(Path(contract_path))
     return verify_trace(trace, contract)
+
+
+def compare_traces(
+    baseline_path: Path | str,
+    current_path: Path | str,
+    contract_path: Path | str,
+    *,
+    source: TraceSource = "air",
+    baseline_source: TraceSource | None = None,
+) -> DiagnosticDiff:
+    """Compare current trace violations against a baseline (regression gate)."""
+    resolved_baseline_source = baseline_source or source
+    baseline = verify(baseline_path, contract_path, source=resolved_baseline_source)
+    current = verify(current_path, contract_path, source=source)
+    return compare_diagnostics(baseline, current)
 
 
 def state_at(trace: Trace, node_id: NodeId | str) -> ExecutionState:

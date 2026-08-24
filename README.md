@@ -131,6 +131,19 @@ uv run air-engine verify examples/trace_valid_minimal.json \
 
 On GitHub Actions, failed verifies also emit `::error` annotations. The composite action uploads the report as an artifact (and SARIF when `report-format: sarif`).
 
+### Baseline regression gate
+
+Fail CI when a new run introduces violations the golden baseline did not have:
+
+```bash
+uv run air-engine diff \
+  examples/trace_valid_minimal.json \
+  examples/trace_invalid_missing_tool_return.json \
+  --contract examples/policies/mvp.yaml
+```
+
+See [docs/workflows/baseline.md](docs/workflows/baseline.md).
+
 Run the same fixture gate locally:
 
 ```bash

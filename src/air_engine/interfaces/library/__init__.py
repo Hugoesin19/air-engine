@@ -1,6 +1,7 @@
 """Public programmatic interface for air-engine."""
 
 from air_engine.interfaces.library.api import (
+    compare_traces,
     diagnostic_to_dict,
     diagnostic_to_json,
     load_trace,
@@ -10,6 +11,7 @@ from air_engine.interfaces.library.api import (
 )
 
 __all__ = [
+    "compare_traces",
     "diagnostic_to_dict",
     "diagnostic_to_json",
     "load_trace",

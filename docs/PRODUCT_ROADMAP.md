@@ -5,8 +5,8 @@
 > Reference: [Project Bible](../projectBilde.pdf) · [MVP Roadmap](MVP_ROADMAP.md) · [ADRs](adrs/) · [Architecture](architecture/)
 
 **Last updated:** 2026-08-24  
-**Current phase:** Sprint 12 — Trace Comparison + Regression  
-**Product status:** 🟡 Post-MVP (v1 in progress)  
+**Current phase:** v1 / v1.5 complete — backlog (DSL, GUI)  
+**Product status:** 🟢 v1 OSS path complete (post-MVP sprints 6–12)  
 **MVP baseline:** 🟢 Complete — tag `mvp-v0.1.0` recommended before Sprint 6
 
 ---
@@ -202,14 +202,14 @@ Candidates (pick ≥3 for v1):
 
 ---
 
-### Sprint 12 — Trace Comparison + Regression
+### Sprint 12 — Trace Comparison + Regression ✅
 
 **Goal:** Detect when a new run is *worse* than baseline (product differentiation).
 
-- [ ] `air-engine diff baseline.json current.json --contract policy.yaml`
-- [ ] Compare violation sets deterministically
-- [ ] Fail if new violations appear (regression gate)
-- [ ] Docs: “baseline trace” workflow for teams
+- [x] `air-engine diff baseline.json current.json --contract policy.yaml`
+- [x] Compare violation sets deterministically
+- [x] Fail if new violations appear (regression gate)
+- [x] Docs: “baseline trace” workflow for teams
 
 **Done when:** introducing a broken fixture increases violations vs golden baseline.
 
@@ -269,6 +269,7 @@ event log → adapters → parser → core ← analyzer ← contracts
 | 2026-08-18 | Sprint 9 | Business invariants (llm/tool caps, allowlist, event sequence), list params | Sprint 10 real adapter formats |
 | 2026-08-24 | Sprint 10 | Recorded OpenAI Responses + LangGraph callbacks, mapping docs, live stub | Sprint 11 CI report formats |
 | 2026-08-24 | Sprint 11 | verify --format json/junit/sarif, GitHub annotations, Action artifact/SARIF | Sprint 12 trace comparison |
+| 2026-08-24 | Sprint 12 | air-engine diff regression gate, deterministic violation sets, baseline docs | v1.5 complete — backlog |
 
 ---
 

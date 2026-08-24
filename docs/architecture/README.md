@@ -12,5 +12,6 @@ Formal specifications for the air-engine verification infrastructure.
 - **OpenAI run mapping** — [`openai-run-mapping.md`](openai-run-mapping.md) → Sprint 10 ✅
 - **LangGraph run mapping** — [`langgraph-run-mapping.md`](langgraph-run-mapping.md) → Sprint 10 ✅
 - **CI reports** — `verify --format json|junit|sarif` + GitHub Action artifacts → Sprint 11 ✅
+- **Baseline workflow** — [`../workflows/baseline.md`](../workflows/baseline.md) → Sprint 12 ✅
 
 See [MVP Roadmap](../MVP_ROADMAP.md) (complete) and [Product Roadmap](../PRODUCT_ROADMAP.md) (active).

@@ -143,15 +143,32 @@ def verify_fixtures() -> list[str]:
     return failures
 
 
+def verify_diff_gates() -> list[str]:
+    failures: list[str] = []
+    baseline = ROOT / "examples" / "trace_valid_minimal.json"
+    broken = ROOT / "examples" / "trace_invalid_missing_tool_return.json"
+
+    same = _run_cli(["diff", str(baseline), str(baseline), "--contract", str(POLICY)])
+    if same != 0:
+        failures.append(f"diff_same_baseline: expected 0, got {same}")
+
+    worse = _run_cli(["diff", str(baseline), str(broken), "--contract", str(POLICY)])
+    if worse != 1:
+        failures.append(f"diff_broken_vs_baseline: expected 1, got {worse}")
+
+    return failures
+
+
 def main() -> int:
-    failures = verify_fixtures()
+    failures = verify_fixtures() + verify_diff_gates()
     if failures:
         print("Golden fixture verification failed:", file=sys.stderr)
         for failure in failures:
             print(f"  - {failure}", file=sys.stderr)
         return 1
 
-    print(f"Golden fixture verification passed ({len(FIXTURES)} cases).")
+    total = len(FIXTURES) + 2
+    print(f"Golden fixture verification passed ({total} cases).")
     return 0
 
 
