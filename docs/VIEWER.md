@@ -43,4 +43,5 @@ Open `src/air_engine/interfaces/viewer/index.html` in a browser and drag-drop an
 - `trace_id`, violation count
 - Table of invariant violations (id, node, message)
 
-Does **not** include: live agent runs, auth, billing, or DAG topology editing (later roadmap).
+- Does **not** include: live agent runs, auth, billing, or DAG topology graph (later roadmap).
+- **Does** include: run summary (steps, LLM/tool counts, duration, tokens) and a simple ordered timeline.

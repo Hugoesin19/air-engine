@@ -10,9 +10,11 @@ import sys
 import webbrowser
 from pathlib import Path
 
-from air_engine.analyzer.export import write_diagnostic_json
+from air_engine.analyzer import verify_trace
+from air_engine.contracts import load_policy_file
 from air_engine.core.errors import AirEngineError
-from air_engine.interfaces.library.api import TraceSource, verify
+from air_engine.interfaces.library.api import TraceSource, load_trace
+from air_engine.interfaces.viewer.report import write_viewer_report
 
 VIEWER_DIR = Path(__file__).resolve().parents[2] / "viewer"
 REPORT_FILE = ".report.json"
@@ -77,8 +79,17 @@ def prepare_report(
         if contract_file is None:
             msg = "--contract is required when using --trace"
             raise ValueError(msg)
-        diagnostic = verify(trace_file, contract_file, source=source)
-        write_diagnostic_json(diagnostic, dest)
+        trace = load_trace(trace_file, source=source)
+        contract = load_policy_file(contract_file)
+        diagnostic = verify_trace(trace, contract)
+        write_viewer_report(
+            diagnostic,
+            trace,
+            dest,
+            trace_file=trace_file,
+            contract_file=contract_file,
+            source=source,
+        )
         return VIEWER_DIR
 
     if diagnostic_file is None:

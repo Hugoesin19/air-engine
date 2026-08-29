@@ -25,112 +25,205 @@
       min-height: 100vh;
     }
     header {
-      padding: 1.5rem 2rem;
+      padding: 1.25rem 2rem;
       border-bottom: 1px solid var(--border);
       background: var(--surface);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
     }
-    header h1 { margin: 0; font-size: 1.25rem; font-weight: 600; }
-    header p { margin: 0.35rem 0 0; color: var(--muted); font-size: 0.9rem; }
-    main { max-width: 960px; margin: 0 auto; padding: 2rem; }
+    header h1 { margin: 0; font-size: 1.2rem; font-weight: 600; }
+    header p { margin: 0.2rem 0 0; color: var(--muted); font-size: 0.85rem; }
+    .load-btn {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      padding: 0.45rem 0.85rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.85rem;
+    }
+    .load-btn:hover { border-color: var(--accent); color: var(--accent); }
+    main { max-width: 960px; margin: 0 auto; padding: 1.5rem 2rem 2rem; }
     .card {
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 10px;
       padding: 1.25rem 1.5rem;
-      margin-bottom: 1.25rem;
+      margin-bottom: 1rem;
+    }
+    .hero {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 0.75rem;
     }
     .badge {
-      display: inline-block;
       font-weight: 700;
-      font-size: 1.1rem;
-      letter-spacing: 0.04em;
-      padding: 0.35rem 0.85rem;
-      border-radius: 6px;
+      font-size: 1.25rem;
+      letter-spacing: 0.05em;
+      padding: 0.4rem 0.9rem;
+      border-radius: 8px;
     }
     .badge.pass { background: rgba(61, 214, 140, 0.15); color: var(--pass); }
     .badge.fail { background: rgba(248, 113, 113, 0.15); color: var(--fail); }
-    .meta { margin-top: 1rem; color: var(--muted); font-size: 0.9rem; }
-    .meta dt { font-weight: 600; color: var(--text); display: inline; }
-    .meta dd { display: inline; margin: 0 1.25rem 0 0.35rem; }
+    .trace-id { color: var(--muted); font-size: 0.9rem; word-break: break-all; }
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+    .stat {
+      background: rgba(255,255,255,0.03);
+      border-radius: 8px;
+      padding: 0.75rem;
+    }
+    .stat .label { color: var(--muted); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.04em; }
+    .stat .value { font-size: 1.15rem; font-weight: 600; margin-top: 0.15rem; }
+    h2 { margin: 0 0 0.85rem; font-size: 0.95rem; font-weight: 600; color: var(--text); }
+    .timeline { list-style: none; margin: 0; padding: 0; }
+    .timeline li {
+      display: flex;
+      gap: 0.75rem;
+      padding: 0.55rem 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.9rem;
+    }
+    .timeline li:last-child { border-bottom: none; }
+    .timeline .num { color: var(--muted); min-width: 1.5rem; }
+    .timeline .event { font-family: Consolas, monospace; color: var(--accent); min-width: 7rem; }
+    .timeline .detail { color: var(--muted); }
     table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
-    th, td { text-align: left; padding: 0.65rem 0.75rem; border-bottom: 1px solid var(--border); }
-    th { color: var(--muted); font-weight: 600; font-size: 0.8rem; text-transform: uppercase; }
-    .empty { color: var(--muted); font-style: italic; padding: 1rem 0; }
+    th, td { text-align: left; padding: 0.6rem 0.5rem; border-bottom: 1px solid var(--border); }
+    th { color: var(--muted); font-weight: 600; font-size: 0.75rem; text-transform: uppercase; }
+    .empty-state {
+      text-align: center;
+      padding: 3rem 1rem;
+      color: var(--muted);
+    }
     .dropzone {
       border: 2px dashed var(--border);
       border-radius: 10px;
-      padding: 2rem;
+      padding: 2.5rem 1.5rem;
       text-align: center;
       color: var(--muted);
       cursor: pointer;
-      transition: border-color 0.15s, background 0.15s;
     }
-    .dropzone:hover, .dropzone.dragover {
-      border-color: var(--accent);
-      background: rgba(96, 165, 250, 0.06);
-    }
+    .dropzone:hover { border-color: var(--accent); background: rgba(96, 165, 250, 0.05); }
     .dropzone strong { color: var(--accent); }
     input[type="file"] { display: none; }
+    #upload-card { display: none; }
+    #upload-card.visible { display: block; }
     #results { display: none; }
     #results.visible { display: block; }
-    footer { text-align: center; color: var(--muted); font-size: 0.8rem; padding: 2rem; }
+    footer { text-align: center; color: var(--muted); font-size: 0.8rem; padding: 1.5rem; }
   </style>
 </head>
 <body>
   <header>
-    <h1>air-engine diagnostic viewer</h1>
-    <p>Local report viewer — no cloud, no LLM-as-judge</p>
+    <div>
+      <h1>air-engine diagnostic viewer</h1>
+      <p>Local report — no cloud</p>
+    </div>
+    <button type="button" class="load-btn" id="toggle-upload" hidden>Load another file</button>
   </header>
   <main>
-    <div class="card">
+    <div class="card" id="upload-card">
       <label class="dropzone" id="dropzone" for="file-input">
         <strong>Load diagnostic JSON</strong><br />
-        Drop a file from <code>air-engine verify --output report.json</code><br />
-        or click to browse
+        From <code>air-engine verify --output report.json</code> or <code>air-engine view</code>
       </label>
       <input type="file" id="file-input" accept=".json,application/json" />
     </div>
 
     <div id="results">
       <div class="card">
-        <span id="status-badge" class="badge"></span>
-        <dl class="meta">
-          <dt>trace_id</dt><dd id="trace-id"></dd>
-          <dt>violations</dt><dd id="violation-count"></dd>
-          <dt>schema</dt><dd id="schema-version"></dd>
-        </dl>
+        <div class="hero">
+          <span id="status-badge" class="badge"></span>
+          <div class="trace-id" id="trace-id"></div>
+        </div>
+        <div class="stats" id="stats"></div>
       </div>
-      <div class="card">
-        <h2 style="margin:0 0 1rem;font-size:1rem;">Violations</h2>
+
+      <div class="card" id="timeline-card" hidden>
+        <h2>Run timeline</h2>
+        <p style="margin:0 0 0.75rem;color:var(--muted);font-size:0.85rem;">
+          Ordered steps — not a graph, just what happened in sequence.
+        </p>
+        <ol class="timeline" id="timeline"></ol>
+      </div>
+
+      <div class="card" id="violations-card" hidden>
+        <h2>Violations</h2>
         <div id="violations-table"></div>
       </div>
+    </div>
+
+    <div class="card empty-state" id="empty-state">
+      Run <code>air-engine view --trace … --contract …</code> or load a JSON file above.
     </div>
   </main>
   <footer>air-engine · deterministic post-mortem verification</footer>
   <script>
-    const dropzone = document.getElementById("dropzone");
-    const fileInput = document.getElementById("file-input");
+    const uploadCard = document.getElementById("upload-card");
+    const toggleUpload = document.getElementById("toggle-upload");
+    const emptyState = document.getElementById("empty-state");
     const results = document.getElementById("results");
+    const fileInput = document.getElementById("file-input");
+    const dropzone = document.getElementById("dropzone");
 
-    function render(data) {
-      if (!data || typeof data.passed !== "boolean") {
-        alert("Invalid diagnostic JSON. Expected output from air-engine verify --output.");
+    toggleUpload.addEventListener("click", () => {
+      uploadCard.classList.toggle("visible");
+    });
+
+    function esc(s) {
+      return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+    }
+
+    function renderStats(summary, data) {
+      const stats = document.getElementById("stats");
+      const items = [];
+      if (summary) {
+        if (summary.steps != null) items.push(["Steps", summary.steps]);
+        if (summary.llm_calls != null) items.push(["LLM calls", summary.llm_calls]);
+        if (summary.tool_calls != null) items.push(["Tool calls", summary.tool_calls]);
+        if (summary.duration_ms != null) items.push(["Duration", summary.duration_ms + " ms"]);
+        if (summary.total_tokens != null) items.push(["Tokens", summary.total_tokens]);
+      }
+      items.push(["Violations", data.violation_count ?? 0]);
+      stats.innerHTML = items.map(([label, value]) =>
+        `<div class="stat"><div class="label">${esc(label)}</div><div class="value">${esc(value)}</div></div>`
+      ).join("");
+    }
+
+    function renderTimeline(timeline) {
+      const card = document.getElementById("timeline-card");
+      const list = document.getElementById("timeline");
+      if (!timeline || timeline.length === 0) {
+        card.hidden = true;
         return;
       }
-      results.classList.add("visible");
-      const badge = document.getElementById("status-badge");
-      badge.textContent = data.passed ? "PASS" : "FAIL";
-      badge.className = "badge " + (data.passed ? "pass" : "fail");
-      document.getElementById("trace-id").textContent = data.trace_id || "—";
-      document.getElementById("violation-count").textContent = String(data.violation_count ?? 0);
-      document.getElementById("schema-version").textContent = data.diagnostic_schema_version || "—";
+      card.hidden = false;
+      list.innerHTML = timeline.map((step) => {
+        let detail = step.name ? `tool: ${step.name}` : "";
+        if (step.tokens != null) detail += (detail ? " · " : "") + `${step.tokens} tokens`;
+        if (!detail) detail = step.node_id;
+        return `<li><span class="num">${step.step}</span><span class="event">${esc(step.event_type)}</span><span class="detail">${esc(detail)}</span></li>`;
+      }).join("");
+    }
 
+    function renderViolations(violations, passed) {
+      const card = document.getElementById("violations-card");
       const container = document.getElementById("violations-table");
-      const violations = data.violations || [];
-      if (violations.length === 0) {
-        container.innerHTML = '<p class="empty">No violations.</p>';
+      if (!violations || violations.length === 0) {
+        card.hidden = true;
         return;
       }
+      card.hidden = false;
       let html = "<table><thead><tr><th>Invariant</th><th>Node</th><th>Message</th></tr></thead><tbody>";
       for (const v of violations) {
         html += `<tr><td><code>${esc(v.invariant_id)}</code></td><td>${esc(v.node_id || "—")}</td><td>${esc(v.message)}</td></tr>`;
@@ -139,8 +232,29 @@
       container.innerHTML = html;
     }
 
-    function esc(s) {
-      return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+    function render(data) {
+      if (!data || typeof data.passed !== "boolean") {
+        alert("Invalid diagnostic JSON. Expected output from air-engine verify --output or view.");
+        return;
+      }
+      emptyState.hidden = true;
+      results.classList.add("visible");
+      toggleUpload.hidden = false;
+      uploadCard.classList.remove("visible");
+
+      const badge = document.getElementById("status-badge");
+      badge.textContent = data.passed ? "PASS" : "FAIL";
+      badge.className = "badge " + (data.passed ? "pass" : "fail");
+
+      let traceLabel = data.trace_id || "—";
+      if (data.meta && data.meta.trace_file) {
+        traceLabel += " · " + data.meta.trace_file;
+      }
+      document.getElementById("trace-id").textContent = traceLabel;
+
+      renderStats(data.summary, data);
+      renderTimeline(data.timeline);
+      renderViolations(data.violations || [], data.passed);
     }
 
     function loadFile(file) {
@@ -155,18 +269,21 @@
     fileInput.addEventListener("change", () => {
       if (fileInput.files[0]) loadFile(fileInput.files[0]);
     });
-    dropzone.addEventListener("dragover", (e) => { e.preventDefault(); dropzone.classList.add("dragover"); });
-    dropzone.addEventListener("dragleave", () => dropzone.classList.remove("dragover"));
+    dropzone.addEventListener("dragover", (e) => { e.preventDefault(); });
     dropzone.addEventListener("drop", (e) => {
       e.preventDefault();
-      dropzone.classList.remove("dragover");
       if (e.dataTransfer.files[0]) loadFile(e.dataTransfer.files[0]);
     });
 
     fetch(".report.json")
       .then((r) => (r.ok ? r.json() : null))
-      .then((data) => { if (data) render(data); })
-      .catch(() => {});
+      .then((data) => {
+        if (data) render(data);
+        else {
+          uploadCard.classList.add("visible");
+        }
+      })
+      .catch(() => uploadCard.classList.add("visible"));
   </script>
 </body>
 </html>

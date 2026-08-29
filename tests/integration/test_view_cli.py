@@ -39,6 +39,9 @@ def test_prepare_report_from_trace() -> None:
     payload = json.loads(report_path.read_text(encoding="utf-8"))
     assert payload["passed"] is True
     assert payload["violation_count"] == 0
+    assert "summary" in payload
+    assert "timeline" in payload
+    assert payload["summary"]["llm_calls"] >= 1
 
 
 def test_prepare_report_from_diagnostic_file(tmp_path: Path) -> None:
