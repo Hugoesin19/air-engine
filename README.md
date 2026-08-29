@@ -12,6 +12,28 @@ It does not execute your agents. It observes completed executions, translates th
 
 The goal is to bring CI-style regression detection to probabilistic systems: deterministic, reproducible diagnostics that can gate merges before production.
 
+## Quick start (5 minutes)
+
+Prerequisites: **Python 3.12+** and [uv](https://docs.astral.sh/uv/).
+
+```bash
+git clone https://github.com/Hugoesin19/air-engine.git
+cd air-engine
+uv sync
+
+# 1) Generate a deterministic mock agent run (no API keys)
+uv run python examples/demo_agent/run.py
+
+# 2) Verify against the default policy → expect PASS (exit code 0)
+uv run air-engine verify examples/demo_agent/artifacts/mock_run.json \
+  --contract examples/policies/mvp.yaml \
+  --source capture
+```
+
+You should see `PASS` and `violations: 0`. Run the full test suite with `uv run pytest`.
+
+More examples (canonical AIR traces, LangGraph/OpenAI fixtures, CI reports, `diff`) are below.
+
 ## Architecture
 
 Seven responsibility domains, unidirectional data flow:
@@ -34,7 +56,7 @@ Capture → Adapters → AIR → Verification ← Contracts
 
 The core (`core`, `analyzer`) has **zero external dependencies** and knows only about events and graphs — never about OpenAI, LangGraph, or any specific framework.
 
-## Quick example
+## More examples
 
 ```bash
 # Validate structure + metrics
@@ -88,6 +110,8 @@ uv run air-engine verify examples/fixtures/recorded/openai_responses_search.json
 
 - [MVP Roadmap](docs/MVP_ROADMAP.md) — Sprints 0–5 (complete)
 - [Product Roadmap](docs/PRODUCT_ROADMAP.md) — post-MVP plan (Sprints 6+)
+- [Next Steps Roadmap](docs/NEXT_STEPS_ROADMAP.md) — adoption → product (after v1)
+- [Changelog](CHANGELOG.md)
 - [Architecture specs](docs/architecture/) — formal AIR schema and contract model
 - [Architecture Decision Records](docs/adrs/) — foundational design decisions
 
@@ -189,8 +213,8 @@ uv run air-engine verify examples/trace_valid_minimal.json --contract examples/p
 air-engine is an **open-source product under active development**, started as a Final Year Project and evolving toward a production-ready verification tool for AI-agent workflows.
 
 - **MVP:** complete (AIR core, contracts, adapters, CLI)
-- **v1 (in progress):** capture, mock-first demos, CI gates, policy packs, diagnostic export
-- **Later:** formal contract DSL, tooling UX, scalable verification
+- **v1:** complete (capture, CI, policy packs, reports, `diff` regression gate)
+- **Next:** real pilot runs and easier capture — [Next Steps Roadmap](docs/NEXT_STEPS_ROADMAP.md)
 
 This repository is the source of truth for design and implementation. Contributions and feedback are welcome under the license below.
 

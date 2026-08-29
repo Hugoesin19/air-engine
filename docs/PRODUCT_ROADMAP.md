@@ -286,6 +286,7 @@ event log → adapters → parser → core ← analyzer ← contracts
 ## Related Documents
 
 - [MVP Roadmap](MVP_ROADMAP.md) — Sprints 0–5 (complete)
+- [Next Steps Roadmap](NEXT_STEPS_ROADMAP.md) — adoption → product (after v1 engine)
 - [ADR Index](adrs/README.md)
 - [AIR Schema 1.0.0](architecture/air-schema-1.0.0.md)
 - [README](../README.md) — version map (MVP → v5)
