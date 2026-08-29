@@ -41,7 +41,7 @@
 **Goal:** Main is clean, tagged, and anyone can reproduce a PASS from the README.
 
 - [x] All pending work committed and pushed to `main`
-- [ ] CI green on GitHub (`quality`, `golden-fixtures`, `mock-agent-pipeline`)
+- [x] CI green on GitHub (`quality`, `golden-fixtures`, `mock-agent-pipeline`)
 - [x] Git tag for this baseline (e.g. `v0.2.0` or `v1.0.0-beta`)
 - [x] README has **one** 5-minute path: install → mock agent → `verify` → PASS
 - [x] Short CHANGELOG (what this release does / does not do)
@@ -174,7 +174,7 @@ Explicitly **out** of this step:
 | Date | Step | Completed | Next |
 |------|------|-----------|------|
 | 2026-08-24 | — | Document created; engine v1 (sprints 6–12) treated as done | Step 1 ship & freeze |
-| 2026-08-29 | 1 | README quick start, CHANGELOG, tag `v1.0.0-beta` | Step 2 pilot run |
+| 2026-08-29 | 1 | README quick start, CHANGELOG, commit `d2f4d54`, tag `v1.0.0-beta`, CI run #17 green | Step 2 pilot run |
 
 ---
 
