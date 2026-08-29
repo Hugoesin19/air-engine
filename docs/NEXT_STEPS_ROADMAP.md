@@ -5,7 +5,7 @@
 > Update checkboxes as you complete work.
 
 **Last updated:** 2026-08-29  
-**Current step:** Step 5 — Easy install & onboarding  
+**Current step:** Step 6 — Light UX (only if Step 5 is done)  
 **Related:** [Product Roadmap](PRODUCT_ROADMAP.md) (engine sprints) · [Baseline workflow](workflows/baseline.md)
 
 ---
@@ -107,11 +107,11 @@ Pick **one** stack first (LangGraph **or** OpenAI), not both.
 
 **Goal:** “Works on my machine” becomes “works on yours”.
 
-- [ ] Install path documented (`uv` and/or `pip` when published)
-- [ ] Errors from bad files / wrong `--source` are readable
+- [x] Install path documented (`uv` and/or `pip` when published)
+- [x] Errors from bad files / wrong `--source` are readable
 - [ ] Optional: publish a pre-release to PyPI (`0.2.0a1` is fine)
-- [ ] Optional: versioned GitHub Action reference in docs
-- [ ] 60-second demo script (mock or pilot → PASS; break → FAIL / REGRESSION)
+- [x] Optional: versioned GitHub Action reference in docs
+- [x] 60-second demo script (mock or pilot → PASS; break → FAIL / REGRESSION)
 
 **Done when:** A stranger (or you on a second PC) reaches first PASS/FAIL with the docs only.
 
@@ -163,8 +163,8 @@ Explicitly **out** of this step:
 | 2 | One real pilot run | ✅ |
 | 3 | Pilot as regression gate | ✅ |
 | 4 | Easy capture (one framework) | ✅ |
-| 5 | Easy install & onboarding | ⬜ Current |
-| 6 | Light UX | ⬜ Locked until Step 5 |
+| 5 | Easy install & onboarding | ✅ |
+| 6 | Light UX | ⬜ Current |
 | 7 | Prepare to commercialize | ⬜ Locked until usage signal |
 
 ---
@@ -174,6 +174,7 @@ Explicitly **out** of this step:
 | Date | Step | Completed | Next |
 |------|------|-----------|------|
 | 2026-08-24 | — | Document created; engine v1 (sprints 6–12) treated as done | Step 1 ship & freeze |
+| 2026-08-29 | 5 | INSTALL.md, ONBOARDING.md, demo_60s, source hints | Step 6 light UX |
 | 2026-08-29 | 4 | RunRecorder capture recipe + `examples/capture_recipe/`, e2e test | Step 5 onboarding |
 | 2026-08-29 | 3 | Pilot baseline/broken fixtures, `verify_gate.py`, diff e2e tests | Step 4 capture recipe |
 | 2026-08-29 | 2 | Gemini pilot live capture, `pilot/policies/live.yaml`, PASS, `FRICTION.md` | Step 3 diff gate |

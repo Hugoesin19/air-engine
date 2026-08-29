@@ -11,6 +11,9 @@ from air_engine.adapters import (
     adapt_langgraph_file,
     adapt_openai_file,
 )
+from air_engine.adapters._source_hints import detect_trace_source, wrong_source_message
+from air_engine.adapters.errors import UnsupportedFormatError
+from air_engine.adapters.json.adapter import load_external_json
 from air_engine.analyzer import compare_diagnostics, verify_trace
 from air_engine.analyzer.diagnostic import Diagnostic
 from air_engine.analyzer.diff import DiagnosticDiff
@@ -43,6 +46,7 @@ __all__ = [
 def load_trace(path: Path | str, *, source: TraceSource = "air") -> Trace:
     """Load external telemetry or a canonical AIR trace from disk."""
     resolved = Path(path)
+    _guard_source_hint(resolved, source=source)
     if source == "air":
         return adapt_json_file(resolved)
     if source == "capture":
@@ -53,6 +57,20 @@ def load_trace(path: Path | str, *, source: TraceSource = "air") -> Trace:
         return adapt_openai_file(resolved)
     msg = f"Unsupported trace source: {source!r}"
     raise ValueError(msg)
+
+
+def _guard_source_hint(path: Path, *, source: TraceSource) -> None:
+    """Raise a readable error when --source does not match the JSON file shape."""
+    if path.suffix.lower() != ".json":
+        return
+    try:
+        payload = load_external_json(path)
+    except OSError:
+        return
+    detected = detect_trace_source(payload)
+    if detected is not None and detected != source:
+        msg = wrong_source_message(str(path), used=source, detected=detected)
+        raise UnsupportedFormatError(msg)
 
 
 def verify(
