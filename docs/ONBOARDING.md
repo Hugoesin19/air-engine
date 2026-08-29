@@ -6,9 +6,10 @@ Use this on a **fresh clone** or second machine. Goal: first PASS/FAIL in under 
 
 - [ ] **1. Install** — follow [INSTALL.md](INSTALL.md) (`uv sync` or `pip install`)
 - [ ] **2. Demo** — `uv run python scripts/demo_60s.py` (PASS + FAIL + REGRESSION)
-- [ ] **3. Capture recipe** — [capture-run-recorder.md](recipes/capture-run-recorder.md) → your own `run.json`
-- [ ] **4. Policy** — pick `examples/policies/mvp.yaml` (or `strict` / `dev`)
-- [ ] **5. CI** — optional: wire [verify-trace action](../.github/actions/verify-trace/action.yml) in your repo
+- [ ] **3. Viewer** — [VIEWER.md](VIEWER.md) → `air-engine view --trace … --contract …`
+- [ ] **4. Capture recipe** — [capture-run-recorder.md](recipes/capture-run-recorder.md) → your own `run.json`
+- [ ] **5. Policy** — pick `examples/policies/mvp.yaml` (or `strict` / `dev`)
+- [ ] **6. CI** — optional: wire [verify-trace action](../.github/actions/verify-trace/action.yml) in your repo
 
 ## Done when
 

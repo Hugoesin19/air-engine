@@ -5,7 +5,7 @@
 > Update checkboxes as you complete work.
 
 **Last updated:** 2026-08-29  
-**Current step:** Step 6 — Light UX (only if Step 5 is done)  
+**Current step:** Step 7 — Prepare to commercialize (last)  
 **Related:** [Product Roadmap](PRODUCT_ROADMAP.md) (engine sprints) · [Baseline workflow](workflows/baseline.md)
 
 ---
@@ -125,8 +125,8 @@ Pick **one** stack first (LangGraph **or** OpenAI), not both.
 
 Start tiny. Prefer one of:
 
-- [ ] Local report viewer (open JSON/JUnit diagnostic in a simple page), **or**
-- [ ] Minimal local UI: upload/select trace + policy → show PASS/FAIL + violations
+- [x] Local report viewer (open JSON/JUnit diagnostic in a simple page), **or**
+- [x] Minimal local UI: upload/select trace + policy → show PASS/FAIL + violations
 
 Explicitly **out** of this step:
 
@@ -164,8 +164,8 @@ Explicitly **out** of this step:
 | 3 | Pilot as regression gate | ✅ |
 | 4 | Easy capture (one framework) | ✅ |
 | 5 | Easy install & onboarding | ✅ |
-| 6 | Light UX | ⬜ Current |
-| 7 | Prepare to commercialize | ⬜ Locked until usage signal |
+| 6 | Light UX | ✅ |
+| 7 | Prepare to commercialize | ⬜ Current |
 
 ---
 
@@ -174,6 +174,7 @@ Explicitly **out** of this step:
 | Date | Step | Completed | Next |
 |------|------|-----------|------|
 | 2026-08-24 | — | Document created; engine v1 (sprints 6–12) treated as done | Step 1 ship & freeze |
+| 2026-08-29 | 6 | `air-engine view` local diagnostic viewer + drag-drop HTML | Step 7 commercialize |
 | 2026-08-29 | 5 | INSTALL.md, ONBOARDING.md, demo_60s, source hints | Step 6 light UX |
 | 2026-08-29 | 4 | RunRecorder capture recipe + `examples/capture_recipe/`, e2e test | Step 5 onboarding |
 | 2026-08-29 | 3 | Pilot baseline/broken fixtures, `verify_gate.py`, diff e2e tests | Step 4 capture recipe |

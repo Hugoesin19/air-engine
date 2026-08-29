@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>air-engine diagnostic viewer</title>
+  <style>
+    :root {
+      --bg: #0f1419;
+      --surface: #1a2332;
+      --border: #2d3a4f;
+      --text: #e7ecf3;
+      --muted: #8b9bb4;
+      --pass: #3dd68c;
+      --fail: #f87171;
+      --accent: #60a5fa;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      min-height: 100vh;
+    }
+    header {
+      padding: 1.5rem 2rem;
+      border-bottom: 1px solid var(--border);
+      background: var(--surface);
+    }
+    header h1 { margin: 0; font-size: 1.25rem; font-weight: 600; }
+    header p { margin: 0.35rem 0 0; color: var(--muted); font-size: 0.9rem; }
+    main { max-width: 960px; margin: 0 auto; padding: 2rem; }
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1.25rem;
+    }
+    .badge {
+      display: inline-block;
+      font-weight: 700;
+      font-size: 1.1rem;
+      letter-spacing: 0.04em;
+      padding: 0.35rem 0.85rem;
+      border-radius: 6px;
+    }
+    .badge.pass { background: rgba(61, 214, 140, 0.15); color: var(--pass); }
+    .badge.fail { background: rgba(248, 113, 113, 0.15); color: var(--fail); }
+    .meta { margin-top: 1rem; color: var(--muted); font-size: 0.9rem; }
+    .meta dt { font-weight: 600; color: var(--text); display: inline; }
+    .meta dd { display: inline; margin: 0 1.25rem 0 0.35rem; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+    th, td { text-align: left; padding: 0.65rem 0.75rem; border-bottom: 1px solid var(--border); }
+    th { color: var(--muted); font-weight: 600; font-size: 0.8rem; text-transform: uppercase; }
+    .empty { color: var(--muted); font-style: italic; padding: 1rem 0; }
+    .dropzone {
+      border: 2px dashed var(--border);
+      border-radius: 10px;
+      padding: 2rem;
+      text-align: center;
+      color: var(--muted);
+      cursor: pointer;
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .dropzone:hover, .dropzone.dragover {
+      border-color: var(--accent);
+      background: rgba(96, 165, 250, 0.06);
+    }
+    .dropzone strong { color: var(--accent); }
+    input[type="file"] { display: none; }
+    #results { display: none; }
+    #results.visible { display: block; }
+    footer { text-align: center; color: var(--muted); font-size: 0.8rem; padding: 2rem; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>air-engine diagnostic viewer</h1>
+    <p>Local report viewer — no cloud, no LLM-as-judge</p>
+  </header>
+  <main>
+    <div class="card">
+      <label class="dropzone" id="dropzone" for="file-input">
+        <strong>Load diagnostic JSON</strong><br />
+        Drop a file from <code>air-engine verify --output report.json</code><br />
+        or click to browse
+      </label>
+      <input type="file" id="file-input" accept=".json,application/json" />
+    </div>
+
+    <div id="results">
+      <div class="card">
+        <span id="status-badge" class="badge"></span>
+        <dl class="meta">
+          <dt>trace_id</dt><dd id="trace-id"></dd>
+          <dt>violations</dt><dd id="violation-count"></dd>
+          <dt>schema</dt><dd id="schema-version"></dd>
+        </dl>
+      </div>
+      <div class="card">
+        <h2 style="margin:0 0 1rem;font-size:1rem;">Violations</h2>
+        <div id="violations-table"></div>
+      </div>
+    </div>
+  </main>
+  <footer>air-engine · deterministic post-mortem verification</footer>
+  <script>
+    const dropzone = document.getElementById("dropzone");
+    const fileInput = document.getElementById("file-input");
+    const results = document.getElementById("results");
+
+    function render(data) {
+      if (!data || typeof data.passed !== "boolean") {
+        alert("Invalid diagnostic JSON. Expected output from air-engine verify --output.");
+        return;
+      }
+      results.classList.add("visible");
+      const badge = document.getElementById("status-badge");
+      badge.textContent = data.passed ? "PASS" : "FAIL";
+      badge.className = "badge " + (data.passed ? "pass" : "fail");
+      document.getElementById("trace-id").textContent = data.trace_id || "—";
+      document.getElementById("violation-count").textContent = String(data.violation_count ?? 0);
+      document.getElementById("schema-version").textContent = data.diagnostic_schema_version || "—";
+
+      const container = document.getElementById("violations-table");
+      const violations = data.violations || [];
+      if (violations.length === 0) {
+        container.innerHTML = '<p class="empty">No violations.</p>';
+        return;
+      }
+      let html = "<table><thead><tr><th>Invariant</th><th>Node</th><th>Message</th></tr></thead><tbody>";
+      for (const v of violations) {
+        html += `<tr><td><code>${esc(v.invariant_id)}</code></td><td>${esc(v.node_id || "—")}</td><td>${esc(v.message)}</td></tr>`;
+      }
+      html += "</tbody></table>";
+      container.innerHTML = html;
+    }
+
+    function esc(s) {
+      return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+    }
+
+    function loadFile(file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        try { render(JSON.parse(reader.result)); }
+        catch { alert("Could not parse JSON file."); }
+      };
+      reader.readAsText(file);
+    }
+
+    fileInput.addEventListener("change", () => {
+      if (fileInput.files[0]) loadFile(fileInput.files[0]);
+    });
+    dropzone.addEventListener("dragover", (e) => { e.preventDefault(); dropzone.classList.add("dragover"); });
+    dropzone.addEventListener("dragleave", () => dropzone.classList.remove("dragover"));
+    dropzone.addEventListener("drop", (e) => {
+      e.preventDefault();
+      dropzone.classList.remove("dragover");
+      if (e.dataTransfer.files[0]) loadFile(e.dataTransfer.files[0]);
+    });
+
+    fetch(".report.json")
+      .then((r) => (r.ok ? r.json() : null))
+      .then((data) => { if (data) render(data); })
+      .catch(() => {});
+  </script>
+</body>
+</html>

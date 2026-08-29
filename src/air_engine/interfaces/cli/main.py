@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import argparse
 
-from air_engine.interfaces.cli.commands import diff, validate, verify
+from air_engine.interfaces.cli.commands import diff, validate, verify, view
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -16,6 +16,7 @@ def build_parser() -> argparse.ArgumentParser:
     validate.register(subparsers)
     verify.register(subparsers)
     diff.register(subparsers)
+    view.register(subparsers)
     return parser
 
 

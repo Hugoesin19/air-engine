@@ -59,6 +59,12 @@ Pre-release target: `0.2.0a1` on PyPI (optional roadmap item).
 ```bash
 # 60-second demo: mock agent → PASS → FAIL → REGRESSION
 uv run python scripts/demo_60s.py
+
+# Browser viewer (Ctrl+C to stop)
+uv run air-engine view \
+  --trace examples/demo_agent/artifacts/mock_run.json \
+  --contract examples/policies/mvp.yaml \
+  --source capture
 ```
 
 Or manually:

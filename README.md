@@ -32,7 +32,7 @@ uv run air-engine verify examples/demo_agent/artifacts/mock_run.json \
 
 You should see `PASS` and `violations: 0`. Run the full test suite with `uv run pytest`.
 
-**Install options:** [docs/INSTALL.md](docs/INSTALL.md) · **60s demo:** `uv run python scripts/demo_60s.py`
+**Install options:** [docs/INSTALL.md](docs/INSTALL.md) · **60s demo:** `uv run python scripts/demo_60s.py` · **Viewer:** `uv run air-engine view --trace … --contract … --source capture`
 
 More examples (canonical AIR traces, LangGraph/OpenAI fixtures, CI reports, `diff`) are below.
 
@@ -115,6 +115,7 @@ uv run air-engine verify examples/fixtures/recorded/openai_responses_search.json
 - [Next Steps Roadmap](docs/NEXT_STEPS_ROADMAP.md) — adoption → product (after v1)
 - [Install guide](docs/INSTALL.md) — `uv`, `pip`, GitHub Action
 - [Onboarding checklist](docs/ONBOARDING.md) — first PASS/FAIL on a fresh machine
+- [Diagnostic viewer](docs/VIEWER.md) — `air-engine view` in the browser
 - [Capture recipe](docs/recipes/capture-run-recorder.md) — instrument any agent with `RunRecorder`
 - [Changelog](CHANGELOG.md)
 - [Architecture specs](docs/architecture/) — formal AIR schema and contract model
