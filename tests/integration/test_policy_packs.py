@@ -4,8 +4,8 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from air_engine.contracts import load_policy_file
-from air_engine.interfaces.library import verify
+from varly.contracts import load_policy_file
+from varly.interfaces.library import verify
 
 EXAMPLES_DIR = Path(__file__).resolve().parents[2] / "examples"
 POLICIES_DIR = EXAMPLES_DIR / "policies"

@@ -6,7 +6,7 @@ import subprocess
 import sys
 from pathlib import Path
 
-from air_engine.interfaces.cli.main import run
+from varly.interfaces.cli.main import run
 
 EXAMPLES_DIR = Path(__file__).resolve().parents[2] / "examples"
 
@@ -30,7 +30,7 @@ def test_installed_entry_point_validates_trace() -> None:
         [
             sys.executable,
             "-m",
-            "air_engine.interfaces.cli.main",
+            "varly.interfaces.cli.main",
             "validate",
             str(EXAMPLES_DIR / "trace_valid_minimal.json"),
         ],

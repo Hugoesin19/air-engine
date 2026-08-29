@@ -1,4 +1,4 @@
-name: CI
+﻿name: CI
 
 on:
   push:
@@ -119,6 +119,6 @@ jobs:
 
       - name: Install wheel and run bundled demo
         run: |
-          pip install dist/air_engine-*.whl
-          air-engine verify --demo
-          air-engine --help
+          pip install dist/varly-*.whl
+          varly verify --demo
+          varly --help

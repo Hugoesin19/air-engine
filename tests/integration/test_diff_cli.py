@@ -4,8 +4,8 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from air_engine.interfaces.cli.main import run
-from air_engine.interfaces.library import compare_traces
+from varly.interfaces.cli.main import run
+from varly.interfaces.library import compare_traces
 
 EXAMPLES_DIR = Path(__file__).resolve().parents[2] / "examples"
 POLICY = EXAMPLES_DIR / "policies" / "mvp.yaml"

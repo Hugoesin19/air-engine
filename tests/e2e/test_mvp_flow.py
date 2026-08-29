@@ -4,11 +4,11 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from air_engine.analyzer import verify_trace
-from air_engine.contracts import load_policy_file
-from air_engine.core import NodeId, reconstruct_state
-from air_engine.interfaces.cli.main import run
-from air_engine.parser import parse_trace_file
+from varly.analyzer import verify_trace
+from varly.contracts import load_policy_file
+from varly.core import NodeId, reconstruct_state
+from varly.interfaces.cli.main import run
+from varly.parser import parse_trace_file
 
 EXAMPLES_DIR = Path(__file__).resolve().parents[2] / "examples"
 

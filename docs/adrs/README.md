@@ -1,6 +1,6 @@
-# ADR Index
+﻿# ADR Index
 
-Architecture Decision Records document foundational technical decisions for air-engine.
+Architecture Decision Records document foundational technical decisions for varly.
 
 ADRs are **immutable**. To change a decision, publish a new ADR that explicitly supersedes the previous one.
 

@@ -1,6 +1,6 @@
-# Architecture Specification
+﻿# Architecture Specification
 
-Formal specifications for the air-engine verification infrastructure.
+Formal specifications for the varly verification infrastructure.
 
 ## Planned Documents
 

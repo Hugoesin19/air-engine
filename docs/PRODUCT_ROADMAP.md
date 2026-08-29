@@ -1,6 +1,6 @@
-# Product Roadmap (Post-MVP → v1)
+﻿# Product Roadmap (Post-MVP → v1)
 
-> Living document for air-engine product evolution after MVP.  
+> Living document for varly product evolution after MVP.  
 > **Update this file** at the start/end of each work session.  
 > Reference: [Project Bible](../projectBilde.pdf) · [MVP Roadmap](MVP_ROADMAP.md) · [ADRs](adrs/) · [Architecture](architecture/)
 
@@ -13,7 +13,7 @@
 
 ## Product Vision (Project Bible alignment)
 
-air-engine is **post-mortem verification infrastructure** for AI agent executions:
+varly is **post-mortem verification infrastructure** for AI agent executions:
 
 - Translate completed runs into immutable **AIR** causal graphs.
 - Evaluate **deterministic contracts** (not LLM-as-judge, not exact string match).
@@ -21,7 +21,7 @@ air-engine is **post-mortem verification infrastructure** for AI agent execution
 
 **What we are building toward (v1 product):**
 
-> A developer installs air-engine, runs a agent (or replay fixture), and gets PASS/FAIL in CI — with user-defined policy YAML — **without paying for API calls during development.**
+> A developer installs varly, runs a agent (or replay fixture), and gets PASS/FAIL in CI — with user-defined policy YAML — **without paying for API calls during development.**
 
 **What we are NOT building (identity guardrails):**
 
@@ -40,7 +40,7 @@ These constraints govern **all sprints below** until explicitly revoked:
 |----|------------|-------------|
 | C1 | **Zero API budget** | No sprint may *require* paid OpenAI/Anthropic/etc. calls |
 | C2 | **Mock-first development** | Agents in repo are deterministic simulators or replay fixtures |
-| C3 | **Live API optional** | Real API only behind explicit opt-in (`AIR_ENGINE_LIVE=1` + user key); never in CI |
+| C3 | **Live API optional** | Real API only behind explicit opt-in (`varly_LIVE=1` + user key); never in CI |
 | C4 | **Core purity** | `core/` and `analyzer/` remain stdlib-only; no framework imports |
 | C5 | **Vertical slices** | Each sprint must demo end-to-end value, not isolated layers |
 | C6 | **Immutable Trace** | Capture writes external logs; adapters produce AIR; verify never mutates |
@@ -63,7 +63,7 @@ These constraints govern **all sprints below** until explicitly revoked:
 
 ## v1 Definition
 
-v1 is **product-ready open source**: another developer can adopt air-engine in CI using mocks/fixtures, custom policies, and clear docs — without contacting us and without API spend.
+v1 is **product-ready open source**: another developer can adopt varly in CI using mocks/fixtures, custom policies, and clear docs — without contacting us and without API spend.
 
 ### Success Criteria (all required for v1 ✅)
 
@@ -113,7 +113,7 @@ Priority order when unsure:
 **Goal:** First end-to-end run that is *not* hand-written JSON — still zero API cost.
 
 - [x] `docs/architecture/capture-event-log-1.0.0.md` — capture event log format
-- [x] `src/air_engine/capture/` — `RunRecorder`, event types, flush to disk
+- [x] `src/varly/capture/` — `RunRecorder`, event types, flush to disk
 - [x] `examples/demo_agent/` — deterministic mock agent (tool call + return, timestamps, tokens)
 - [x] Native capture log (`capture-event-log-1.0.0`) → capture adapter → AIR
 - [x] `tests/e2e/test_mock_agent_pipeline.py` — run mock → verify PASS
@@ -126,7 +126,7 @@ Priority order when unsure:
 
 ### Sprint 7 — GitHub Action + Fixture CI ✅
 
-**Goal:** PR gate using air-engine; CI never calls external APIs.
+**Goal:** PR gate using varly; CI never calls external APIs.
 
 - [x] `.github/actions/verify-trace/` — composite action (validate + verify)
 - [x] Workflow: verify golden fixtures on every PR
@@ -147,7 +147,7 @@ Priority order when unsure:
 - [x] `examples/policies/strict.yaml` — tight duration/token limits
 - [x] `examples/policies/dev.yaml` — relaxed limits for local runs
 - [x] `docs/policies/README.md` — param reference for each invariant
-- [x] `air-engine verify --output diagnostic.json` (or library export)
+- [x] `varly verify --output diagnostic.json` (or library export)
 - [x] Diagnostic JSON schema doc in `docs/architecture/`
 - [x] Tests: same trace + different policies → different PASS/FAIL as expected
 
@@ -167,7 +167,7 @@ Candidates (pick ≥3 for v1):
 - [x] `max_tool_calls` — cap tool_call nodes
 - [ ] `forbidden_referential_edges` — restrict E_r patterns (optional)
 
-- [x] `src/air_engine/contracts/builtins/` — new modules per category
+- [x] `src/varly/contracts/builtins/` — new modules per category
 - [x] Update `examples/policies/*.yaml` with new rules
 - [x] Unit tests per invariant + false-positive checks on valid trace
 
@@ -183,7 +183,7 @@ Candidates (pick ≥3 for v1):
 - [x] Document mapping: LangGraph callback events → `langgraph.run.v1`
 - [x] `examples/fixtures/recorded/` — anonymized real-shaped captures (manual or exported once)
 - [x] Adapter regression tests: fixture → same event sequence as golden AIR
-- [x] Optional: `AIR_ENGINE_LIVE=1` script stub for user-owned API key (not CI)
+- [x] Optional: `varly_LIVE=1` script stub for user-owned API key (not CI)
 
 **Done when:** a recorded OpenAI-shaped fixture verifies PASS without calling OpenAI in tests.
 
@@ -191,7 +191,7 @@ Candidates (pick ≥3 for v1):
 
 ### Sprint 11 — CI Report Formats ✅
 
-**Goal:** air-engine plugs into existing CI UX.
+**Goal:** varly plugs into existing CI UX.
 
 - [x] JUnit XML output mode (for GitHub/GitLab test summary)
 - [x] SARIF output mode (for security/code scanning tabs)
@@ -206,7 +206,7 @@ Candidates (pick ≥3 for v1):
 
 **Goal:** Detect when a new run is *worse* than baseline (product differentiation).
 
-- [x] `air-engine diff baseline.json current.json --contract policy.yaml`
+- [x] `varly diff baseline.json current.json --contract policy.yaml`
 - [x] Compare violation sets deterministically
 - [x] Fail if new violations appear (regression gate)
 - [x] Docs: “baseline trace” workflow for teams
@@ -269,7 +269,7 @@ event log → adapters → parser → core ← analyzer ← contracts
 | 2026-08-18 | Sprint 9 | Business invariants (llm/tool caps, allowlist, event sequence), list params | Sprint 10 real adapter formats |
 | 2026-08-24 | Sprint 10 | Recorded OpenAI Responses + LangGraph callbacks, mapping docs, live stub | Sprint 11 CI report formats |
 | 2026-08-24 | Sprint 11 | verify --format json/junit/sarif, GitHub annotations, Action artifact/SARIF | Sprint 12 trace comparison |
-| 2026-08-24 | Sprint 12 | air-engine diff regression gate, deterministic violation sets, baseline docs | v1.5 complete — backlog |
+| 2026-08-24 | Sprint 12 | varly diff regression gate, deterministic violation sets, baseline docs | v1.5 complete — backlog |
 
 ---
 

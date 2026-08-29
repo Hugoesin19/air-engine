@@ -1,11 +1,11 @@
-# Product Development Roadmap
+﻿# Product Development Roadmap
 
 > **Active roadmap** — primary goal is a **shippable OSS product** for developers (and a foundation enterprises can adopt later).  
 > The TFG is satisfied by documenting what exists; this file drives **what to build next**.
 
 **Last updated:** 2026-08-29  
 **Current phase:** **P1 — Distribution & release** (tag `v1.0.0` + PyPI publish pending)  
-**North star:** A developer installs air-engine, captures a real agent run with minimal friction, and gets PASS/FAIL + regression gates in CI — without LLM-as-judge.
+**North star:** A developer installs varly, captures a real agent run with minimal friction, and gets PASS/FAIL + regression gates in CI — without LLM-as-judge.
 
 **Completed foundation:** Engine v1 (Sprints 0–12) · Adoption steps 1–6 · [Next Steps archive](NEXT_STEPS_ROADMAP.md)
 
@@ -13,7 +13,7 @@
 
 ## Product identity (do not drift)
 
-| air-engine **is** | air-engine **is not** |
+| varly **is** | varly **is not** |
 |-------------------|------------------------|
 | Post-mortem **deterministic** verification | Real-time observability (LangSmith-style) |
 | Contract / policy gates for agent **behavior** | LLM-as-judge evals |
@@ -44,13 +44,13 @@
 **Goal:** Anyone can install a **versioned** package without cloning the repo.
 
 - [x] Bump version to `1.0.0` (or `0.2.0` if you prefer cautious semver)
-- [ ] Publish to **PyPI** (`pip install air-engine`) — workflow ready; **push tag `v1.0.0`** to trigger
+- [ ] Publish to **PyPI** (`pip install varly`) — workflow ready; **push tag `v1.0.0`** to trigger
 - [x] README install path: PyPI first, git second
 - [ ] Git tag + GitHub Release notes — after PyPI trusted publishing is configured
 - [x] Document **published** GitHub Action (`uses: …@v1.0.0`)
 - [x] CI smoke: install from wheel in `package-smoke` job
 
-**Done when:** Fresh machine → `pip install air-engine` → `demo_60s` equivalent PASS.
+**Done when:** Fresh machine → `pip install varly` → `demo_60s` equivalent PASS.
 
 **Next:** P2
 
@@ -91,12 +91,12 @@ Pick **LangGraph** first (callback export already partially supported) **or** Op
 
 ## P4 — Team readiness
 
-**Goal:** Small teams can standardize on air-engine in CI.
+**Goal:** Small teams can standardize on varly in CI.
 
 - [ ] Document team workflow: baseline per branch, `diff` on PR
 - [ ] Verify **multiple** traces in one command or script
 - [ ] Report artifacts (JUnit/SARIF) documented for GitHub/GitLab
-- [ ] Optional: `air-engine verify` exit codes + JSON stable for wrappers
+- [ ] Optional: `varly verify` exit codes + JSON stable for wrappers
 
 **Done when:** README has a “Team CI” section copy-paste ready.
 

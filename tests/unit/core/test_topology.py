@@ -8,7 +8,7 @@ from typing import Any
 
 import pytest
 
-from air_engine.core import (
+from varly.core import (
     AIR_SCHEMA_VERSION,
     ControlEdge,
     ControlEdgeKind,
@@ -26,7 +26,7 @@ from air_engine.core import (
     UnreachableNodeError,
     validate_trace_structure,
 )
-from air_engine.core.topology import causal_ancestors
+from varly.core.topology import causal_ancestors
 
 EXAMPLES_DIR = Path(__file__).resolve().parents[3] / "examples"
 

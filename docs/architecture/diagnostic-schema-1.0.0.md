@@ -1,10 +1,10 @@
-# Diagnostic Schema 1.0.0
+﻿# Diagnostic Schema 1.0.0
 
-JSON serialization format for verification **Diagnostics** produced by air-engine.
+JSON serialization format for verification **Diagnostics** produced by varly.
 
 **Status:** Draft (Product Sprint 8)  
 **Version:** `1.0.0`  
-**Producer:** `air-engine verify --output` · library `write_diagnostic_json()`
+**Producer:** `varly verify --output` · library `write_diagnostic_json()`
 
 ---
 
@@ -82,7 +82,7 @@ Violations are ordered by contract invariant declaration order, then by message 
 ## CLI usage
 
 ```bash
-uv run air-engine verify trace.json \
+uv run varly verify trace.json \
   --contract examples/policies/strict.yaml \
   --output diagnostic.json
 ```
@@ -96,7 +96,7 @@ uv run air-engine verify trace.json \
 
 ```python
 from pathlib import Path
-from air_engine.interfaces.library import verify, write_diagnostic_json
+from varly.interfaces.library import verify, write_diagnostic_json
 
 diagnostic = verify("trace.json", "policy.yaml")
 write_diagnostic_json(diagnostic, Path("diagnostic.json"))

@@ -10,7 +10,7 @@ import sys
 import time
 from pathlib import Path
 
-from air_engine.capture import RunRecorder
+from varly.capture import RunRecorder
 
 _SCRIPT_DIR = Path(__file__).resolve().parent
 if str(_SCRIPT_DIR) not in sys.path:
@@ -79,13 +79,13 @@ def _extract_search_query(plan_text: str, *, fallback: str) -> str:
     lowered = plan_text.lower()
     if "france" in lowered or "paris" in lowered:
         return "capital of France"
-    if "air-engine" in lowered or "air engine" in lowered:
-        return "air-engine"
+    if "varly" in lowered or "air engine" in lowered:
+        return "varly"
     return fallback
 
 
 def _dry_plan(question: str) -> tuple[str, int]:
-    query_value = "capital of France" if "france" in question.lower() else "air-engine"
+    query_value = "capital of France" if "france" in question.lower() else "varly"
     text = json.dumps(
         {
             "action": "search",

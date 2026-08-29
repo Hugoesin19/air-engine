@@ -4,9 +4,9 @@ from __future__ import annotations
 
 import pytest
 
-from air_engine.analyzer import verify_trace
-from air_engine.contracts import Contract, InvalidInvariantParamError, InvariantSpec
-from air_engine.core import (
+from varly.analyzer import verify_trace
+from varly.contracts import Contract, InvalidInvariantParamError, InvariantSpec
+from varly.core import (
     AIR_SCHEMA_VERSION,
     Node,
     NodeId,

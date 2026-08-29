@@ -1,6 +1,6 @@
-# Changelog
+﻿# Changelog
 
-All notable changes to air-engine are documented here.
+All notable changes to varly are documented here.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/). Versioning aims at [SemVer](https://semver.org/).
 
@@ -10,14 +10,15 @@ First **PyPI** release. Product phases P0–P6 complete; distribution (P1) ships
 
 ### Added
 
-- **`pip install air-engine`** — bundled policies (`mvp`, `strict`, `dev`) and mock fixture
-- **`air-engine verify --demo`** — smoke test without cloning the repo
-- **`air-engine view`** — local browser diagnostic viewer with run summary and timeline
+- **`pip install varly`** — bundled policies (`mvp`, `strict`, `dev`) and mock fixture
+- **`varly verify --demo`** — smoke test without cloning the repo
+- **`varly view`** — local browser diagnostic viewer with run summary and timeline
 - Pilot Gemini capture, regression `diff` gate, capture recipe, source hints, `demo_60s` script
 - Publish workflow (`.github/workflows/publish.yml`) for tags `v*`
 
 ### Changed
 
+- **Product name:** `air-engine` → **Varly** (`pip install varly`, CLI `varly`)
 - Version `1.0.0` (from `0.1.0` / `v1.0.0-beta` tag)
 - Development status: Beta
 

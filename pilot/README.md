@@ -1,17 +1,17 @@
-# Pilot runs (Step 2)
+﻿# Pilot runs (Step 2)
 
 This folder holds **real-shaped agent pilots** — outside `examples/` toys and hand-written golden fixtures.
 
 ## Product model
 
-air-engine does **not** run your agent in production. The commercial flow is:
+varly does **not** run your agent in production. The commercial flow is:
 
 ```
 Your agent runs (any LLM / framework)
         ↓
 Capture produces a JSON event log
         ↓
-air-engine verify → PASS / FAIL
+varly verify → PASS / FAIL
 ```
 
 The pilot reproduces that flow with a minimal **research assistant**: plan → `search` tool → answer.
@@ -64,7 +64,7 @@ uv run python pilot/gemini_research_assistant/run.py
 # Should print: Pilot capture written (live): ...
 
 # 4) Verify the capture (live runs: use pilot policy — real API latency exceeds mvp 10s cap)
-uv run air-engine verify pilot/artifacts/research_run.json `
+uv run varly verify pilot/artifacts/research_run.json `
   --contract pilot/policies/live.yaml --source capture
 ```
 
@@ -86,7 +86,7 @@ uv run python pilot/gemini_research_assistant/run.py
 ### Verify
 
 ```bash
-uv run air-engine verify pilot/artifacts/research_run.json \
+uv run varly verify pilot/artifacts/research_run.json \
   --contract pilot/policies/live.yaml \
   --source capture
 ```
@@ -116,12 +116,12 @@ Frozen baseline: [`artifacts/baseline_research_run.json`](artifacts/baseline_res
 uv run python pilot/scripts/verify_gate.py
 
 # Or manually:
-uv run air-engine diff pilot/artifacts/baseline_research_run.json `
+uv run varly diff pilot/artifacts/baseline_research_run.json `
   pilot/artifacts/research_run.json `
   --contract pilot/policies/live.yaml --source capture
 
 # Intentional break demo → exit 1 (REGRESSION)
-uv run air-engine diff pilot/artifacts/baseline_research_run.json `
+uv run varly diff pilot/artifacts/baseline_research_run.json `
   pilot/artifacts/broken_research_run.json `
   --contract pilot/policies/live.yaml --source capture
 ```

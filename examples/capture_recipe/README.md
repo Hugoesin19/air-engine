@@ -1,4 +1,4 @@
-# Capture recipe
+﻿# Capture recipe
 
 Copy-paste template for instrumenting **any Python agent** with `RunRecorder`.
 
@@ -6,7 +6,7 @@ Copy-paste template for instrumenting **any Python agent** with `RunRecorder`.
 
 ```bash
 uv run python examples/capture_recipe/run.py
-uv run air-engine verify examples/capture_recipe/artifacts/run.json \
+uv run varly verify examples/capture_recipe/artifacts/run.json \
   --contract examples/policies/mvp.yaml --source capture
 ```
 

@@ -1,12 +1,12 @@
-# air-engine
+﻿# Varly
 
-> Deterministic runtime verification engine for AI agents.
+> Deterministic contract verification for AI agent runs.
 
-AIR (Analysis Intermediate Representation) transforms agent executions into immutable causal graphs to mathematically enforce structural and semantic contracts — without relying on LLMs for evaluation.
+AIR (Analysis Intermediate Representation) is the internal trace format. Varly verifies completed agent runs against YAML contracts — without LLM-as-judge.
 
 ## What is it?
 
-air-engine is a **post-mortem verification infrastructure** for software systems with non-deterministic components (LLMs, multi-agent workflows).
+varly is a **post-mortem verification infrastructure** for software systems with non-deterministic components (LLMs, multi-agent workflows).
 
 It does not execute your agents. It observes completed executions, translates them into a provider-agnostic intermediate representation (AIR), and evaluates **properties and invariants** defined in contracts — not exact string matches.
 
@@ -19,8 +19,8 @@ Prerequisites: **Python 3.12+**.
 ### Install from PyPI (recommended)
 
 ```bash
-pip install air-engine
-air-engine verify --demo
+pip install varly
+varly verify --demo
 ```
 
 Expect `PASS` and `violations: 0`.
@@ -38,14 +38,14 @@ uv sync
 uv run python examples/demo_agent/run.py
 
 # 2) Verify against the default policy → expect PASS (exit code 0)
-uv run air-engine verify examples/demo_agent/artifacts/mock_run.json \
+uv run varly verify examples/demo_agent/artifacts/mock_run.json \
   --contract examples/policies/mvp.yaml \
   --source capture
 ```
 
 You should see `PASS` and `violations: 0`. Run the full test suite with `uv run pytest`.
 
-**Install options:** [docs/INSTALL.md](docs/INSTALL.md) · **60s demo:** `uv run python scripts/demo_60s.py` · **Viewer:** `uv run air-engine view --trace … --contract … --source capture`
+**Install options:** [docs/INSTALL.md](docs/INSTALL.md) · **60s demo:** `uv run python scripts/demo_60s.py` · **Viewer:** `uv run varly view --trace … --contract … --source capture`
 
 More examples (canonical AIR traces, LangGraph/OpenAI fixtures, CI reports, `diff`) are below.
 
@@ -75,10 +75,10 @@ The core (`core`, `analyzer`) has **zero external dependencies** and knows only 
 
 ```bash
 # Validate structure + metrics
-uv run air-engine validate examples/trace_valid_minimal.json --show-dag
+uv run varly validate examples/trace_valid_minimal.json --show-dag
 
 # Verify against the full MVP policy
-uv run air-engine verify examples/trace_valid_minimal.json \
+uv run varly verify examples/trace_valid_minimal.json \
   --contract examples/policy_mvp.yaml --show-metrics
 
 # Generate a deterministic mock agent run with zero API cost
@@ -86,7 +86,7 @@ uv run python examples/demo_agent/run.py
 
 # LangGraph / OpenAI telemetry → same verification (via library)
 uv run python -c "
-from air_engine.interfaces.library import load_trace, verify
+from varly.interfaces.library import load_trace, verify
 from pathlib import Path
 p = Path('examples/policy_mvp.yaml')
 for src, path in [
@@ -100,13 +100,13 @@ for src, path in [
 # Capture log → AIR → verify
 uv run python -c "
 from pathlib import Path
-from air_engine.interfaces.library import verify
+from varly.interfaces.library import verify
 policy = Path('examples/policies/mvp.yaml')
 print(verify('examples/demo_agent/artifacts/mock_run.json', policy, source='capture').passed)
 "
 
 # Recorded OpenAI Responses shape (no live API)
-uv run air-engine verify examples/fixtures/recorded/openai_responses_search.json \
+uv run varly verify examples/fixtures/recorded/openai_responses_search.json \
   --contract examples/policies/mvp.yaml --source openai
 ```
 
@@ -129,7 +129,7 @@ uv run air-engine verify examples/fixtures/recorded/openai_responses_search.json
 - [Next Steps Roadmap](docs/NEXT_STEPS_ROADMAP.md) — adoption steps 1–6 (complete)
 - [Install guide](docs/INSTALL.md) — `uv`, `pip`, GitHub Action
 - [Onboarding checklist](docs/ONBOARDING.md) — first PASS/FAIL on a fresh machine
-- [Diagnostic viewer](docs/VIEWER.md) — `air-engine view` in the browser
+- [Diagnostic viewer](docs/VIEWER.md) — `varly view` in the browser
 - [Capture recipe](docs/recipes/capture-run-recorder.md) — instrument any agent with `RunRecorder`
 - [Changelog](CHANGELOG.md)
 - [Architecture specs](docs/architecture/) — formal AIR schema and contract model
@@ -146,8 +146,8 @@ Ready-made contracts in `examples/policies/` — swap the YAML file only to chan
 | `dev.yaml` | Relaxed local runs |
 
 ```bash
-uv run air-engine verify examples/trace_valid_minimal.json --contract examples/policies/strict.yaml
-uv run air-engine verify examples/trace_valid_minimal.json --contract examples/policies/mvp.yaml --output diagnostic.json
+uv run varly verify examples/trace_valid_minimal.json --contract examples/policies/strict.yaml
+uv run varly verify examples/trace_valid_minimal.json --contract examples/policies/mvp.yaml --output diagnostic.json
 ```
 
 See [docs/policies/README.md](docs/policies/README.md) and [Diagnostic JSON schema](docs/architecture/diagnostic-schema-1.0.0.md).
@@ -163,13 +163,13 @@ This repository runs three CI jobs on every push and pull request:
 Machine-readable reports:
 
 ```bash
-uv run air-engine verify examples/trace_valid_minimal.json \
+uv run varly verify examples/trace_valid_minimal.json \
   --contract examples/policies/mvp.yaml --format json
 
-uv run air-engine verify examples/trace_valid_minimal.json \
+uv run varly verify examples/trace_valid_minimal.json \
   --contract examples/policies/strict.yaml --format junit --output report.xml
 
-uv run air-engine verify examples/trace_valid_minimal.json \
+uv run varly verify examples/trace_valid_minimal.json \
   --contract examples/policies/mvp.yaml --format sarif --output report.sarif
 ```
 
@@ -180,7 +180,7 @@ On GitHub Actions, failed verifies also emit `::error` annotations. The composit
 Fail CI when a new run introduces violations the golden baseline did not have:
 
 ```bash
-uv run air-engine diff \
+uv run varly diff \
   examples/trace_valid_minimal.json \
   examples/trace_invalid_missing_tool_return.json \
   --contract examples/policies/mvp.yaml
@@ -205,14 +205,14 @@ Copy `.github/actions/verify-trace/` into your project, then call it after your 
     contract-file: policies/mvp.yaml
     source: capture
     report-format: junit
-    report-file: air-engine-report.xml
+    report-file: varly-report.xml
 ```
 
 Requirements for consumer repos:
 
 - Python 3.12+
 - `uv` available in the workflow
-- `pyproject.toml` with `air-engine` installed, or run from a checkout of this repo
+- `pyproject.toml` with `varly` installed, or run from a checkout of this repo
 
 For canonical AIR traces, keep `source: air` (default). The action will run `validate` before `verify`.
 
@@ -224,13 +224,13 @@ uv run ruff check .
 uv run ruff format --check .
 uv run mypy src
 uv run pytest
-uv run air-engine validate examples/trace_valid_minimal.json
-uv run air-engine verify examples/trace_valid_minimal.json --contract examples/policy_mvp.yaml
+uv run varly validate examples/trace_valid_minimal.json
+uv run varly verify examples/trace_valid_minimal.json --contract examples/policy_mvp.yaml
 ```
 
 ## Product status
 
-air-engine is an **open-source product under active development**, started as a Final Year Project and evolving toward a production-ready verification tool for AI-agent workflows.
+varly is an **open-source product under active development**, started as a Final Year Project and evolving toward a production-ready verification tool for AI-agent workflows.
 
 - **MVP:** complete (AIR core, contracts, adapters, CLI)
 - **v1:** complete (capture, CI, policy packs, reports, `diff`, viewer)
@@ -246,6 +246,8 @@ Designed and implemented by **Hugo** ([@Hugoesin19](https://github.com/Hugoesin1
 Copyright (c) 2026 Hugoesin19. All rights reserved under the MIT License terms.
 
 If you reference this work academically or commercially, please keep attribution to the original repository: [github.com/Hugoesin19/air-engine](https://github.com/Hugoesin19/air-engine).
+
+> **Note:** The product is **Varly** (`pip install varly`). Rename the GitHub repo to `varly` when you are ready.
 
 ## License
 

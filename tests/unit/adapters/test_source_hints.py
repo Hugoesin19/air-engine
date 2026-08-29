@@ -6,10 +6,10 @@ from pathlib import Path
 
 import pytest
 
-from air_engine.adapters._source_hints import detect_trace_source, wrong_source_message
-from air_engine.adapters.errors import UnsupportedFormatError
-from air_engine.adapters.json.adapter import load_external_json
-from air_engine.interfaces.library.api import load_trace
+from varly.adapters._source_hints import detect_trace_source, wrong_source_message
+from varly.adapters.errors import UnsupportedFormatError
+from varly.adapters.json.adapter import load_external_json
+from varly.interfaces.library.api import load_trace
 
 EXAMPLES = Path(__file__).resolve().parents[3] / "examples"
 

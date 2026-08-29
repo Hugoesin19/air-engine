@@ -4,7 +4,7 @@ from __future__ import annotations
 
 import pytest
 
-from air_engine.contracts import ContractLoadError, parse_contract_payload
+from varly.contracts import ContractLoadError, parse_contract_payload
 
 
 def test_parse_contract_accepts_list_params() -> None:

@@ -1,8 +1,8 @@
-# OpenAI run mapping
+﻿# OpenAI run mapping
 
 How OpenAI telemetry becomes AIR. **Status:** Draft (Sprint 10).
 
-air-engine does not call OpenAI. Adapters consume **files**: either the internal `openai.run.v1` export or a recorded **Responses API** object.
+varly does not call OpenAI. Adapters consume **files**: either the internal `openai.run.v1` export or a recorded **Responses API** object.
 
 ---
 
@@ -46,7 +46,7 @@ Unsupported `output[].type` values fail adapter validation (no silent drop).
 Example: [`examples/fixtures/recorded/openai_responses_search.json`](../../examples/fixtures/recorded/openai_responses_search.json).
 
 ```bash
-uv run air-engine verify examples/fixtures/recorded/openai_responses_search.json \
+uv run varly verify examples/fixtures/recorded/openai_responses_search.json \
   --contract examples/policies/mvp.yaml --source openai
 ```
 
@@ -54,4 +54,4 @@ uv run air-engine verify examples/fixtures/recorded/openai_responses_search.json
 
 ## Live recording (optional)
 
-CI never uses this path. See [`examples/live/record_run.py`](../../examples/live/record_run.py): set `AIR_ENGINE_LIVE=1` and `OPENAI_API_KEY` locally. The stub does not send requests; paste an anonymized JSON into `examples/fixtures/recorded/`.
+CI never uses this path. See [`examples/live/record_run.py`](../../examples/live/record_run.py): set `varly_LIVE=1` and `OPENAI_API_KEY` locally. The stub does not send requests; paste an anonymized JSON into `examples/fixtures/recorded/`.

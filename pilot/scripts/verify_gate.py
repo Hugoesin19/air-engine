@@ -23,7 +23,7 @@ def main() -> int:
     cmd = [
         sys.executable,
         "-m",
-        "air_engine.interfaces.cli.main",
+        "varly.interfaces.cli.main",
         "diff",
         str(BASELINE),
         str(CURRENT),

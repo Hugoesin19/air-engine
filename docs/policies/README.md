@@ -1,4 +1,4 @@
-# Policy Packs
+﻿# Policy Packs
 
 Ready-made contract policies for common verification scenarios. Swap the policy file only — no code changes required.
 
@@ -16,15 +16,15 @@ All packs include the same invariant set. Metric thresholds and business-rule pa
 
 ```bash
 # Strict gate (fails on trace_valid_minimal.json — 600 ms, 150 tokens)
-uv run air-engine verify examples/trace_valid_minimal.json \
+uv run varly verify examples/trace_valid_minimal.json \
   --contract examples/policies/strict.yaml
 
 # Relaxed local gate
-uv run air-engine verify examples/trace_valid_minimal.json \
+uv run varly verify examples/trace_valid_minimal.json \
   --contract examples/policies/dev.yaml
 
 # Export structured diagnostic for CI parsers
-uv run air-engine verify examples/trace_valid_minimal.json \
+uv run varly verify examples/trace_valid_minimal.json \
   --contract examples/policies/mvp.yaml \
   --output diagnostic.json
 ```
@@ -33,7 +33,7 @@ Programmatic:
 
 ```python
 from pathlib import Path
-from air_engine.interfaces.library import verify, write_diagnostic_json
+from varly.interfaces.library import verify, write_diagnostic_json
 
 diagnostic = verify("trace.json", "examples/policies/strict.yaml")
 write_diagnostic_json(diagnostic, Path("diagnostic.json"))

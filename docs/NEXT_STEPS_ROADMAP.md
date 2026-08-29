@@ -1,4 +1,4 @@
-# Next Steps Roadmap (Adoption → Product) — **COMPLETE**
+﻿# Next Steps Roadmap (Adoption → Product) — **COMPLETE**
 
 > **Archive:** Steps 1–6 are done. Active development continues in **[Product Development Roadmap](PRODUCT_DEV_ROADMAP.md)**.  
 > Step 7 (commercialize) is **paused** until there is external usage signal.
@@ -72,7 +72,7 @@
 
 - [x] Keep the good pilot (or golden) run as **baseline**
 - [x] Break something on purpose (missing tool return, stricter policy, etc.)
-- [x] `air-engine diff baseline current --contract …` exits **1** (REGRESSION)
+- [x] `varly diff baseline current --contract …` exits **1** (REGRESSION)
 - [x] Fix the intentional break; `diff` exits **0** again
 - [x] Optionally wire `diff` into a local script / CI job for the pilot
 
@@ -151,7 +151,7 @@ Explicitly **out** of this step:
 - [ ] Legal basics if charging (license clarity, invoices, no secrets in public repos)
 - [ ] Only then: landing page / waitlist / paid pilot
 
-**Done when:** You can explain in one paragraph who pays, for what, and why air-engine beats “just LangSmith / just pytest”.
+**Done when:** You can explain in one paragraph who pays, for what, and why varly beats “just LangSmith / just pytest”.
 
 ---
 

@@ -1,4 +1,4 @@
-target-version = "py312"
+﻿target-version = "py312"
 src = ["src"]
 line-length = 88
 
@@ -6,4 +6,4 @@ line-length = 88
 select = ["E", "F", "I", "UP", "B"]
 
 [lint.isort]
-known-first-party = ["air_engine"]
+known-first-party = ["varly"]

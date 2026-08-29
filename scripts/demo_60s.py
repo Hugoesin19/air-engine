@@ -30,7 +30,7 @@ def _run(cmd: list[str], *, expect: int, label: str) -> None:
 
 def main() -> int:
     py = sys.executable
-    cli = [py, "-m", "air_engine.interfaces.cli.main"]
+    cli = [py, "-m", "varly.interfaces.cli.main"]
 
     _run([py, str(MOCK_SCRIPT)], expect=0, label="Generate mock agent capture")
     _run(

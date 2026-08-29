@@ -2,7 +2,7 @@
 
 Run:
     uv run python examples/capture_recipe/run.py
-    uv run air-engine verify examples/capture_recipe/artifacts/run.json \\
+    uv run varly verify examples/capture_recipe/artifacts/run.json \\
         --contract examples/policies/mvp.yaml --source capture
 """
 
@@ -13,7 +13,7 @@ import time
 import uuid
 from pathlib import Path
 
-from air_engine.capture import RunRecorder
+from varly.capture import RunRecorder
 
 DEFAULT_OUTPUT = Path(__file__).resolve().parent / "artifacts" / "run.json"
 
@@ -91,7 +91,7 @@ def main() -> None:
     print(f"run_id: {run_id}")
     print("Verify with:")
     print(
-        f"  uv run air-engine verify {output} "
+        f"  uv run varly verify {output} "
         "--contract examples/policies/mvp.yaml --source capture"
     )
 

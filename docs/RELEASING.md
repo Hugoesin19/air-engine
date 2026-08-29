@@ -1,4 +1,4 @@
-# Releasing air-engine
+﻿# Releasing varly
 
 ## Prerequisites (one-time)
 
@@ -17,8 +17,8 @@ Manual fallback: `UV_PUBLISH_TOKEN` from PyPI → `uv publish --token "$TOKEN"`
    ```bash
    uv run pytest
    uv build
-   pip install dist/air_engine-*.whl
-   air-engine verify --demo
+   pip install dist/varly-*.whl
+   varly verify --demo
    ```
 3. Commit and push `main`
 4. Tag and push:
@@ -32,8 +32,8 @@ Manual fallback: `UV_PUBLISH_TOKEN` from PyPI → `uv publish --token "$TOKEN"`
 ## Verify PyPI install
 
 ```bash
-pip install air-engine==1.0.0
-air-engine verify --demo
+pip install varly==1.0.0
+varly verify --demo
 ```
 
 Expect `PASS` and `violations: 0`.

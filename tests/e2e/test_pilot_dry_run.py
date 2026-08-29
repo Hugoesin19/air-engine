@@ -37,7 +37,7 @@ def test_pilot_dry_run_verify_passes() -> None:
             [
                 sys.executable,
                 "-m",
-                "air_engine.interfaces.cli.main",
+                "varly.interfaces.cli.main",
                 "verify",
                 str(output),
                 "--contract",

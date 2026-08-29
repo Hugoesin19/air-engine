@@ -1,5 +1,5 @@
-name: Verify AIR Trace
-description: Validate and verify a trace against an air-engine contract policy.
+﻿name: Verify AIR Trace
+description: Validate and verify a trace against an varly contract policy.
 
 inputs:
   trace-file:
@@ -23,7 +23,7 @@ inputs:
   report-file:
     description: Path for the uploaded diagnostic report.
     required: false
-    default: air-engine-report.sarif
+    default: varly-report.sarif
 
 runs:
   using: composite
@@ -38,7 +38,7 @@ runs:
       with:
         python-version: "3.12"
 
-    - name: Install air-engine
+    - name: Install varly
       shell: bash
       working-directory: ${{ inputs.working-directory }}
       run: uv sync --frozen
@@ -47,13 +47,13 @@ runs:
       if: inputs.source == 'air'
       shell: bash
       working-directory: ${{ inputs.working-directory }}
-      run: uv run air-engine validate "${{ inputs.trace-file }}"
+      run: uv run varly validate "${{ inputs.trace-file }}"
 
     - name: Verify trace against contract
       shell: bash
       working-directory: ${{ inputs.working-directory }}
       run: >
-        uv run air-engine verify "${{ inputs.trace-file }}"
+        uv run varly verify "${{ inputs.trace-file }}"
         --contract "${{ inputs.contract-file }}"
         --source "${{ inputs.source }}"
         --format "${{ inputs.report-format }}"
@@ -63,7 +63,7 @@ runs:
       if: ${{ always() }}
       uses: actions/upload-artifact@v4
       with:
-        name: air-engine-report
+        name: varly-report
         path: ${{ inputs.working-directory }}/${{ inputs.report-file }}
         if-no-files-found: warn
 

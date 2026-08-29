@@ -5,14 +5,14 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from air_engine.analyzer.diagnostic import Diagnostic, Violation
-from air_engine.analyzer.export import (
+from varly.analyzer.diagnostic import Diagnostic, Violation
+from varly.analyzer.export import (
     DIAGNOSTIC_SCHEMA_VERSION,
     diagnostic_to_dict,
     diagnostic_to_json,
     write_diagnostic_json,
 )
-from air_engine.core.types import NodeId, TraceId
+from varly.core.types import NodeId, TraceId
 
 
 def test_diagnostic_to_dict_passed() -> None:

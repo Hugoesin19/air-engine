@@ -2,9 +2,9 @@
 
 from __future__ import annotations
 
-from air_engine.analyzer.diagnostic import Diagnostic, Violation
-from air_engine.analyzer.diff import compare_diagnostics
-from air_engine.core.types import NodeId, TraceId
+from varly.analyzer.diagnostic import Diagnostic, Violation
+from varly.analyzer.diff import compare_diagnostics
+from varly.core.types import NodeId, TraceId
 
 
 def _diagnostic(*violations: Violation, trace_id: str = "t") -> Diagnostic:

@@ -4,8 +4,8 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from air_engine.interfaces.library import verify
-from air_engine.interfaces.viewer.report import (
+from varly.interfaces.library import verify
+from varly.interfaces.viewer.report import (
     build_viewer_report,
     trace_summary,
     trace_timeline,
@@ -17,7 +17,7 @@ POLICY = EXAMPLES / "policies" / "mvp.yaml"
 
 
 def test_trace_summary_and_timeline_from_mock_capture() -> None:
-    from air_engine.interfaces.library.api import load_trace
+    from varly.interfaces.library.api import load_trace
 
     trace = load_trace(MOCK_CAPTURE, source="capture")
     summary = trace_summary(trace)
@@ -33,7 +33,7 @@ def test_trace_summary_and_timeline_from_mock_capture() -> None:
 
 def test_build_viewer_report_includes_summary() -> None:
     diagnostic = verify(MOCK_CAPTURE, POLICY, source="capture")
-    from air_engine.interfaces.library.api import load_trace
+    from varly.interfaces.library.api import load_trace
 
     trace = load_trace(MOCK_CAPTURE, source="capture")
     report = build_viewer_report(

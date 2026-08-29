@@ -1,4 +1,4 @@
-# Baseline traces (regression gate)
+﻿# Baseline traces (regression gate)
 
 Keep a **known-good** AIR (or capture) file in the repo and fail CI when a new run introduces violations that the baseline did not have.
 
@@ -8,13 +8,13 @@ This is the Sprint 12 workflow: same contract, two traces, deterministic violati
 
 ```bash
 # No new violations → exit 0
-uv run air-engine diff \
+uv run varly diff \
   examples/trace_valid_minimal.json \
   examples/trace_valid_minimal.json \
   --contract examples/policies/mvp.yaml
 
 # Broken fixture vs golden baseline → exit 1 (REGRESSION)
-uv run air-engine diff \
+uv run varly diff \
   examples/trace_valid_minimal.json \
   examples/trace_invalid_missing_tool_return.json \
   --contract examples/policies/mvp.yaml
@@ -23,7 +23,7 @@ uv run air-engine diff \
 Adapters:
 
 ```bash
-uv run air-engine diff baseline.json current.json \
+uv run varly diff baseline.json current.json \
   --contract examples/policies/mvp.yaml \
   --source capture
 ```
@@ -46,13 +46,13 @@ Resolved issues are printed as `resolved` but do not fail the command.
 
 1. Commit a golden trace (`examples/trace_valid_minimal.json` or a recorded fixture).
 2. On each PR, generate or check in the current run.
-3. Run `air-engine diff baseline current --contract policies/mvp.yaml`.
+3. Run `varly diff baseline current --contract policies/mvp.yaml`.
 4. Update the baseline **only** when the team accepts a new contract or a legitimate behavior change.
 
 Library:
 
 ```python
-from air_engine.interfaces.library import compare_traces
+from varly.interfaces.library import compare_traces
 
 diff = compare_traces("baseline.json", "current.json", "examples/policies/mvp.yaml")
 assert not diff.is_regression

@@ -1,8 +1,8 @@
-# LangGraph run mapping
+﻿# LangGraph run mapping
 
 How LangGraph/LangChain callback telemetry becomes AIR. **Status:** Draft (Sprint 10).
 
-air-engine does not import LangGraph. Adapters consume **files**: either the internal `langgraph.run.v1` export or a recorded **callback event dump**.
+varly does not import LangGraph. Adapters consume **files**: either the internal `langgraph.run.v1` export or a recorded **callback event dump**.
 
 ---
 
@@ -45,7 +45,7 @@ Tokens: `data.output.llm_output.token_usage.total_tokens` (or `usage.total_token
 Example: [`examples/fixtures/recorded/langgraph_callbacks_search.json`](../../examples/fixtures/recorded/langgraph_callbacks_search.json).
 
 ```bash
-uv run air-engine verify examples/fixtures/recorded/langgraph_callbacks_search.json \
+uv run varly verify examples/fixtures/recorded/langgraph_callbacks_search.json \
   --contract examples/policies/mvp.yaml --source langgraph
 ```
 
@@ -53,4 +53,4 @@ uv run air-engine verify examples/fixtures/recorded/langgraph_callbacks_search.j
 
 ## Live recording (optional)
 
-Same opt-in stub as OpenAI: [`examples/live/record_run.py`](../../examples/live/record_run.py). CI never sets `AIR_ENGINE_LIVE`.
+Same opt-in stub as OpenAI: [`examples/live/record_run.py`](../../examples/live/record_run.py). CI never sets `varly_LIVE`.

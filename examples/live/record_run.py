@@ -1,6 +1,6 @@
 """Optional local helper for live SDK recording.
 
-CI never sets AIR_ENGINE_LIVE. This stub does not call paid APIs.
+CI never sets varly_LIVE. This stub does not call paid APIs.
 """
 
 from __future__ import annotations
@@ -13,10 +13,10 @@ RECORDED_DIR = Path(__file__).resolve().parents[1] / "fixtures" / "recorded"
 
 
 def main() -> int:
-    live = os.environ.get("AIR_ENGINE_LIVE") == "1"
+    live = os.environ.get("varly_LIVE") == "1"
     if not live:
         print(
-            "Live recording is disabled. Set AIR_ENGINE_LIVE=1 and "
+            "Live recording is disabled. Set varly_LIVE=1 and "
             "OPENAI_API_KEY (or a LangGraph export) on your machine.",
             file=sys.stderr,
         )
@@ -28,7 +28,7 @@ def main() -> int:
 
     if not os.environ.get("OPENAI_API_KEY"):
         print(
-            "AIR_ENGINE_LIVE=1 requires OPENAI_API_KEY in the environment.",
+            "varly_LIVE=1 requires OPENAI_API_KEY in the environment.",
             file=sys.stderr,
         )
         return 1

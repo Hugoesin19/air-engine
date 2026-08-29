@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from air_engine.interfaces.cli.main import run
+from varly.interfaces.cli.main import run
 
 PILOT_DIR = Path(__file__).resolve().parents[2] / "pilot"
 POLICY = PILOT_DIR / "policies" / "live.yaml"

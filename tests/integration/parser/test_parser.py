@@ -6,14 +6,14 @@ from pathlib import Path
 
 import pytest
 
-from air_engine.core.errors import CycleDetectedError, UnreachableNodeError
-from air_engine.parser import (
+from varly.core.errors import CycleDetectedError, UnreachableNodeError
+from varly.parser import (
     ParseError,
     SchemaValidationError,
     parse_trace_file,
     parse_trace_payload,
 )
-from air_engine.parser.json_loader import load_json_object
+from varly.parser.json_loader import load_json_object
 
 EXAMPLES_DIR = Path(__file__).resolve().parents[3] / "examples"
 

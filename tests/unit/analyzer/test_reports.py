@@ -5,13 +5,13 @@ from __future__ import annotations
 import json
 from xml.etree.ElementTree import fromstring
 
-from air_engine.analyzer.diagnostic import Diagnostic, Violation
-from air_engine.analyzer.reports import (
+from varly.analyzer.diagnostic import Diagnostic, Violation
+from varly.analyzer.reports import (
     diagnostic_to_junit,
     diagnostic_to_sarif,
     github_error_annotations,
 )
-from air_engine.core.types import NodeId, TraceId
+from varly.core.types import NodeId, TraceId
 
 
 def _failed() -> Diagnostic:

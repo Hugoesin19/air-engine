@@ -4,11 +4,11 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from air_engine.adapters import adapt_json_file, adapt_langgraph_file, adapt_openai_file
-from air_engine.analyzer import verify_trace
-from air_engine.contracts import load_policy_file
-from air_engine.core.ordering import canonical_linear_extension
-from air_engine.core.trace import Trace
+from varly.adapters import adapt_json_file, adapt_langgraph_file, adapt_openai_file
+from varly.analyzer import verify_trace
+from varly.contracts import load_policy_file
+from varly.core.ordering import canonical_linear_extension
+from varly.core.trace import Trace
 
 EXAMPLES_DIR = Path(__file__).resolve().parents[3] / "examples"
 RECORDED_DIR = EXAMPLES_DIR / "fixtures" / "recorded"

@@ -6,9 +6,9 @@ from pathlib import Path
 
 import pytest
 
-from air_engine.analyzer import verify_trace
-from air_engine.contracts import Contract, InvalidInvariantParamError, InvariantSpec
-from air_engine.core import (
+from varly.analyzer import verify_trace
+from varly.contracts import Contract, InvalidInvariantParamError, InvariantSpec
+from varly.core import (
     AIR_SCHEMA_VERSION,
     ControlEdge,
     ControlEdgeKind,
@@ -18,7 +18,7 @@ from air_engine.core import (
     Trace,
     TraceId,
 )
-from air_engine.parser import parse_trace_file
+from varly.parser import parse_trace_file
 
 EXAMPLES_DIR = Path(__file__).resolve().parents[3] / "examples"
 

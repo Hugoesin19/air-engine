@@ -1,4 +1,4 @@
-# Local diagnostic viewer (Step 6)
+﻿# Local diagnostic viewer (Step 6)
 
 Browser UI for PASS/FAIL and violations — no cloud, no terminal required to **read** results.
 
@@ -7,7 +7,7 @@ Browser UI for PASS/FAIL and violations — no cloud, no terminal required to **
 Verify a trace and open the viewer in one step:
 
 ```bash
-uv run air-engine view \
+uv run varly view \
   --trace examples/demo_agent/artifacts/mock_run.json \
   --contract examples/policies/mvp.yaml \
   --source capture
@@ -16,19 +16,19 @@ uv run air-engine view \
 Or from an existing diagnostic JSON:
 
 ```bash
-uv run air-engine verify examples/demo_agent/artifacts/mock_run.json \
+uv run varly verify examples/demo_agent/artifacts/mock_run.json \
   --contract examples/policies/mvp.yaml \
   --source capture \
   --output /tmp/report.json
 
-uv run air-engine view /tmp/report.json
+uv run varly view /tmp/report.json
 ```
 
 Your browser opens `http://127.0.0.1:8765/`. Press **Ctrl+C** in the terminal to stop the server.
 
 ## Without the CLI
 
-Open `src/air_engine/interfaces/viewer/index.html` in a browser and drag-drop any diagnostic JSON from `verify --output`.
+Open `src/varly/interfaces/viewer/index.html` in a browser and drag-drop any diagnostic JSON from `verify --output`.
 
 ## Options
 

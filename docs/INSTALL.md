@@ -1,4 +1,4 @@
-# Install air-engine
+﻿# Install varly
 
 **Python 3.12+** required.
 
@@ -7,8 +7,8 @@
 ## Option A — PyPI (recommended)
 
 ```bash
-pip install air-engine
-air-engine verify --demo
+pip install varly
+varly verify --demo
 ```
 
 Bundled inside the wheel: `mvp` / `strict` / `dev` policies and a mock capture fixture.
@@ -16,7 +16,7 @@ Bundled inside the wheel: `mvp` / `strict` / `dev` policies and a mock capture f
 Policies path when installed:
 
 ```python
-from air_engine.resources import bundled_policy
+from varly.resources import bundled_policy
 print(bundled_policy("mvp"))
 ```
 
@@ -26,9 +26,9 @@ print(bundled_policy("mvp"))
 
 ```bash
 git clone https://github.com/Hugoesin19/air-engine.git
-cd air-engine
+cd varly
 uv sync
-uv run air-engine --help
+uv run varly --help
 ```
 
 Pilot live mode (optional Gemini):
@@ -42,8 +42,8 @@ uv sync --group pilot
 ## Option C — pip from Git tag
 
 ```bash
-pip install "air-engine @ git+https://github.com/Hugoesin19/air-engine.git@v1.0.0"
-air-engine verify --demo
+pip install "varly @ git+https://github.com/Hugoesin19/air-engine.git@v1.0.0"
+varly verify --demo
 ```
 
 ---
@@ -52,7 +52,7 @@ air-engine verify --demo
 
 ```bash
 # PyPI smoke test
-air-engine verify --demo
+varly verify --demo
 
 # Full local demo (requires git clone)
 uv run python scripts/demo_60s.py

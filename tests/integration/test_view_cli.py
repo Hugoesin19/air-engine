@@ -7,12 +7,12 @@ from pathlib import Path
 
 import pytest
 
-from air_engine.interfaces.cli.commands.view import (
+from varly.interfaces.cli.commands.view import (
     REPORT_FILE,
     VIEWER_DIR,
     prepare_report,
 )
-from air_engine.interfaces.library import verify
+from varly.interfaces.library import verify
 
 EXAMPLES = Path(__file__).resolve().parents[2] / "examples"
 POLICY = EXAMPLES / "policies" / "mvp.yaml"

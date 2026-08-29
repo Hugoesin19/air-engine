@@ -24,7 +24,7 @@ def test_capture_recipe_verify_passes() -> None:
         [
             sys.executable,
             "-m",
-            "air_engine.interfaces.cli.main",
+            "varly.interfaces.cli.main",
             "verify",
             str(CAPTURE),
             "--contract",

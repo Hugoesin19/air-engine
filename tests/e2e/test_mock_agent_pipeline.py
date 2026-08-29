@@ -6,7 +6,7 @@ import subprocess
 import sys
 from pathlib import Path
 
-from air_engine.interfaces.library import load_trace, verify
+from varly.interfaces.library import load_trace, verify
 
 EXAMPLES_DIR = Path(__file__).resolve().parents[2] / "examples"
 DEMO_AGENT = EXAMPLES_DIR / "demo_agent" / "run.py"

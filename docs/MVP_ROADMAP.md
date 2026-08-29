@@ -1,6 +1,6 @@
-# MVP Roadmap
+﻿# MVP Roadmap
 
-> Living document for air-engine MVP execution.  
+> Living document for varly MVP execution.  
 > **Update this file** at the start/end of each work session.  
 > Reference: Project Bible (Part VII) · [ADRs](adrs/) · [Architecture](architecture/)
 
@@ -56,10 +56,10 @@ Do **not** build entire layers in isolation before the slice works.
 - [x] `examples/trace_valid_minimal.json`
 - [x] `examples/trace_invalid_cycle.json`
 - [x] `examples/trace_invalid_orphan.json`
-- [x] `src/air_engine/core/types.py` — `NodeId`, edge kinds, semantic types
-- [x] `src/air_engine/core/trace.py` — frozen `Trace`, `Node`, `Edge`
-- [x] `src/air_engine/core/topology.py` — DAG check, reachability, root
-- [x] `src/air_engine/core/errors.py` — typed domain errors
+- [x] `src/varly/core/types.py` — `NodeId`, edge kinds, semantic types
+- [x] `src/varly/core/trace.py` — frozen `Trace`, `Node`, `Edge`
+- [x] `src/varly/core/topology.py` — DAG check, reachability, root
+- [x] `src/varly/core/errors.py` — typed domain errors
 - [x] `tests/unit/core/test_topology.py`
 
 **Done when:** valid trace passes validation; invalid traces fail with typed errors.
@@ -68,13 +68,13 @@ Do **not** build entire layers in isolation before the slice works.
 
 ### Sprint 1 — Parser + Validate CLI ✅
 
-**Goal:** `air-engine validate trace.json` works.
+**Goal:** `varly validate trace.json` works.
 
-- [x] `src/air_engine/parser/json_loader.py`
-- [x] `src/air_engine/parser/schema.py`
-- [x] `src/air_engine/parser/builder.py`
+- [x] `src/varly/parser/json_loader.py`
+- [x] `src/varly/parser/schema.py`
+- [x] `src/varly/parser/builder.py`
 - [x] `tests/integration/parser/` — fixture-driven
-- [x] `src/air_engine/interfaces/cli/commands/validate.py`
+- [x] `src/varly/interfaces/cli/commands/validate.py`
 - [x] CLI entry point in `pyproject.toml`
 - [x] `examples/trace_valid_minimal.json` loads end-to-end
 
@@ -86,10 +86,10 @@ Do **not** build entire layers in isolation before the slice works.
 
 **Goal:** Deterministic state at any node (ADR-004, ADR-005).
 
-- [x] `src/air_engine/core/ordering.py` — `O_can` canonical linear extension
-- [x] `src/air_engine/core/state.py` — reduction `⊕` over causal ancestors
-- [x] `src/air_engine/core/labeling.py` — `λ_V`, `λ_E` projection
-- [x] `src/air_engine/analyzer/state_builder.py`
+- [x] `src/varly/core/ordering.py` — `O_can` canonical linear extension
+- [x] `src/varly/core/state.py` — reduction `⊕` over causal ancestors
+- [x] `src/varly/core/labeling.py` — `λ_V`, `λ_E` projection
+- [x] `src/varly/analyzer/state_builder.py`
 - [x] `tests/unit/core/test_ordering.py`
 - [x] `tests/unit/core/test_state.py`
 
@@ -101,15 +101,15 @@ Do **not** build entire layers in isolation before the slice works.
 
 **Goal:** One invariant → structured diagnostic.
 
-- [x] `src/air_engine/contracts/model.py` — `Contract`, `Property`, `Invariant`
-- [x] `src/air_engine/contracts/loader.py` — YAML/JSON loader
-- [x] `src/air_engine/contracts/builtins/structural.py` — no cycles, reachability
-- [x] `src/air_engine/analyzer/diagnostic.py`
-- [x] `src/air_engine/analyzer/evaluator.py`
-- [x] `src/air_engine/analyzer/engine.py`
+- [x] `src/varly/contracts/model.py` — `Contract`, `Property`, `Invariant`
+- [x] `src/varly/contracts/loader.py` — YAML/JSON loader
+- [x] `src/varly/contracts/builtins/structural.py` — no cycles, reachability
+- [x] `src/varly/analyzer/diagnostic.py`
+- [x] `src/varly/analyzer/evaluator.py`
+- [x] `src/varly/analyzer/engine.py`
 - [x] `examples/policy_mvp.yaml`
 - [x] `tests/unit/analyzer/test_evaluator.py`
-- [x] `src/air_engine/interfaces/cli/commands/verify.py` — verify CLI
+- [x] `src/varly/interfaces/cli/commands/verify.py` — verify CLI
 
 **Done when:** `verify` returns pass/fail + explanation for structural rules.
 
@@ -122,8 +122,8 @@ Do **not** build entire layers in isolation before the slice works.
 - [x] Structural: no causal cycles, root reachability, no orphans
 - [x] Semantic: `ToolCall` → reachable `ToolReturn` in `E_c`
 - [x] Metrics: max trace duration, token budget
-- [x] `src/air_engine/contracts/builtins/semantic.py`
-- [x] `src/air_engine/contracts/builtins/metrics.py`
+- [x] `src/varly/contracts/builtins/semantic.py`
+- [x] `src/varly/contracts/builtins/metrics.py`
 - [x] `examples/policy_mvp.yaml` — full catalog
 - [x] `examples/trace_invalid_missing_tool_return.json`
 - [x] `tests/e2e/test_mvp_flow.py` — full pipeline fixtures
@@ -136,11 +136,11 @@ Do **not** build entire layers in isolation before the slice works.
 
 **Goal:** Reference adapter + CLI output polish.
 
-- [x] `src/air_engine/adapters/json/` — static JSON adapter
-- [x] `src/air_engine/adapters/langgraph/` — reference implementation
-- [x] `src/air_engine/adapters/openai/` — reference implementation
+- [x] `src/varly/adapters/json/` — static JSON adapter
+- [x] `src/varly/adapters/langgraph/` — reference implementation
+- [x] `src/varly/adapters/openai/` — reference implementation
 - [x] CLI: DAG ASCII render, metrics summary, error listing
-- [x] `src/air_engine/interfaces/library/` — programmatic API
+- [x] `src/varly/interfaces/library/` — programmatic API
 - [x] `tests/integration/adapters/`
 - [x] CI: canonical trace fixtures validation
 
@@ -184,7 +184,7 @@ adapters → parser → core ← analyzer ← contracts
 |------|---------|-----------|------|
 | 2026-07-13 | Bootstrap | Repo structure, tooling, CI, ADRs 001–005 | Sprint 0 |
 | 2026-07-13 | Sprint 0 | AIR core model, topology validation, schema spec, examples, 9 unit tests | Sprint 1 parser + CLI |
-| 2026-07-13 | Sprint 1 | JSON parser, `air-engine validate`, 10 new integration/CLI tests | Sprint 2 state reconstruction |
+| 2026-07-13 | Sprint 1 | JSON parser, `varly validate`, 10 new integration/CLI tests | Sprint 2 state reconstruction |
 | 2026-08-17 | Sprint 2 | Canonical ordering, state reconstruction, labeling, 9 new unit tests | Sprint 3 contracts + diagnostic |
 | 2026-08-17 | Sprint 3 | Contracts, evaluator, diagnostic, verify CLI, policy_mvp.yaml, 8 new tests | Sprint 4 full contract catalog |
 | 2026-08-17 | Sprint 4 | Semantic + metrics invariants, full policy, e2e pipeline, 13 new tests | Sprint 5 adapters + polish |

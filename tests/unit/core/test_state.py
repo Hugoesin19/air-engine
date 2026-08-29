@@ -4,10 +4,10 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from air_engine.analyzer import build_state_at_node
-from air_engine.core import NodeId, Trace, reconstruct_state
-from air_engine.core.state import reduce_state
-from air_engine.parser import parse_trace_file
+from varly.analyzer import build_state_at_node
+from varly.core import NodeId, Trace, reconstruct_state
+from varly.core.state import reduce_state
+from varly.parser import parse_trace_file
 
 EXAMPLES_DIR = Path(__file__).resolve().parents[3] / "examples"
 
@@ -17,7 +17,7 @@ def _load_trace(name: str) -> Trace:
 
 
 def test_empty_state_has_no_events() -> None:
-    from air_engine.core import empty_state
+    from varly.core import empty_state
 
     assert empty_state().events == ()
 
@@ -45,7 +45,7 @@ def test_build_state_at_node_matches_core_reconstruction() -> None:
 
 
 def test_reduce_state_appends_events_in_order() -> None:
-    from air_engine.core.state import ExecutionState, ProjectedEvent
+    from varly.core.state import ExecutionState, ProjectedEvent
 
     state = ExecutionState(
         events=(

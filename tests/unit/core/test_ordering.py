@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from air_engine.core import (
+from varly.core import (
     ControlEdge,
     ControlEdgeKind,
     EdgeId,
@@ -13,18 +13,18 @@ from air_engine.core import (
     Trace,
     TraceId,
 )
-from air_engine.core.ordering import (
+from varly.core.ordering import (
     canonical_linear_extension,
     causal_closure,
     causally_precedes,
 )
-from air_engine.core.types import AIR_SCHEMA_VERSION
+from varly.core.types import AIR_SCHEMA_VERSION
 
 EXAMPLES_DIR = Path(__file__).resolve().parents[3] / "examples"
 
 
 def _load_trace(name: str) -> Trace:
-    from air_engine.parser import parse_trace_file
+    from varly.parser import parse_trace_file
 
     return parse_trace_file(EXAMPLES_DIR / name)
 

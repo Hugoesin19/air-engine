@@ -1,7 +1,7 @@
-# Recipe: Capture with RunRecorder
+﻿# Recipe: Capture with RunRecorder
 
 **Goal:** Produce a verifiable `run.json` from **any Python agent** in ~10 minutes.  
-**Stack:** `air_engine.capture.RunRecorder` → `verify --source capture`  
+**Stack:** `varly.capture.RunRecorder` → `verify --source capture`  
 **Cost:** Zero API calls (this recipe uses a deterministic mock agent).
 
 For LangGraph/OpenAI **file export** paths, see [architecture mappings](../architecture/README.md).  
@@ -13,11 +13,11 @@ This recipe is the zero-dependency path proven in the [pilot](../../pilot/README
 
 - Python 3.12+
 - [uv](https://docs.astral.sh/uv/)
-- Clone of [air-engine](https://github.com/Hugoesin19/air-engine)
+- Clone of [varly](https://github.com/Hugoesin19/air-engine)
 
 ```bash
 git clone https://github.com/Hugoesin19/air-engine.git
-cd air-engine
+cd varly
 uv sync
 ```
 
@@ -27,7 +27,7 @@ uv sync
 
 ```bash
 uv run python examples/capture_recipe/run.py
-uv run air-engine verify examples/capture_recipe/artifacts/run.json \
+uv run varly verify examples/capture_recipe/artifacts/run.json \
   --contract examples/policies/mvp.yaml \
   --source capture
 ```
@@ -43,7 +43,7 @@ Read the `# HOOK:` comments — that is where you wire your real agent.
 
 Copy these pieces:
 
-1. `from air_engine.capture import RunRecorder` (after `uv sync` in your env)
+1. `from varly.capture import RunRecorder` (after `uv sync` in your env)
 2. The hook pattern from `run.py` (start → LLM → tool → tool output → end)
 3. `recorder.write_json(path)` at the end
 
@@ -51,7 +51,7 @@ Minimal skeleton:
 
 ```python
 from pathlib import Path
-from air_engine.capture import RunRecorder
+from varly.capture import RunRecorder
 
 recorder = RunRecorder(run_id="my-run-001")
 
@@ -90,7 +90,7 @@ recorder.write_json(Path("run.json"))
 ## Step 3 — Verify
 
 ```bash
-uv run air-engine verify run.json \
+uv run varly verify run.json \
   --contract examples/policies/mvp.yaml \
   --source capture
 ```
@@ -109,7 +109,7 @@ uv run air-engine verify run.json \
 Keep a known-good `run.json` as baseline:
 
 ```bash
-uv run air-engine diff baseline.json current.json \
+uv run varly diff baseline.json current.json \
   --contract examples/policies/mvp.yaml \
   --source capture
 ```

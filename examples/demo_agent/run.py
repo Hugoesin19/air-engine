@@ -5,7 +5,7 @@ from __future__ import annotations
 import argparse
 from pathlib import Path
 
-from air_engine.capture import RunRecorder
+from varly.capture import RunRecorder
 
 DEFAULT_OUTPUT = Path(__file__).resolve().parent / "artifacts" / "mock_run.json"
 
