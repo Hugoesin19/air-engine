@@ -46,4 +46,5 @@ def test_build_viewer_report_includes_summary() -> None:
     assert report["passed"] is True
     assert "summary" in report
     assert "timeline" in report
+    assert "causal_graph" in report
     assert report["meta"]["source"] == "capture"

@@ -57,3 +57,25 @@ def test_semantic_failure_not_relaxed_by_dev_policy() -> None:
         violation.invariant_id == "tool_call_has_return"
         for violation in diagnostic.violations
     )
+
+
+def test_rag_shaped_capture_passes_rag_policy() -> None:
+    rag_trace = EXAMPLES_DIR / "cookbook" / "artifacts" / "rag_shaped_run.json"
+    diagnostic = verify(rag_trace, POLICIES_DIR / "rag.yaml", source="capture")
+    assert diagnostic.passed is True
+
+
+def test_rag_shaped_capture_fails_mvp_allowlist() -> None:
+    rag_trace = EXAMPLES_DIR / "cookbook" / "artifacts" / "rag_shaped_run.json"
+    diagnostic = verify(rag_trace, POLICIES_DIR / "mvp.yaml", source="capture")
+    assert diagnostic.passed is False
+    assert any(
+        violation.invariant_id == "tool_name_allowlist"
+        for violation in diagnostic.violations
+    )
+
+
+def test_support_bot_policy_allows_faq_lookup_in_contract() -> None:
+    contract = load_policy_file(POLICIES_DIR / "support-bot.yaml")
+    by_id = {spec.id: spec for spec in contract.invariants}
+    assert "faq_lookup" in by_id["tool_name_allowlist"].params["allowed"]

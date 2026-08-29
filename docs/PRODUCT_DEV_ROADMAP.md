@@ -4,7 +4,7 @@
 > The TFG is satisfied by documenting what exists; this file drives **what to build next**.
 
 **Last updated:** 2026-08-29  
-**Current phase:** **P2 — Automatic capture** (LangGraph slice complete)  
+**Current phase:** **P3 — Developer experience** ✅  
 **North star:** A developer installs varly, captures a real agent run with minimal friction, and gets PASS/FAIL + regression gates in CI — without LLM-as-judge.
 
 **Completed foundation:** Engine v1 (Sprints 0–12) · Adoption steps 1–6 · [Next Steps archive](NEXT_STEPS_ROADMAP.md)
@@ -30,9 +30,9 @@
 |-------|--------|---------|--------|
 | **P0** | Engine + adoption proof | v1 engine, pilot, CI, viewer, recipes | ✅ Done |
 | **P1** | Distribution & release | `pip install`, stable tag, published Action | ✅ Done |
-| **P2** | Automatic capture | LangGraph (or OpenAI) capture without manual `record_*` | ⬜ **Current** (LangGraph done) |
-| **P3** | Developer experience | Cookbook, viewer graph, policy packs by use case | ⬜ |
-| **P4** | Team readiness | Batch verify, baseline workflows, sharper reports | ⬜ |
+| **P2** | Automatic capture | LangGraph (or OpenAI) capture without manual `record_*` | ✅ Done |
+| **P3** | Developer experience | Cookbook, viewer graph, policy packs by use case | ✅ Done |
+| **P4** | Team readiness | Batch verify, baseline workflows, sharper reports | ⬜ **Current** |
 | **P5** | Enterprise foundations | Audit trail, OTel ingest, self-host guide | ⬜ Paused |
 
 **Paused (not now):** commercialization (pricing, landing), contract DSL (v2), full topology editor (v3), multi-tenant cloud.
@@ -75,16 +75,16 @@ Pick **LangGraph** first (callback export already partially supported) **or** Op
 
 ---
 
-## P3 — Developer experience
+## P3 — Developer experience ✅
 
 **Goal:** Feels like a **product**, not only a library.
 
-- [ ] **Cookbook** — 3 end-to-end scenarios (e.g. tool agent, RAG-shaped run, regression break)
-- [ ] **Viewer** — minimal causal graph or ASCII-in-UI (not full v3 editor)
-- [ ] **Policy packs** — `support-bot`, `rag`, `tool-heavy` (or document mapping from `mvp`/`strict`/`dev`)
-- [ ] Error messages audit (wrong source, bad policy, missing fields)
+- [x] **Cookbook** — 3 end-to-end scenarios (tool agent, RAG-shaped run, regression break)
+- [x] **Viewer** — ASCII causal graph in browser UI
+- [x] **Policy packs** — `support-bot`, `rag`, `tool-heavy` (+ docs)
+- [x] Error messages audit (wrong source hints, verify usage example)
 
-**Done when:** A developer follows docs only through capture → verify → view → diff.
+**Done when:** A developer follows docs only through capture → verify → view → diff. ✅
 
 **Next:** P4
 
@@ -141,6 +141,7 @@ Only after P1–P3 and **real usage signal** (even 1–2 external teams).
 
 | Date | Phase | Completed | Next |
 |------|-------|-----------|------|
+| 2026-08-29 | P3 | Cookbook, viewer causal graph, policy packs, CLI hints | P4 — team readiness |
 | 2026-08-29 | P2 | LangGraph auto-capture: collector, example, recipe, CI | P3 — developer experience |
 | 2026-08-29 | P1 | v1.0.0, PyPI publish, GitHub Release, repo rename to `varly` | P2 — automatic capture |
 
@@ -150,5 +151,5 @@ Only after P1–P3 and **real usage signal** (even 1–2 external teams).
 
 - [Product Roadmap](PRODUCT_ROADMAP.md) — historical engine sprints
 - [Next Steps Roadmap](NEXT_STEPS_ROADMAP.md) — adoption steps 1–6 (complete)
-- [Install](INSTALL.md) · [Viewer](VIEWER.md) · [Capture recipe](recipes/capture-run-recorder.md)
+- [Install](INSTALL.md) · [Cookbook](cookbook/README.md) · [Viewer](VIEWER.md) · [Capture recipe](recipes/capture-run-recorder.md)
 - [Pilot](../pilot/README.md)

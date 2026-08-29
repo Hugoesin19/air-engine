@@ -103,6 +103,14 @@ FIXTURES: tuple[FixtureCase, ...] = (
         expect_validate=None,
         expect_verify=0,
     ),
+    FixtureCase(
+        name="cookbook_rag_shaped_capture",
+        trace=ROOT / "examples" / "cookbook" / "artifacts" / "rag_shaped_run.json",
+        source="capture",
+        expect_validate=None,
+        expect_verify=0,
+        contract=ROOT / "examples" / "policies" / "rag.yaml",
+    ),
 )
 
 

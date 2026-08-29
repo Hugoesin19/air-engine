@@ -1,0 +1,32 @@
+air_schema_version: "1.0.0"
+invariants:
+  - id: no_causal_cycles
+  - id: root_reachability
+  - id: no_orphans
+  - id: tool_call_has_return
+  - id: max_trace_duration
+    params:
+      max_ms: 120000
+  - id: token_budget
+    params:
+      max_tokens: 50000
+  - id: max_llm_invocations
+    params:
+      max: 20
+  - id: max_tool_calls
+    params:
+      max: 20
+  - id: tool_name_allowlist
+    params:
+      allowed:
+        - search
+        - calc
+        - browse
+        - code_exec
+  - id: required_event_sequence
+    params:
+      sequence:
+        - run_start
+        - llm_invoke
+        - tool_return
+        - run_end

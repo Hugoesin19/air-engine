@@ -86,7 +86,13 @@ def run(args: argparse.Namespace) -> int:
     else:
         if args.trace_file is None or args.contract is None:
             print(
-                "verify requires trace_file and --contract (or use --demo)",
+                "verify requires a trace file and --contract <policy.yaml> "
+                "(or use --demo for a bundled smoke test).",
+                file=sys.stderr,
+            )
+            print(
+                "Example: varly verify run.json --contract examples/policies/mvp.yaml "
+                "--source capture",
                 file=sys.stderr,
             )
             return 2

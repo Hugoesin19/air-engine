@@ -36,6 +36,10 @@ def wrong_source_message(
 ) -> str:
     """Human-readable hint when --source does not match the file shape."""
     return (
-        f"File {path!r} looks like a {detected} trace, but --source {used!r} was used. "
-        f"Try: varly verify {path} --source {detected} --contract <policy.yaml>"
+        f"File {path!r} looks like a {detected} trace, "
+        f"but --source {used!r} was used.\n"
+        f"Try: varly verify {path} --source {detected} --contract <policy.yaml>\n"
+        f"See: docs/recipes/capture-langgraph-export.md (langgraph), "
+        f"docs/recipes/capture-run-recorder.md (capture), "
+        f"docs/architecture/ (openai, air)."
     )

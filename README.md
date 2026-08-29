@@ -130,6 +130,7 @@ uv run varly verify examples/fixtures/recorded/openai_responses_search.json \
 - [Install guide](docs/INSTALL.md) — `uv`, `pip`, GitHub Action
 - [Onboarding checklist](docs/ONBOARDING.md) — first PASS/FAIL on a fresh machine
 - [Diagnostic viewer](docs/VIEWER.md) — `varly view` in the browser
+- [Cookbook](docs/cookbook/README.md) — 3 end-to-end scenarios (tool agent, RAG, regression)
 - [Capture recipe](docs/recipes/capture-run-recorder.md) — instrument any agent with `RunRecorder`
 - [LangGraph capture](docs/recipes/capture-langgraph-export.md) — automatic callbacks, no `record_*`
 - [Changelog](CHANGELOG.md)

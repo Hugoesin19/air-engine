@@ -9,6 +9,9 @@ Ready-made contract policies for common verification scenarios. Swap the policy 
 | [`mvp.yaml`](../../examples/policies/mvp.yaml) | Default CI / balanced gate | 10 s, 10 000 tokens, 10 LLM / 10 tools, allowlist `[search]` |
 | [`strict.yaml`](../../examples/policies/strict.yaml) | Tight production guardrails | 500 ms, 100 tokens, 1 LLM / 1 tool, full event sequence |
 | [`dev.yaml`](../../examples/policies/dev.yaml) | Local development / debugging | 1 h, 1 000 000 tokens, 1000 LLM / 1000 tools, allowlist `[search, calc, browse]` |
+| [`support-bot.yaml`](../../examples/policies/support-bot.yaml) | FAQ / support agents | 30 s, 8 000 tokens, allowlist `[search, faq_lookup]` |
+| [`rag.yaml`](../../examples/policies/rag.yaml) | RAG / retrieval workflows | 60 s, 20 000 tokens, allowlist `[retrieve, search]` |
+| [`tool-heavy.yaml`](../../examples/policies/tool-heavy.yaml) | Multi-tool orchestrators | 120 s, 50 000 tokens, up to 20 tools |
 
 All packs include the same invariant set. Metric thresholds and business-rule params differ by pack.
 
@@ -117,6 +120,9 @@ invariants:
 | Scenario | Recommended pack |
 |----------|------------------|
 | PR gate on agent fixtures | `mvp.yaml` |
+| Support / FAQ bots | `support-bot.yaml` |
+| RAG with retrieval tools | `rag.yaml` |
+| Agents with many tools | `tool-heavy.yaml` |
 | Cost/latency regression detection | `strict.yaml` |
 | Iterating locally with verbose agents | `dev.yaml` |
 | Custom business rules | Copy a pack and edit `invariants` |

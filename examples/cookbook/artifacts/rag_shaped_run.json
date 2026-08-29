@@ -1,0 +1,46 @@
+{
+  "format_version": "capture-event-log-1.0.0",
+  "run_id": "cookbook-rag-001",
+  "steps": [
+    {
+      "id": "rag-step-001",
+      "event_type": "run_start",
+      "timestamp_ms": 0
+    },
+    {
+      "id": "rag-step-002",
+      "event_type": "llm_call",
+      "timestamp_ms": 120,
+      "total_tokens": 180
+    },
+    {
+      "id": "rag-step-003",
+      "event_type": "tool_call",
+      "timestamp_ms": 250,
+      "name": "retrieve"
+    },
+    {
+      "id": "rag-step-004",
+      "event_type": "tool_output",
+      "timestamp_ms": 900,
+      "name": "retrieve"
+    },
+    {
+      "id": "rag-step-005",
+      "event_type": "llm_call",
+      "timestamp_ms": 1100,
+      "total_tokens": 220
+    },
+    {
+      "id": "rag-step-006",
+      "event_type": "run_end",
+      "timestamp_ms": 1400
+    }
+  ],
+  "reads": [
+    {
+      "source": "rag-step-003",
+      "target": "rag-step-002"
+    }
+  ]
+}

@@ -10,6 +10,7 @@ from varly.analyzer.diagnostic import Diagnostic
 from varly.analyzer.export import diagnostic_to_dict
 from varly.core.trace import Trace
 from varly.core.types import LabelValue, NodeId
+from varly.interfaces.cli.render import render_control_dag
 
 _LLM_INVOKE = "llm_invoke"
 _TOOL_CALL = "tool_call"
@@ -102,6 +103,7 @@ def build_viewer_report(
     report: dict[str, Any] = dict(diagnostic_to_dict(diagnostic))
     report["summary"] = trace_summary(trace)
     report["timeline"] = trace_timeline(trace)
+    report["causal_graph"] = render_control_dag(trace)
     meta: dict[str, str] = {}
     if trace_file is not None:
         meta["trace_file"] = str(trace_file)

@@ -97,6 +97,17 @@
     .timeline .num { color: var(--muted); min-width: 1.5rem; }
     .timeline .event { font-family: Consolas, monospace; color: var(--accent); min-width: 7rem; }
     .timeline .detail { color: var(--muted); }
+    .graph {
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 0.82rem;
+      line-height: 1.45;
+      white-space: pre-wrap;
+      color: var(--text);
+      background: rgba(0,0,0,0.2);
+      border-radius: 8px;
+      padding: 1rem;
+      overflow-x: auto;
+    }
     table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
     th, td { text-align: left; padding: 0.6rem 0.5rem; border-bottom: 1px solid var(--border); }
     th { color: var(--muted); font-weight: 600; font-size: 0.75rem; text-transform: uppercase; }
@@ -149,6 +160,14 @@
         <div class="stats" id="stats"></div>
       </div>
 
+      <div class="card" id="graph-card" hidden>
+        <h2>Causal graph</h2>
+        <p style="margin:0 0 0.75rem;color:var(--muted);font-size:0.85rem;">
+          Control-flow DAG (ASCII) — same view as <code>varly verify --show-dag</code>.
+        </p>
+        <pre class="graph" id="causal-graph"></pre>
+      </div>
+
       <div class="card" id="timeline-card" hidden>
         <h2>Run timeline</h2>
         <p style="margin:0 0 0.75rem;color:var(--muted);font-size:0.85rem;">
@@ -198,6 +217,17 @@
       stats.innerHTML = items.map(([label, value]) =>
         `<div class="stat"><div class="label">${esc(label)}</div><div class="value">${esc(value)}</div></div>`
       ).join("");
+    }
+
+    function renderGraph(graph) {
+      const card = document.getElementById("graph-card");
+      const pre = document.getElementById("causal-graph");
+      if (!graph) {
+        card.hidden = true;
+        return;
+      }
+      card.hidden = false;
+      pre.textContent = graph;
     }
 
     function renderTimeline(timeline) {
@@ -253,6 +283,7 @@
       document.getElementById("trace-id").textContent = traceLabel;
 
       renderStats(data.summary, data);
+      renderGraph(data.causal_graph);
       renderTimeline(data.timeline);
       renderViolations(data.violations || [], data.passed);
     }

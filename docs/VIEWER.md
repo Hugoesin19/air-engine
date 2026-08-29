@@ -43,5 +43,5 @@ Open `src/varly/interfaces/viewer/index.html` in a browser and drag-drop any dia
 - `trace_id`, violation count
 - Table of invariant violations (id, node, message)
 
-- Does **not** include: live agent runs, auth, billing, or DAG topology graph (later roadmap).
-- **Does** include: run summary (steps, LLM/tool counts, duration, tokens) and a simple ordered timeline.
+- Does **not** include: live agent runs, auth, billing, or a full topology editor (v3 roadmap).
+- **Does** include: run summary (steps, LLM/tool counts, duration, tokens), ordered timeline, and an **ASCII causal graph** (control-flow DAG).
