@@ -1,0 +1,50 @@
+{
+  "format_version": "capture-event-log-1.0.0",
+  "run_id": "pilot-research-20260829-0001",
+  "steps": [
+    {
+      "id": "pilot-step-010",
+      "event_type": "run_start",
+      "timestamp_ms": 0.001
+    },
+    {
+      "id": "pilot-step-011",
+      "event_type": "llm_call",
+      "timestamp_ms": 5640.273,
+      "total_tokens": 292
+    },
+    {
+      "id": "pilot-step-012",
+      "event_type": "tool_call",
+      "timestamp_ms": 5640.379,
+      "name": "search"
+    },
+    {
+      "id": "pilot-step-013",
+      "event_type": "tool_output",
+      "timestamp_ms": 5640.387,
+      "name": "search"
+    },
+    {
+      "id": "pilot-step-014",
+      "event_type": "llm_call",
+      "timestamp_ms": 48032.778,
+      "total_tokens": 264
+    },
+    {
+      "id": "pilot-step-015",
+      "event_type": "run_end",
+      "timestamp_ms": 48032.806
+    }
+  ],
+  "reads": [
+    {
+      "source": "pilot-step-012",
+      "target": "pilot-step-011"
+    },
+    {
+      "source": "pilot-step-013",
+      "target": "pilot-step-014"
+    }
+  ]
+}

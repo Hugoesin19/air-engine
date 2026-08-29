@@ -5,7 +5,7 @@
 > Update checkboxes as you complete work.
 
 **Last updated:** 2026-08-29  
-**Current step:** Step 2 — One real pilot run  
+**Current step:** Step 4 — Easy capture (one framework only)  
 **Related:** [Product Roadmap](PRODUCT_ROADMAP.md) (engine sprints) · [Baseline workflow](workflows/baseline.md)
 
 ---
@@ -56,11 +56,11 @@
 
 **Goal:** Prove the engine outside hand-written `examples/` fixtures.
 
-- [ ] Choose one small real agent (yours or a friend’s)
-- [ ] Capture **one** completed run as JSON (anonymize secrets / PII)
-- [ ] Store it under `examples/fixtures/` or a `pilot/` folder
-- [ ] `verify` against an existing or lightly tuned policy → PASS or FAIL that makes sense
-- [ ] Write a short friction note (5–10 lines): what broke, what was confusing
+- [x] Choose one small real agent (yours or a friend’s)
+- [x] Capture **one** completed run as JSON (anonymize secrets / PII)
+- [x] Store it under `examples/fixtures/` or a `pilot/` folder
+- [x] `verify` against an existing or lightly tuned policy → PASS or FAIL that makes sense
+- [x] Write a short friction note (5–10 lines): what broke, what was confusing
 
 **Done when:** You have one non-toy run + a verify result you trust + a friction list.
 
@@ -72,11 +72,11 @@
 
 **Goal:** The product protects against regressions, not only “passes once”.
 
-- [ ] Keep the good pilot (or golden) run as **baseline**
-- [ ] Break something on purpose (missing tool return, stricter policy, etc.)
-- [ ] `air-engine diff baseline current --contract …` exits **1** (REGRESSION)
-- [ ] Fix the intentional break; `diff` exits **0** again
-- [ ] Optionally wire `diff` into a local script / CI job for the pilot
+- [x] Keep the good pilot (or golden) run as **baseline**
+- [x] Break something on purpose (missing tool return, stricter policy, etc.)
+- [x] `air-engine diff baseline current --contract …` exits **1** (REGRESSION)
+- [x] Fix the intentional break; `diff` exits **0** again
+- [x] Optionally wire `diff` into a local script / CI job for the pilot
 
 **Done when:** Introducing a broken run reliably fails the gate vs baseline.
 
@@ -160,9 +160,9 @@ Explicitly **out** of this step:
 | Step | Name | Status |
 |------|------|--------|
 | 1 | Ship & freeze v1 baseline | ✅ |
-| 2 | One real pilot run | ⬜ Current |
-| 3 | Pilot as regression gate | ⬜ |
-| 4 | Easy capture (one framework) | ⬜ |
+| 2 | One real pilot run | ✅ |
+| 3 | Pilot as regression gate | ✅ |
+| 4 | Easy capture (one framework) | ⬜ Current |
 | 5 | Easy install & onboarding | ⬜ |
 | 6 | Light UX | ⬜ Locked until Step 5 |
 | 7 | Prepare to commercialize | ⬜ Locked until usage signal |
@@ -174,7 +174,8 @@ Explicitly **out** of this step:
 | Date | Step | Completed | Next |
 |------|------|-----------|------|
 | 2026-08-24 | — | Document created; engine v1 (sprints 6–12) treated as done | Step 1 ship & freeze |
-| 2026-08-29 | 1 | README quick start, CHANGELOG, commit `d2f4d54`, tag `v1.0.0-beta`, CI run #17 green | Step 2 pilot run |
+| 2026-08-29 | 3 | Pilot baseline/broken fixtures, `verify_gate.py`, diff e2e tests | Step 4 capture recipe |
+| 2026-08-29 | 2 | Gemini pilot live capture, `pilot/policies/live.yaml`, PASS, `FRICTION.md` | Step 3 diff gate |
 
 ---
 
