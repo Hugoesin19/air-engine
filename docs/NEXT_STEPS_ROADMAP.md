@@ -5,7 +5,7 @@
 > Update checkboxes as you complete work.
 
 **Last updated:** 2026-08-29  
-**Current step:** Step 4 — Easy capture (one framework only)  
+**Current step:** Step 5 — Easy install & onboarding  
 **Related:** [Product Roadmap](PRODUCT_ROADMAP.md) (engine sprints) · [Baseline workflow](workflows/baseline.md)
 
 ---
@@ -92,10 +92,10 @@
 
 Pick **one** stack first (LangGraph **or** OpenAI), not both.
 
-- [ ] One-page recipe: paste snippet → write `run.json` → `verify --source …`
-- [ ] Example script or callback under `examples/` that writes the log
-- [ ] Recipe tested on a clean machine / fresh clone
-- [ ] Friction from Step 2 either fixed or documented as known limitation
+- [x] One-page recipe: paste snippet → write `run.json` → `verify --source …`
+- [x] Example script or callback under `examples/` that writes the log
+- [x] Recipe tested on a clean machine / fresh clone
+- [x] Friction from Step 2 either fixed or documented as known limitation
 
 **Done when:** A technical friend follows the recipe alone and gets PASS/FAIL.
 
@@ -162,8 +162,8 @@ Explicitly **out** of this step:
 | 1 | Ship & freeze v1 baseline | ✅ |
 | 2 | One real pilot run | ✅ |
 | 3 | Pilot as regression gate | ✅ |
-| 4 | Easy capture (one framework) | ⬜ Current |
-| 5 | Easy install & onboarding | ⬜ |
+| 4 | Easy capture (one framework) | ✅ |
+| 5 | Easy install & onboarding | ⬜ Current |
 | 6 | Light UX | ⬜ Locked until Step 5 |
 | 7 | Prepare to commercialize | ⬜ Locked until usage signal |
 
@@ -174,6 +174,7 @@ Explicitly **out** of this step:
 | Date | Step | Completed | Next |
 |------|------|-----------|------|
 | 2026-08-24 | — | Document created; engine v1 (sprints 6–12) treated as done | Step 1 ship & freeze |
+| 2026-08-29 | 4 | RunRecorder capture recipe + `examples/capture_recipe/`, e2e test | Step 5 onboarding |
 | 2026-08-29 | 3 | Pilot baseline/broken fixtures, `verify_gate.py`, diff e2e tests | Step 4 capture recipe |
 | 2026-08-29 | 2 | Gemini pilot live capture, `pilot/policies/live.yaml`, PASS, `FRICTION.md` | Step 3 diff gate |
 

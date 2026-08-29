@@ -111,6 +111,7 @@ uv run air-engine verify examples/fixtures/recorded/openai_responses_search.json
 - [MVP Roadmap](docs/MVP_ROADMAP.md) — Sprints 0–5 (complete)
 - [Product Roadmap](docs/PRODUCT_ROADMAP.md) — post-MVP plan (Sprints 6+)
 - [Next Steps Roadmap](docs/NEXT_STEPS_ROADMAP.md) — adoption → product (after v1)
+- [Capture recipe](docs/recipes/capture-run-recorder.md) — instrument any agent with `RunRecorder`
 - [Changelog](CHANGELOG.md)
 - [Architecture specs](docs/architecture/) — formal AIR schema and contract model
 - [Architecture Decision Records](docs/adrs/) — foundational design decisions

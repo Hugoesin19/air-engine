@@ -1,0 +1,50 @@
+{
+  "format_version": "capture-event-log-1.0.0",
+  "run_id": "capture-recipe-3fd9ed5a",
+  "steps": [
+    {
+      "id": "step-001",
+      "event_type": "run_start",
+      "timestamp_ms": 0.001
+    },
+    {
+      "id": "step-002",
+      "event_type": "llm_call",
+      "timestamp_ms": 0.014,
+      "total_tokens": 120
+    },
+    {
+      "id": "step-003",
+      "event_type": "tool_call",
+      "timestamp_ms": 0.02,
+      "name": "search"
+    },
+    {
+      "id": "step-004",
+      "event_type": "tool_output",
+      "timestamp_ms": 0.023,
+      "name": "search"
+    },
+    {
+      "id": "step-005",
+      "event_type": "llm_call",
+      "timestamp_ms": 0.027,
+      "total_tokens": 80
+    },
+    {
+      "id": "step-006",
+      "event_type": "run_end",
+      "timestamp_ms": 0.032
+    }
+  ],
+  "reads": [
+    {
+      "source": "step-003",
+      "target": "step-002"
+    },
+    {
+      "source": "step-004",
+      "target": "step-005"
+    }
+  ]
+}
