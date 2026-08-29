@@ -17,7 +17,7 @@ from varly.interfaces.library.api import TraceSource, load_trace
 from varly.interfaces.viewer.report import write_viewer_report
 
 VIEWER_DIR = Path(__file__).resolve().parents[2] / "viewer"
-REPORT_FILE = ".report.json"
+REPORT_FILE = "report.json"
 DEFAULT_PORT = 8765
 
 
@@ -130,6 +130,7 @@ def serve_viewer(
         print("Press Ctrl+C to stop.")
         if open_browser:
             webbrowser.open(url)
+            print("If the browser did not open, paste the URL above manually.")
         try:
             httpd.serve_forever()
         except KeyboardInterrupt:

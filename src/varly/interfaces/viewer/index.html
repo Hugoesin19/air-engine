@@ -306,7 +306,7 @@
       if (e.dataTransfer.files[0]) loadFile(e.dataTransfer.files[0]);
     });
 
-    fetch(".report.json")
+    fetch("report.json")
       .then((r) => (r.ok ? r.json() : null))
       .then((data) => {
         if (data) render(data);
