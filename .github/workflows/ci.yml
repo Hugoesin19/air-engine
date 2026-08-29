@@ -101,6 +101,34 @@ jobs:
           contract-file: examples/policies/mvp.yaml
           source: capture
 
+  langgraph-capture-pipeline:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: uv sync --frozen --group langgraph
+
+      - name: Run LangGraph capture example
+        run: uv run python examples/langgraph_capture/run.py --output /tmp/langgraph_run.json
+
+      - name: Verify LangGraph export
+        uses: ./.github/actions/verify-trace
+        with:
+          trace-file: /tmp/langgraph_run.json
+          contract-file: examples/policies/mvp.yaml
+          source: langgraph
+
   package-smoke:
     runs-on: ubuntu-latest
     steps:

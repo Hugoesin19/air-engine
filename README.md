@@ -131,6 +131,7 @@ uv run varly verify examples/fixtures/recorded/openai_responses_search.json \
 - [Onboarding checklist](docs/ONBOARDING.md) — first PASS/FAIL on a fresh machine
 - [Diagnostic viewer](docs/VIEWER.md) — `varly view` in the browser
 - [Capture recipe](docs/recipes/capture-run-recorder.md) — instrument any agent with `RunRecorder`
+- [LangGraph capture](docs/recipes/capture-langgraph-export.md) — automatic callbacks, no `record_*`
 - [Changelog](CHANGELOG.md)
 - [Architecture specs](docs/architecture/) — formal AIR schema and contract model
 - [Architecture Decision Records](docs/adrs/) — foundational design decisions

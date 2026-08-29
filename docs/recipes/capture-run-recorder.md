@@ -4,7 +4,8 @@
 **Stack:** `varly.capture.RunRecorder` → `verify --source capture`  
 **Cost:** Zero API calls (this recipe uses a deterministic mock agent).
 
-For LangGraph/OpenAI **file export** paths, see [architecture mappings](../architecture/README.md).  
+**Prefer automatic capture?** See [LangGraph export](capture-langgraph-export.md) if you run LangGraph/LangChain with callbacks.  
+For OpenAI Responses JSON, see [architecture mappings](../architecture/README.md).  
 This recipe is the zero-dependency path proven in the [pilot](../../pilot/README.md).
 
 ---
@@ -132,8 +133,9 @@ See [Baseline workflow](../workflows/baseline.md).
 
 ## Known limitations (from pilot)
 
-- **Manual hooks** — you call `record_*` at each step; no auto-instrumentation from Gemini/OpenAI SDK yet.
-- **No `--source gemini`** — use RunRecorder or export LangGraph/OpenAI JSON (see architecture docs).
+- **LangGraph path** — use [LangGraph export](capture-langgraph-export.md) for automatic callbacks (no `record_*`).
+- **Manual hooks** — RunRecorder still requires explicit `record_*` per step for other stacks.
+- **No `--source gemini`** — use RunRecorder for Gemini pilot or export LangGraph/OpenAI JSON.
 - **Policy coupling** — tool names and SLAs live in YAML; align capture with your contract.
 
 ---

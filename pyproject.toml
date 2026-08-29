@@ -29,6 +29,12 @@ Documentation = "https://github.com/Hugoesin19/varly#readme"
 [project.scripts]
 varly = "varly.interfaces.cli.main:main"
 
+[project.optional-dependencies]
+langgraph = [
+    "langchain-core>=0.3",
+    "langgraph>=0.2",
+]
+
 [build-system]
 requires = ["hatchling>=1.27"]
 build-backend = "hatchling.build"
@@ -49,6 +55,10 @@ dev = [
 ]
 pilot = [
     "google-genai>=1.0",
+]
+langgraph = [
+    "langchain-core>=0.3",
+    "langgraph>=0.2",
 ]
 
 [tool.pytest.ini_options]

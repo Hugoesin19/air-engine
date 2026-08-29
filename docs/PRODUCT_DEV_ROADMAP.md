@@ -4,7 +4,7 @@
 > The TFG is satisfied by documenting what exists; this file drives **what to build next**.
 
 **Last updated:** 2026-08-29  
-**Current phase:** **P2 — Automatic capture**  
+**Current phase:** **P2 — Automatic capture** (LangGraph slice complete)  
 **North star:** A developer installs varly, captures a real agent run with minimal friction, and gets PASS/FAIL + regression gates in CI — without LLM-as-judge.
 
 **Completed foundation:** Engine v1 (Sprints 0–12) · Adoption steps 1–6 · [Next Steps archive](NEXT_STEPS_ROADMAP.md)
@@ -30,7 +30,7 @@
 |-------|--------|---------|--------|
 | **P0** | Engine + adoption proof | v1 engine, pilot, CI, viewer, recipes | ✅ Done |
 | **P1** | Distribution & release | `pip install`, stable tag, published Action | ✅ Done |
-| **P2** | Automatic capture | LangGraph (or OpenAI) capture without manual `record_*` | ⬜ **Current** |
+| **P2** | Automatic capture | LangGraph (or OpenAI) capture without manual `record_*` | ⬜ **Current** (LangGraph done) |
 | **P3** | Developer experience | Cookbook, viewer graph, policy packs by use case | ⬜ |
 | **P4** | Team readiness | Batch verify, baseline workflows, sharper reports | ⬜ |
 | **P5** | Enterprise foundations | Audit trail, OTel ingest, self-host guide | ⬜ Paused |
@@ -63,15 +63,15 @@
 
 Pick **LangGraph** first (callback export already partially supported) **or** OpenAI Responses — not both at half quality.
 
-- [ ] One-page recipe: run agent → export JSON → `verify --source langgraph|openai`
-- [ ] Example under `examples/` that produces a capture file (mock or recorded fixture)
-- [ ] Golden fixture + CI gate for the new path
-- [ ] Update [capture recipe](recipes/capture-run-recorder.md) with “when to use manual vs export”
-- [ ] Friction note closed or updated in [pilot/FRICTION.md](../pilot/FRICTION.md)
+- [x] One-page recipe: run agent → export JSON → `verify --source langgraph`
+- [x] Example under `examples/langgraph_capture/` (mock graph, no API keys)
+- [x] CI gate: `langgraph-capture-pipeline` job
+- [x] Update [capture recipe](recipes/capture-run-recorder.md) with “when to use manual vs export”
+- [x] Friction note updated in [pilot/FRICTION.md](../pilot/FRICTION.md)
 
-**Done when:** You can verify a run without writing `record_*` calls yourself.
+**Done when:** You can verify a LangGraph run without writing `record_*` calls yourself. ✅ (LangGraph)
 
-**Next:** P3
+**Next:** OpenAI export slice (optional) or P3
 
 ---
 
@@ -141,6 +141,7 @@ Only after P1–P3 and **real usage signal** (even 1–2 external teams).
 
 | Date | Phase | Completed | Next |
 |------|-------|-----------|------|
+| 2026-08-29 | P2 | LangGraph auto-capture: collector, example, recipe, CI | P3 — developer experience |
 | 2026-08-29 | P1 | v1.0.0, PyPI publish, GitHub Release, repo rename to `varly` | P2 — automatic capture |
 
 ---

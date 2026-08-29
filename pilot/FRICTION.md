@@ -4,8 +4,9 @@ Update this file after your first **live** Gemini run. Dry-run findings below ar
 
 ## Dry-run (scaffolding)
 
-- **Instrumentation is manual** — each LLM/tool step needs an explicit `record_*` call; no auto-hook from Gemini SDK yet.  
-  → Documented in Step 4: [capture recipe](../docs/recipes/capture-run-recorder.md) + [examples/capture_recipe/](../examples/capture_recipe/).
+- **Instrumentation is manual for generic agents** — each LLM/tool step needs an explicit `record_*` call unless you use LangGraph callbacks.  
+  → LangGraph: [capture-langgraph-export recipe](../docs/recipes/capture-langgraph-export.md)  
+  → Generic: [capture recipe](../docs/recipes/capture-run-recorder.md) + [examples/capture_recipe/](../examples/capture_recipe/).
 - **No `--source gemini`** — captures use `RunRecorder` (`--source capture`), not a native Gemini export adapter.
 - **Tool is local/canned** — `search` does not call the web; only the LLM steps hit Gemini in live mode (by design for cost control).
 - **Policy coupling** — `mvp.yaml` allowlists tool name `search`; renaming the tool requires policy edits.

@@ -1,0 +1,210 @@
+{
+  "object": "langgraph.callback_events",
+  "run_id": "langgraph-capture-8bd11408",
+  "events": [
+    {
+      "event": "on_chain_start",
+      "name": "LangGraph",
+      "run_id": "01a04eb5-fee3-72e2-9366-ef4d6db43b22",
+      "parent_ids": [],
+      "data": {
+        "input": {
+          "query": "capital of France",
+          "answer": ""
+        }
+      }
+    },
+    {
+      "event": "on_chain_start",
+      "name": "LangGraph",
+      "run_id": "01a04eb5-fee4-73f3-a4a1-73c1721c73a7",
+      "parent_ids": [
+        "01a04eb5-fee3-72e2-9366-ef4d6db43b22"
+      ],
+      "data": {
+        "input": {
+          "query": "capital of France",
+          "answer": ""
+        }
+      }
+    },
+    {
+      "event": "on_llm_start",
+      "name": "FakeListLLM",
+      "run_id": "01a04eb5-fee4-73f3-a4a1-73d96319f114",
+      "parent_ids": [
+        "01a04eb5-fee4-73f3-a4a1-73c1721c73a7"
+      ],
+      "data": {}
+    },
+    {
+      "event": "on_llm_end",
+      "name": "FakeListLLM",
+      "run_id": "01a04eb5-fee4-73f3-a4a1-73d96319f114",
+      "parent_ids": [
+        "01a04eb5-fee4-73f3-a4a1-73c1721c73a7"
+      ],
+      "data": {
+        "output": {
+          "llm_output": {
+            "generations": [
+              [
+                {
+                  "text": "Search for: capital of France"
+                }
+              ]
+            ]
+          },
+          "generations": [
+            [
+              {
+                "text": "Search for: capital of France"
+              }
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "event": "on_chain_end",
+      "name": "LangGraph",
+      "run_id": "01a04eb5-fee4-73f3-a4a1-73c1721c73a7",
+      "parent_ids": [
+        "01a04eb5-fee3-72e2-9366-ef4d6db43b22"
+      ],
+      "data": {
+        "output": {
+          "query": "capital of France",
+          "answer": ""
+        }
+      }
+    },
+    {
+      "event": "on_chain_start",
+      "name": "LangGraph",
+      "run_id": "01a04eb5-fee5-7e32-933a-256623b9ccb4",
+      "parent_ids": [
+        "01a04eb5-fee3-72e2-9366-ef4d6db43b22"
+      ],
+      "data": {
+        "input": {
+          "query": "capital of France",
+          "answer": ""
+        }
+      }
+    },
+    {
+      "event": "on_tool_start",
+      "name": "search",
+      "run_id": "01a04eb5-fee5-7e32-933a-2572e007ee81",
+      "parent_ids": [
+        "01a04eb5-fee5-7e32-933a-256623b9ccb4"
+      ],
+      "data": {
+        "input": "capital of France"
+      }
+    },
+    {
+      "event": "on_tool_end",
+      "name": "search",
+      "run_id": "01a04eb5-fee5-7e32-933a-2572e007ee81",
+      "parent_ids": [
+        "01a04eb5-fee5-7e32-933a-256623b9ccb4"
+      ],
+      "data": {
+        "output": "Paris is the capital of France."
+      }
+    },
+    {
+      "event": "on_chain_end",
+      "name": "LangGraph",
+      "run_id": "01a04eb5-fee5-7e32-933a-256623b9ccb4",
+      "parent_ids": [
+        "01a04eb5-fee3-72e2-9366-ef4d6db43b22"
+      ],
+      "data": {
+        "output": {
+          "query": "capital of France",
+          "answer": "Paris is the capital of France."
+        }
+      }
+    },
+    {
+      "event": "on_chain_start",
+      "name": "LangGraph",
+      "run_id": "01a04eb5-fee5-7e32-933a-25870e0cd9df",
+      "parent_ids": [
+        "01a04eb5-fee3-72e2-9366-ef4d6db43b22"
+      ],
+      "data": {
+        "input": {
+          "query": "capital of France",
+          "answer": "Paris is the capital of France."
+        }
+      }
+    },
+    {
+      "event": "on_llm_start",
+      "name": "FakeListLLM",
+      "run_id": "01a04eb5-fee5-7e32-933a-2599bbaea201",
+      "parent_ids": [
+        "01a04eb5-fee5-7e32-933a-25870e0cd9df"
+      ],
+      "data": {}
+    },
+    {
+      "event": "on_llm_end",
+      "name": "FakeListLLM",
+      "run_id": "01a04eb5-fee5-7e32-933a-2599bbaea201",
+      "parent_ids": [
+        "01a04eb5-fee5-7e32-933a-25870e0cd9df"
+      ],
+      "data": {
+        "output": {
+          "llm_output": {
+            "generations": [
+              [
+                {
+                  "text": "Paris is the capital of France."
+                }
+              ]
+            ]
+          },
+          "generations": [
+            [
+              {
+                "text": "Paris is the capital of France."
+              }
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "event": "on_chain_end",
+      "name": "LangGraph",
+      "run_id": "01a04eb5-fee5-7e32-933a-25870e0cd9df",
+      "parent_ids": [
+        "01a04eb5-fee3-72e2-9366-ef4d6db43b22"
+      ],
+      "data": {
+        "output": {
+          "query": "capital of France",
+          "answer": "Paris is the capital of France."
+        }
+      }
+    },
+    {
+      "event": "on_chain_end",
+      "name": "LangGraph",
+      "run_id": "01a04eb5-fee3-72e2-9366-ef4d6db43b22",
+      "parent_ids": [],
+      "data": {
+        "output": {
+          "query": "capital of France",
+          "answer": "Paris is the capital of France."
+        }
+      }
+    }
+  ]
+}
