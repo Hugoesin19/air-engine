@@ -4,7 +4,7 @@
 > The TFG is satisfied by documenting what exists; this file drives **what to build next**.
 
 **Last updated:** 2026-08-29  
-**Current phase:** **P3 — Developer experience** ✅  
+**Current phase:** **P4 — Team readiness** ✅  
 **North star:** A developer installs varly, captures a real agent run with minimal friction, and gets PASS/FAIL + regression gates in CI — without LLM-as-judge.
 
 **Completed foundation:** Engine v1 (Sprints 0–12) · Adoption steps 1–6 · [Next Steps archive](NEXT_STEPS_ROADMAP.md)
@@ -32,7 +32,7 @@
 | **P1** | Distribution & release | `pip install`, stable tag, published Action | ✅ Done |
 | **P2** | Automatic capture | LangGraph (or OpenAI) capture without manual `record_*` | ✅ Done |
 | **P3** | Developer experience | Cookbook, viewer graph, policy packs by use case | ✅ Done |
-| **P4** | Team readiness | Batch verify, baseline workflows, sharper reports | ⬜ **Current** |
+| **P4** | Team readiness | Batch verify, baseline workflows, sharper reports | ✅ Done |
 | **P5** | Enterprise foundations | Audit trail, OTel ingest, self-host guide | ⬜ Paused |
 
 **Paused (not now):** commercialization (pricing, landing), contract DSL (v2), full topology editor (v3), multi-tenant cloud.
@@ -90,16 +90,17 @@ Pick **LangGraph** first (callback export already partially supported) **or** Op
 
 ---
 
-## P4 — Team readiness
+## P4 — Team readiness ✅
 
 **Goal:** Small teams can standardize on varly in CI.
 
-- [ ] Document team workflow: baseline per branch, `diff` on PR
-- [ ] Verify **multiple** traces in one command or script
-- [ ] Report artifacts (JUnit/SARIF) documented for GitHub/GitLab
-- [ ] Optional: `varly verify` exit codes + JSON stable for wrappers
+- [x] Document team workflow: baseline per branch, `diff` on PR ([team-ci.md](workflows/team-ci.md))
+- [x] Verify **multiple** traces in one command (`scripts/ci/verify_batch.py`)
+- [x] Report artifacts (JUnit/SARIF) documented for GitHub/GitLab
+- [x] `verify` / `diff` exit codes documented for wrappers
+- [x] README **Team CI** section copy-paste ready
 
-**Done when:** README has a “Team CI” section copy-paste ready.
+**Done when:** README has a “Team CI” section copy-paste ready. ✅
 
 **Next:** P5 or user feedback
 
@@ -141,6 +142,7 @@ Only after P1–P3 and **real usage signal** (even 1–2 external teams).
 
 | Date | Phase | Completed | Next |
 |------|-------|-----------|------|
+| 2026-08-29 | P4 | Team CI guide, batch verify script, exit codes, README section | User feedback / P5 later |
 | 2026-08-29 | P3 | Cookbook, viewer causal graph, policy packs, CLI hints | P4 — team readiness |
 | 2026-08-29 | P2 | LangGraph auto-capture: collector, example, recipe, CI | P3 — developer experience |
 | 2026-08-29 | P1 | v1.0.0, PyPI publish, GitHub Release, repo rename to `varly` | P2 — automatic capture |
@@ -151,5 +153,6 @@ Only after P1–P3 and **real usage signal** (even 1–2 external teams).
 
 - [Product Roadmap](PRODUCT_ROADMAP.md) — historical engine sprints
 - [Next Steps Roadmap](NEXT_STEPS_ROADMAP.md) — adoption steps 1–6 (complete)
+- [Team CI](workflows/team-ci.md) · [Baseline](workflows/baseline.md)
 - [Install](INSTALL.md) · [Cookbook](cookbook/README.md) · [Viewer](VIEWER.md) · [Capture recipe](recipes/capture-run-recorder.md)
 - [Pilot](../pilot/README.md)

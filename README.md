@@ -190,6 +190,46 @@ uv run varly diff \
 
 See [docs/workflows/baseline.md](docs/workflows/baseline.md).
 
+## Team CI
+
+Copy-paste workflow for PR gates: verify, regression `diff`, JUnit/SARIF reports, and batch verify.
+
+**Full guide:** [docs/workflows/team-ci.md](docs/workflows/team-ci.md)
+
+```yaml
+# .github/workflows/varly.yml — minimal PR gate
+name: varly
+on: [pull_request, push]
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install varly
+      - run: python your_agent/run.py --output artifacts/run.json
+      - uses: Hugoesin19/varly/.github/actions/verify-trace@v1.0.0
+        with:
+          trace-file: artifacts/run.json
+          contract-file: policies/mvp.yaml
+          source: capture
+          report-format: sarif
+      - run: |
+          varly diff fixtures/baseline_run.json artifacts/run.json \
+            --contract policies/mvp.yaml --source capture
+```
+
+Batch verify multiple fixtures locally:
+
+```bash
+uv run python scripts/ci/verify_batch.py \
+  examples/demo_agent/artifacts/mock_run.json \
+  examples/capture_recipe/artifacts/run.json \
+  --contract examples/policies/mvp.yaml --source capture
+```
+
 Run the same fixture gate locally:
 
 ```bash
