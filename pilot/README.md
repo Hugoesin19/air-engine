@@ -32,7 +32,7 @@ For the strongest product story, run **live once**, review the capture, then com
 
 1. Copy the template in the repo root:
    ```powershell
-   cd d:\tfg\air-engine
+   cd d:\tfg\varly
    copy .env.example .env
    ```
 2. Open `.env` in the editor and replace `paste_your_gemini_api_key_here` with your real key.
@@ -52,7 +52,7 @@ uv sync --group pilot
 ### Run (Windows PowerShell)
 
 ```powershell
-cd d:\tfg\air-engine
+cd d:\tfg\varly
 
 # 1) Create .env once (see above) with PILOT_LIVE=1 and GOOGLE_API_KEY=...
 

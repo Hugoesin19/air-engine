@@ -30,8 +30,8 @@ Expect `PASS` and `violations: 0`.
 Requires [uv](https://docs.astral.sh/uv/).
 
 ```bash
-git clone https://github.com/Hugoesin19/air-engine.git
-cd air-engine
+git clone https://github.com/Hugoesin19/varly.git
+cd varly
 uv sync
 
 # 1) Generate a deterministic mock agent run (no API keys)
@@ -245,9 +245,7 @@ Designed and implemented by **Hugo** ([@Hugoesin19](https://github.com/Hugoesin1
 
 Copyright (c) 2026 Hugoesin19. All rights reserved under the MIT License terms.
 
-If you reference this work academically or commercially, please keep attribution to the original repository: [github.com/Hugoesin19/air-engine](https://github.com/Hugoesin19/air-engine).
-
-> **Note:** The product is **Varly** (`pip install varly`). Rename the GitHub repo to `varly` when you are ready.
+If you reference this work academically or commercially, please keep attribution to the repository: [github.com/Hugoesin19/varly](https://github.com/Hugoesin19/varly).
 
 ## License
 

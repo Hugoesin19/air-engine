@@ -97,7 +97,7 @@ def diagnostic_to_sarif(diagnostic: Diagnostic) -> str:
                 "tool": {
                     "driver": {
                         "name": "varly",
-                        "informationUri": "https://github.com/Hugoesin19/air-engine",
+                        "informationUri": "https://github.com/Hugoesin19/varly",
                         "rules": rules,
                     }
                 },

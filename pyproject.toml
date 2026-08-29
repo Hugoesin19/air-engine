@@ -22,9 +22,9 @@ classifiers = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/Hugoesin19/air-engine"
-Repository = "https://github.com/Hugoesin19/air-engine"
-Documentation = "https://github.com/Hugoesin19/air-engine#readme"
+Homepage = "https://github.com/Hugoesin19/varly"
+Repository = "https://github.com/Hugoesin19/varly"
+Documentation = "https://github.com/Hugoesin19/varly#readme"
 
 [project.scripts]
 varly = "varly.interfaces.cli.main:main"

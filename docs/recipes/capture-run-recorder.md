@@ -13,10 +13,10 @@ This recipe is the zero-dependency path proven in the [pilot](../../pilot/README
 
 - Python 3.12+
 - [uv](https://docs.astral.sh/uv/)
-- Clone of [varly](https://github.com/Hugoesin19/air-engine)
+- Clone of [varly](https://github.com/Hugoesin19/varly)
 
 ```bash
-git clone https://github.com/Hugoesin19/air-engine.git
+git clone https://github.com/Hugoesin19/varly.git
 cd varly
 uv sync
 ```

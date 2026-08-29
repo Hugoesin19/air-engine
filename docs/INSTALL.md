@@ -25,7 +25,7 @@ print(bundled_policy("mvp"))
 ## Option B — uv from source (development)
 
 ```bash
-git clone https://github.com/Hugoesin19/air-engine.git
+git clone https://github.com/Hugoesin19/varly.git
 cd varly
 uv sync
 uv run varly --help
@@ -42,7 +42,7 @@ uv sync --group pilot
 ## Option C — pip from Git tag
 
 ```bash
-pip install "varly @ git+https://github.com/Hugoesin19/air-engine.git@v1.0.0"
+pip install "varly @ git+https://github.com/Hugoesin19/varly.git@v1.0.0"
 varly verify --demo
 ```
 
@@ -65,7 +65,7 @@ uv run python scripts/demo_60s.py
 Pin the composite action to a release tag:
 
 ```yaml
-- uses: Hugoesin19/air-engine/.github/actions/verify-trace@v1.0.0
+- uses: Hugoesin19/varly/.github/actions/verify-trace@v1.0.0
   with:
     trace-file: path/to/run.json
     contract-file: examples/policies/mvp.yaml

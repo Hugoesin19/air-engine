@@ -4,7 +4,7 @@
 > The TFG is satisfied by documenting what exists; this file drives **what to build next**.
 
 **Last updated:** 2026-08-29  
-**Current phase:** **P1 — Distribution & release** (tag `v1.0.0` + PyPI publish pending)  
+**Current phase:** **P2 — Automatic capture**  
 **North star:** A developer installs varly, captures a real agent run with minimal friction, and gets PASS/FAIL + regression gates in CI — without LLM-as-judge.
 
 **Completed foundation:** Engine v1 (Sprints 0–12) · Adoption steps 1–6 · [Next Steps archive](NEXT_STEPS_ROADMAP.md)
@@ -29,8 +29,8 @@
 | Phase | Focus | Outcome | Status |
 |-------|--------|---------|--------|
 | **P0** | Engine + adoption proof | v1 engine, pilot, CI, viewer, recipes | ✅ Done |
-| **P1** | Distribution & release | `pip install`, stable tag, published Action | ⬜ **Current** (push tag) |
-| **P2** | Automatic capture | LangGraph (or OpenAI) capture without manual `record_*` | ⬜ |
+| **P1** | Distribution & release | `pip install`, stable tag, published Action | ✅ Done |
+| **P2** | Automatic capture | LangGraph (or OpenAI) capture without manual `record_*` | ⬜ **Current** |
 | **P3** | Developer experience | Cookbook, viewer graph, policy packs by use case | ⬜ |
 | **P4** | Team readiness | Batch verify, baseline workflows, sharper reports | ⬜ |
 | **P5** | Enterprise foundations | Audit trail, OTel ingest, self-host guide | ⬜ Paused |
@@ -39,18 +39,19 @@
 
 ---
 
-## P1 — Distribution & release
+## P1 — Distribution & release ✅
 
 **Goal:** Anyone can install a **versioned** package without cloning the repo.
 
-- [x] Bump version to `1.0.0` (or `0.2.0` if you prefer cautious semver)
-- [ ] Publish to **PyPI** (`pip install varly`) — workflow ready; **push tag `v1.0.0`** to trigger
+- [x] Bump version to `1.0.0`
+- [x] Publish to **PyPI** (`pip install varly`)
 - [x] README install path: PyPI first, git second
-- [ ] Git tag + GitHub Release notes — after PyPI trusted publishing is configured
+- [x] Git tag + GitHub Release (`v1.0.0`)
 - [x] Document **published** GitHub Action (`uses: …@v1.0.0`)
 - [x] CI smoke: install from wheel in `package-smoke` job
+- [x] GitHub repo renamed to `varly`
 
-**Done when:** Fresh machine → `pip install varly` → `demo_60s` equivalent PASS.
+**Done when:** Fresh machine → `pip install varly` → `varly verify --demo` PASS. ✅
 
 **Next:** P2
 
@@ -140,7 +141,7 @@ Only after P1–P3 and **real usage signal** (even 1–2 external teams).
 
 | Date | Phase | Completed | Next |
 |------|-------|-----------|------|
-| 2026-08-29 | P1 | v1.0.0, bundled resources, `verify --demo`, publish workflow, package-smoke CI | Push `v1.0.0` tag → PyPI |
+| 2026-08-29 | P1 | v1.0.0, PyPI publish, GitHub Release, repo rename to `varly` | P2 — automatic capture |
 
 ---
 

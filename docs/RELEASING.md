@@ -3,9 +3,9 @@
 ## Prerequisites (one-time)
 
 1. [PyPI account](https://pypi.org/account/register/)
-2. **Trusted publishing** for `Hugoesin19/air-engine`:
+2. **Trusted publishing** for `Hugoesin19/varly`:
    - PyPI → Your project → Publishing → Add GitHub Actions publisher
-   - Owner: `Hugoesin19`, repo: `air-engine`, workflow: `publish.yml`, environment: `pypi`
+   - Owner: `Hugoesin19`, repo: `varly`, workflow: `publish.yml`, environment: `pypi`
 3. GitHub repo → Settings → Environments → create **`pypi`** (no secrets required with trusted publishing)
 
 Manual fallback: `UV_PUBLISH_TOKEN` from PyPI → `uv publish --token "$TOKEN"`
@@ -27,7 +27,7 @@ Manual fallback: `UV_PUBLISH_TOKEN` from PyPI → `uv publish --token "$TOKEN"`
    git push origin v1.0.0
    ```
 5. GitHub Actions **Publish to PyPI** runs on the tag
-6. Create a [GitHub Release](https://github.com/Hugoesin19/air-engine/releases) from the tag (copy CHANGELOG section)
+6. Create a [GitHub Release](https://github.com/Hugoesin19/varly/releases) from the tag (copy CHANGELOG section)
 
 ## Verify PyPI install
 
@@ -41,7 +41,7 @@ Expect `PASS` and `violations: 0`.
 ## GitHub Action for consumers
 
 ```yaml
-- uses: Hugoesin19/air-engine/.github/actions/verify-trace@v1.0.0
+- uses: Hugoesin19/varly/.github/actions/verify-trace@v1.0.0
   with:
     trace-file: path/to/run.json
     contract-file: examples/policies/mvp.yaml

@@ -22,7 +22,7 @@ First **PyPI** release. Product phases P0–P6 complete; distribution (P1) ships
 - Version `1.0.0` (from `0.1.0` / `v1.0.0-beta` tag)
 - Development status: Beta
 
-[1.0.0]: https://github.com/Hugoesin19/air-engine/compare/v1.0.0-beta...v1.0.0
+[1.0.0]: https://github.com/Hugoesin19/varly/compare/v1.0.0-beta...v1.0.0
 
 ## [1.0.0-beta] — 2026-08-29
 
@@ -53,4 +53,4 @@ First tagged baseline after the v1 engine (MVP + post-MVP sprints 6–12).
 - Python 3.12+
 - [uv](https://docs.astral.sh/uv/) recommended
 
-[1.0.0-beta]: https://github.com/Hugoesin19/air-engine/compare/mvp-v0.1.0...v1.0.0-beta
+[1.0.0-beta]: https://github.com/Hugoesin19/varly/compare/mvp-v0.1.0...v1.0.0-beta
