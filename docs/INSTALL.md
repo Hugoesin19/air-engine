@@ -4,7 +4,25 @@
 
 ---
 
-## Option A — uv (recommended for development)
+## Option A — PyPI (recommended)
+
+```bash
+pip install air-engine
+air-engine verify --demo
+```
+
+Bundled inside the wheel: `mvp` / `strict` / `dev` policies and a mock capture fixture.
+
+Policies path when installed:
+
+```python
+from air_engine.resources import bundled_policy
+print(bundled_policy("mvp"))
+```
+
+---
+
+## Option B — uv from source (development)
 
 ```bash
 git clone https://github.com/Hugoesin19/air-engine.git
@@ -12,8 +30,6 @@ cd air-engine
 uv sync
 uv run air-engine --help
 ```
-
-Run commands with `uv run air-engine …` or activate the venv (`.venv`).
 
 Pilot live mode (optional Gemini):
 
@@ -23,59 +39,24 @@ uv sync --group pilot
 
 ---
 
-## Option B — pip from Git tag
-
-Install a released tag without cloning the full dev tree:
+## Option C — pip from Git tag
 
 ```bash
-pip install "air-engine @ git+https://github.com/Hugoesin19/air-engine.git@v1.0.0-beta"
-air-engine --help
+pip install "air-engine @ git+https://github.com/Hugoesin19/air-engine.git@v1.0.0"
+air-engine verify --demo
 ```
-
-Replace `v1.0.0-beta` with the [latest tag](https://github.com/Hugoesin19/air-engine/tags).
-
----
-
-## Option C — pip editable (local clone)
-
-```bash
-git clone https://github.com/Hugoesin19/air-engine.git
-cd air-engine
-pip install -e .
-air-engine --help
-```
-
----
-
-## PyPI
-
-Not published yet. Track [releases](https://github.com/Hugoesin19/air-engine/releases) for updates.  
-Pre-release target: `0.2.0a1` on PyPI (optional roadmap item).
 
 ---
 
 ## Verify installation
 
 ```bash
-# 60-second demo: mock agent → PASS → FAIL → REGRESSION
+# PyPI smoke test
+air-engine verify --demo
+
+# Full local demo (requires git clone)
 uv run python scripts/demo_60s.py
-
-# Browser viewer (Ctrl+C to stop)
-uv run air-engine view \
-  --trace examples/demo_agent/artifacts/mock_run.json \
-  --contract examples/policies/mvp.yaml \
-  --source capture
 ```
-
-Or manually:
-
-```bash
-uv run python examples/demo_agent/run.py
-uv run air-engine verify examples/demo_agent/artifacts/mock_run.json \
-  --contract examples/policies/mvp.yaml --source capture
-```
-
-Expect `PASS`.
 
 ---
 
@@ -84,22 +65,20 @@ Expect `PASS`.
 Pin the composite action to a release tag:
 
 ```yaml
-- uses: Hugoesin19/air-engine/.github/actions/verify-trace@v1.0.0-beta
-  with:
-    trace-file: examples/demo_agent/artifacts/mock_run.json
-    contract-file: examples/policies/mvp.yaml
-    source: capture
-```
-
-The job must checkout `air-engine` (or vendor the action). For in-repo usage, reference the local path:
-
-```yaml
-- uses: ./.github/actions/verify-trace
+- uses: Hugoesin19/air-engine/.github/actions/verify-trace@v1.0.0
   with:
     trace-file: path/to/run.json
     contract-file: examples/policies/mvp.yaml
     source: capture
 ```
+
+In-repo usage:
+
+```yaml
+- uses: ./.github/actions/verify-trace
+```
+
+See [Releasing](RELEASING.md) for maintainer release steps.
 
 ---
 
@@ -108,10 +87,8 @@ The job must checkout `air-engine` (or vendor the action). For in-repo usage, re
 | Message | Likely cause | Fix |
 |---------|--------------|-----|
 | `looks like a capture trace, but --source 'air' was used` | Wrong adapter | Add `--source capture` |
-| `looks like a openai trace` | OpenAI JSON with wrong source | `--source openai` |
-| `Unable to read trace file` | Path typo | Check file exists |
-| `Unable to read contract file` | Policy path wrong | Point to `.yaml` under `examples/policies/` |
-| `max_trace_duration` on live runs | API latency | Use relaxed policy (see `pilot/policies/live.yaml`) |
+| `verify requires trace_file and --contract` | Missing args | Pass both or use `--demo` |
+| `Unable to read contract file` | Policy path wrong | Use `bundled_policy("mvp")` or clone repo for `examples/policies/` |
 
 ---
 
@@ -119,4 +96,5 @@ The job must checkout `air-engine` (or vendor the action). For in-repo usage, re
 
 - [Quick start](../README.md#quick-start-5-minutes)
 - [Capture recipe](recipes/capture-run-recorder.md)
-- [Onboarding checklist](ONBOARDING.md)
+- [Viewer](VIEWER.md)
+- [Product development roadmap](PRODUCT_DEV_ROADMAP.md)

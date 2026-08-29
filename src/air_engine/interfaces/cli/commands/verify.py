@@ -29,14 +29,21 @@ def register(subparsers: argparse._SubParsersAction[argparse.ArgumentParser]) ->
     )
     parser.add_argument(
         "trace_file",
+        nargs="?",
         type=Path,
-        help="Path to the AIR trace JSON file",
+        default=None,
+        help="Path to the AIR trace JSON file (omit when using --demo)",
     )
     parser.add_argument(
         "--contract",
         type=Path,
-        required=True,
+        default=None,
         help="Path to the contract policy YAML or JSON file",
+    )
+    parser.add_argument(
+        "--demo",
+        action="store_true",
+        help="Verify the bundled mock capture and mvp policy (pip install smoke test)",
     )
     parser.add_argument(
         "--show-dag",
@@ -70,9 +77,22 @@ def register(subparsers: argparse._SubParsersAction[argparse.ArgumentParser]) ->
 
 
 def run(args: argparse.Namespace) -> int:
-    trace_file: Path = args.trace_file
-    contract_file: Path = args.contract
-    source: TraceSource = args.source
+    if args.demo:
+        from air_engine.resources import bundled_fixture, bundled_policy
+
+        trace_file: Path = bundled_fixture("mock_run")
+        contract_file: Path = bundled_policy("mvp")
+        source: TraceSource = "capture"
+    else:
+        if args.trace_file is None or args.contract is None:
+            print(
+                "verify requires trace_file and --contract (or use --demo)",
+                file=sys.stderr,
+            )
+            return 2
+        trace_file = args.trace_file
+        contract_file = args.contract
+        source = args.source
     report_format: str = args.report_format
     try:
         trace = load_trace(trace_file, source=source)

@@ -4,6 +4,25 @@ All notable changes to air-engine are documented here.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/). Versioning aims at [SemVer](https://semver.org/).
 
+## [1.0.0] — 2026-08-29
+
+First **PyPI** release. Product phases P0–P6 complete; distribution (P1) ships here.
+
+### Added
+
+- **`pip install air-engine`** — bundled policies (`mvp`, `strict`, `dev`) and mock fixture
+- **`air-engine verify --demo`** — smoke test without cloning the repo
+- **`air-engine view`** — local browser diagnostic viewer with run summary and timeline
+- Pilot Gemini capture, regression `diff` gate, capture recipe, source hints, `demo_60s` script
+- Publish workflow (`.github/workflows/publish.yml`) for tags `v*`
+
+### Changed
+
+- Version `1.0.0` (from `0.1.0` / `v1.0.0-beta` tag)
+- Development status: Beta
+
+[1.0.0]: https://github.com/Hugoesin19/air-engine/compare/v1.0.0-beta...v1.0.0
+
 ## [1.0.0-beta] — 2026-08-29
 
 First tagged baseline after the v1 engine (MVP + post-MVP sprints 6–12).

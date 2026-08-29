@@ -14,7 +14,20 @@ The goal is to bring CI-style regression detection to probabilistic systems: det
 
 ## Quick start (5 minutes)
 
-Prerequisites: **Python 3.12+** and [uv](https://docs.astral.sh/uv/).
+Prerequisites: **Python 3.12+**.
+
+### Install from PyPI (recommended)
+
+```bash
+pip install air-engine
+air-engine verify --demo
+```
+
+Expect `PASS` and `violations: 0`.
+
+### Develop from source
+
+Requires [uv](https://docs.astral.sh/uv/).
 
 ```bash
 git clone https://github.com/Hugoesin19/air-engine.git
@@ -112,7 +125,8 @@ uv run air-engine verify examples/fixtures/recorded/openai_responses_search.json
 
 - [MVP Roadmap](docs/MVP_ROADMAP.md) — Sprints 0–5 (complete)
 - [Product Roadmap](docs/PRODUCT_ROADMAP.md) — post-MVP plan (Sprints 6+)
-- [Next Steps Roadmap](docs/NEXT_STEPS_ROADMAP.md) — adoption → product (after v1)
+- [Product Development Roadmap](docs/PRODUCT_DEV_ROADMAP.md) — **active** product phases (P1–P5)
+- [Next Steps Roadmap](docs/NEXT_STEPS_ROADMAP.md) — adoption steps 1–6 (complete)
 - [Install guide](docs/INSTALL.md) — `uv`, `pip`, GitHub Action
 - [Onboarding checklist](docs/ONBOARDING.md) — first PASS/FAIL on a fresh machine
 - [Diagnostic viewer](docs/VIEWER.md) — `air-engine view` in the browser
@@ -219,8 +233,9 @@ uv run air-engine verify examples/trace_valid_minimal.json --contract examples/p
 air-engine is an **open-source product under active development**, started as a Final Year Project and evolving toward a production-ready verification tool for AI-agent workflows.
 
 - **MVP:** complete (AIR core, contracts, adapters, CLI)
-- **v1:** complete (capture, CI, policy packs, reports, `diff` regression gate)
-- **Next:** real pilot runs and easier capture — [Next Steps Roadmap](docs/NEXT_STEPS_ROADMAP.md)
+- **v1:** complete (capture, CI, policy packs, reports, `diff`, viewer)
+- **Now:** product phases P1–P5 — [Product Development Roadmap](docs/PRODUCT_DEV_ROADMAP.md)
+- **Later:** contract DSL, enterprise ingest, scalable verification
 
 This repository is the source of truth for design and implementation. Contributions and feedback are welcome under the license below.
 

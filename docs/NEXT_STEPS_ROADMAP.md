@@ -1,12 +1,10 @@
-# Next Steps Roadmap (Adoption → Product)
+# Next Steps Roadmap (Adoption → Product) — **COMPLETE**
 
-> Living document for what comes **after** the v1 engine (Sprints 0–12).  
-> Ordered by **steps**, not by calendar. Advance only when the step’s “Done when” is true.  
-> Update checkboxes as you complete work.
+> **Archive:** Steps 1–6 are done. Active development continues in **[Product Development Roadmap](PRODUCT_DEV_ROADMAP.md)**.  
+> Step 7 (commercialize) is **paused** until there is external usage signal.
 
 **Last updated:** 2026-08-29  
-**Current step:** Step 7 — Prepare to commercialize (last)  
-**Related:** [Product Roadmap](PRODUCT_ROADMAP.md) (engine sprints) · [Baseline workflow](workflows/baseline.md)
+**Status:** Adoption phase ✅ · **Current work:** [PRODUCT_DEV_ROADMAP.md](PRODUCT_DEV_ROADMAP.md) phase **P1**
 
 ---
 
@@ -141,7 +139,9 @@ Explicitly **out** of this step:
 
 ---
 
-## Step 7 — Prepare to commercialize (last)
+## Step 7 — Prepare to commercialize — **PAUSED**
+
+> Resume when someone outside the repo has tried P1–P3 from [PRODUCT_DEV_ROADMAP.md](PRODUCT_DEV_ROADMAP.md).
 
 **Goal:** Decide *how* to offer value — after real usage signal.
 
@@ -165,7 +165,7 @@ Explicitly **out** of this step:
 | 4 | Easy capture (one framework) | ✅ |
 | 5 | Easy install & onboarding | ✅ |
 | 6 | Light UX | ✅ |
-| 7 | Prepare to commercialize | ⬜ Current |
+| 7 | Prepare to commercialize | ⏸ Paused |
 
 ---
 
@@ -174,7 +174,7 @@ Explicitly **out** of this step:
 | Date | Step | Completed | Next |
 |------|------|-----------|------|
 | 2026-08-24 | — | Document created; engine v1 (sprints 6–12) treated as done | Step 1 ship & freeze |
-| 2026-08-29 | 6 | `air-engine view` local diagnostic viewer + drag-drop HTML | Step 7 commercialize |
+| 2026-08-29 | — | Adoption complete; product dev roadmap → P1 | [PRODUCT_DEV_ROADMAP](PRODUCT_DEV_ROADMAP.md) |
 | 2026-08-29 | 5 | INSTALL.md, ONBOARDING.md, demo_60s, source hints | Step 6 light UX |
 | 2026-08-29 | 4 | RunRecorder capture recipe + `examples/capture_recipe/`, e2e test | Step 5 onboarding |
 | 2026-08-29 | 3 | Pilot baseline/broken fixtures, `verify_gate.py`, diff e2e tests | Step 4 capture recipe |

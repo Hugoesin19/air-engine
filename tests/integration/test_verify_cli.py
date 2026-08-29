@@ -50,6 +50,21 @@ def test_cli_verify_capture_source_passes_on_mock_run() -> None:
     assert exit_code == 0
 
 
+def test_cli_verify_demo_flag_passes() -> None:
+    exit_code = run(["verify", "--demo"])
+    assert exit_code == 0
+
+
+def test_cli_verify_requires_contract_without_demo() -> None:
+    exit_code = run(
+        [
+            "verify",
+            str(EXAMPLES_DIR / "trace_valid_minimal.json"),
+        ],
+    )
+    assert exit_code == 2
+
+
 def test_cli_verify_output_writes_diagnostic_json(tmp_path: Path) -> None:
     output = tmp_path / "diagnostic.json"
     exit_code = run(

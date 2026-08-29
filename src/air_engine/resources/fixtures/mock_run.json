@@ -1,0 +1,40 @@
+{
+  "format_version": "capture-event-log-1.0.0",
+  "run_id": "demo-run-01930000-0001",
+  "steps": [
+    {
+      "id": "demo-step-010",
+      "event_type": "run_start",
+      "timestamp_ms": 0
+    },
+    {
+      "id": "demo-step-011",
+      "event_type": "llm_call",
+      "timestamp_ms": 100,
+      "total_tokens": 150
+    },
+    {
+      "id": "demo-step-012",
+      "event_type": "tool_call",
+      "timestamp_ms": 200,
+      "name": "search"
+    },
+    {
+      "id": "demo-step-013",
+      "event_type": "tool_output",
+      "timestamp_ms": 500,
+      "name": "search"
+    },
+    {
+      "id": "demo-step-014",
+      "event_type": "run_end",
+      "timestamp_ms": 600
+    }
+  ],
+  "reads": [
+    {
+      "source": "demo-step-012",
+      "target": "demo-step-011"
+    }
+  ]
+}
