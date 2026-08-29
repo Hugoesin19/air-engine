@@ -70,3 +70,8 @@ strict = true
 namespace_packages = true
 mypy_path = "src"
 packages = ["varly"]
+
+[[tool.mypy.overrides]]
+module = "varly.capture.langgraph_callbacks"
+ignore_missing_imports = true
+disable_error_code = ["misc", "import-not-found"]

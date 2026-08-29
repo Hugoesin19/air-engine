@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import os
 import subprocess
 import sys
 from dataclasses import dataclass
@@ -44,6 +45,7 @@ def build_parser() -> argparse.ArgumentParser:
 
 
 def verify_one(trace: Path, *, contract: Path, source: str) -> BatchResult:
+    env = {**os.environ, "GITHUB_ACTIONS": "false"}
     exit_code = subprocess.run(
         CLI
         + [
@@ -56,6 +58,7 @@ def verify_one(trace: Path, *, contract: Path, source: str) -> BatchResult:
         ],
         cwd=ROOT,
         check=False,
+        env=env,
     ).returncode
     return BatchResult(path=trace, exit_code=int(exit_code))
 

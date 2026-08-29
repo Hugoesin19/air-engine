@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import os
 import subprocess
 import sys
 from dataclasses import dataclass
@@ -115,7 +116,8 @@ FIXTURES: tuple[FixtureCase, ...] = (
 
 
 def _run_cli(args: list[str]) -> int:
-    result = subprocess.run(CLI + args, cwd=ROOT, check=False)
+    env = {**os.environ, "GITHUB_ACTIONS": "false"}
+    result = subprocess.run(CLI + args, cwd=ROOT, check=False, env=env)
     return int(result.returncode)
 
 
