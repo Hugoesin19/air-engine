@@ -94,6 +94,7 @@ See [Releasing](RELEASING.md) for maintainer release steps.
 
 ## Next steps
 
+- **[Getting started](GETTING_STARTED.md)** — pip-only path: your agent, policies, viewer (beta testers start here)
 - [Quick start](../README.md#quick-start-5-minutes)
 - [Capture recipe](recipes/capture-run-recorder.md)
 - [Viewer](VIEWER.md)

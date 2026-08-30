@@ -25,6 +25,8 @@ varly verify --demo
 
 Expect `PASS` and `violations: 0`.
 
+> **`--demo` is only a smoke test.** To verify your own agent runs, see **[Getting started](docs/GETTING_STARTED.md)** (`RunRecorder`, LangGraph, policies, viewer — all work with `pip install`).
+
 ### Develop from source
 
 Requires [uv](https://docs.astral.sh/uv/).
