@@ -4,6 +4,8 @@ Standard workflow for small teams: **verify** every run on PR, **diff** against 
 
 Copy-paste ready. No cloud SaaS required.
 
+**Prerequisites:** [Getting started](../GETTING_STARTED.md) — capture path + policy basics.
+
 ---
 
 ## Exit codes (stable for wrappers)

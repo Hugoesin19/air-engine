@@ -12,6 +12,7 @@ Ready-made contract policies for common verification scenarios. Swap the policy 
 | [`support-bot.yaml`](../../examples/policies/support-bot.yaml) | FAQ / support agents | 30 s, 8 000 tokens, allowlist `[search, faq_lookup]` |
 | [`rag.yaml`](../../examples/policies/rag.yaml) | RAG / retrieval workflows | 60 s, 20 000 tokens, allowlist `[retrieve, search]` |
 | [`tool-heavy.yaml`](../../examples/policies/tool-heavy.yaml) | Multi-tool orchestrators | 120 s, 50 000 tokens, up to 20 tools |
+| [`api-guard.yaml`](../../examples/policies/api-guard.yaml) | API / tool arg constraints | `tool_args_keys_allowlist` + `tool_arg_equals` on `search` |
 
 All packs include the same invariant set. Metric thresholds and business-rule params differ by pack.
 

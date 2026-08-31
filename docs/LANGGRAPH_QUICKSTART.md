@@ -1,7 +1,8 @@
 # LangGraph quickstart (golden path)
 
 > **Recommended path** — automatic capture, no manual `record_*` hooks.  
-> **Time:** ~30 minutes from `pip install` to a verified trace (or CI gate).
+> **Time:** ~30 minutes from `pip install` to a verified trace (or CI gate).  
+> **Overview:** [Getting started](GETTING_STARTED.md) lists all capture paths and capabilities.
 
 **Python 3.12+** required.
 
@@ -49,7 +50,8 @@ Expect **PASS** and `violations: 0`.
 | Support / FAQ bot | [`support-bot.yaml`](../examples/policies/support-bot.yaml) |
 | RAG / retrieval | [`rag.yaml`](../examples/policies/rag.yaml) |
 | Many tools | [`tool-heavy.yaml`](../examples/policies/tool-heavy.yaml) |
-| Live API runs (slow) | bundled `live` via `bundled_policy("live")` or [`live.yaml`](../pilot/policies/live.yaml) |
+| Tool arg keys / endpoint | [`api-guard.yaml`](../examples/policies/api-guard.yaml) |
+| Live API runs (slow) | bundled `live` via `bundled_policy("live")` |
 
 Full reference: [Policy packs](policies/README.md).
 

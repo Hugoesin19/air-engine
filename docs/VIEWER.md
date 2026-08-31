@@ -1,6 +1,8 @@
-﻿# Local diagnostic viewer (Step 6)
+﻿# Local diagnostic viewer
 
 Browser UI for PASS/FAIL and violations — no cloud, no terminal required to **read** results.
+
+Part of the Varly workflow: [Getting started § Verify, view, and diff](GETTING_STARTED.md#verify-view-and-diff)
 
 ## Quick use
 

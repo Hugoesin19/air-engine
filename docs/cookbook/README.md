@@ -1,8 +1,10 @@
 # varly Cookbook
 
-Three end-to-end scenarios you can run from docs alone: **capture → verify → view → diff**.
+Four end-to-end scenarios you can run from docs alone: **capture → verify → view → diff**.
 
 Each scenario uses mock or recorded fixtures — no API keys in CI.
+
+**New to Varly?** Read [Getting started](GETTING_STARTED.md) first for the full capability overview.
 
 ---
 
@@ -114,6 +116,7 @@ Full reference: [Policy packs](../policies/README.md).
 
 ## Related
 
+- **[Getting started](../GETTING_STARTED.md)** — product overview for users
 - [Onboarding checklist](../ONBOARDING.md)
 - [Viewer](../VIEWER.md)
 - [Install](../INSTALL.md)

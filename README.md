@@ -20,7 +20,7 @@ Typical use: gate PRs in CI — `verify` on a captured run, `diff` against a bas
 
 Prerequisites: **Python 3.12+**.
 
-### Install from PyPI (recommended)
+**→ [Getting started](docs/GETTING_STARTED.md)** — full guide: capture paths, policies, tool args, CI, viewer, diff.
 
 ```bash
 pip install varly
@@ -30,8 +30,7 @@ varly try              # PASS + FAIL + regression demo (~1 min)
 
 Expect `PASS` on `--demo`. `try` walks through PASS, FAIL, and `diff` REGRESSION using bundled fixtures.
 
-> **`--demo` is only a smoke test.** For the full picture run **`varly try`**.  
-> **LangGraph teams:** [LangGraph quickstart](docs/LANGGRAPH_QUICKSTART.md) · **Others:** [Getting started](docs/GETTING_STARTED.md)
+> **LangGraph teams:** [LangGraph quickstart](docs/LANGGRAPH_QUICKSTART.md) · **Install options:** [INSTALL.md](docs/INSTALL.md)
 
 ### LangGraph in 3 commands (from clone)
 
@@ -65,7 +64,7 @@ uv run varly verify examples/demo_agent/artifacts/mock_run.json \
 
 You should see `PASS` and `violations: 0`. Run the full test suite with `uv run pytest`.
 
-**Install options:** [docs/INSTALL.md](docs/INSTALL.md) · **[Getting started](docs/GETTING_STARTED.md)** (beta testers) · **60s demo:** `uv run python scripts/demo_60s.py` · **Viewer:** `uv run varly view --trace … --contract … --source capture`
+**Install options:** [docs/INSTALL.md](docs/INSTALL.md) · **[Getting started](docs/GETTING_STARTED.md)** · **60s demo:** `uv run python scripts/demo_60s.py` · **Viewer:** `varly view --trace … --contract … --source capture`
 
 More examples (canonical AIR traces, LangGraph/OpenAI fixtures, CI reports, `diff`) are below.
 

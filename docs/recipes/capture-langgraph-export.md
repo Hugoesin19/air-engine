@@ -6,6 +6,8 @@
 
 For framework-agnostic manual instrumentation, see [capture-run-recorder.md](capture-run-recorder.md).
 
+**Overview:** [Getting started](GETTING_STARTED.md) · Shorter path: [LangGraph quickstart](../LANGGRAPH_QUICKSTART.md)
+
 ---
 
 ## Prerequisites

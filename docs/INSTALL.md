@@ -2,6 +2,8 @@
 
 **Python 3.12+** required.
 
+**New here?** Read **[Getting started](GETTING_STARTED.md)** first — it covers everything Varly can do after install.
+
 ---
 
 ## Option A — PyPI (recommended)
@@ -9,16 +11,29 @@
 ```bash
 pip install varly
 varly verify --demo
+varly try
 ```
 
-Bundled inside the wheel: `mvp` / `strict` / `dev` / `live` policies and mock capture fixture.
+Bundled in the wheel:
 
-Policies path when installed:
+| Resource | Names |
+|----------|-------|
+| Policies | `mvp`, `strict`, `dev`, `live` |
+| Fixtures | `mock_run`, `trace_valid_minimal`, `trace_invalid_missing_tool_return` |
 
 ```python
-from varly.resources import bundled_policy
+from varly.resources import bundled_policy, bundled_fixture
 print(bundled_policy("mvp"))
+print(bundled_fixture("mock_run"))
 ```
+
+LangGraph capture:
+
+```bash
+pip install "varly[langgraph]"
+```
+
+More policy packs (`rag`, `api-guard`, …) live in the repo under `examples/policies/`.
 
 ---
 
@@ -29,6 +44,12 @@ git clone https://github.com/Hugoesin19/varly.git
 cd varly
 uv sync
 uv run varly --help
+```
+
+Cookbook + LangGraph examples:
+
+```bash
+uv sync --group langgraph
 ```
 
 Pilot live mode (optional Gemini):
@@ -42,7 +63,7 @@ uv sync --group pilot
 ## Option C — pip from Git tag
 
 ```bash
-pip install "varly @ git+https://github.com/Hugoesin19/varly.git@v1.0.0"
+pip install "varly @ git+https://github.com/Hugoesin19/varly.git@v1.2.0"
 varly verify --demo
 ```
 
@@ -51,13 +72,13 @@ varly verify --demo
 ## Verify installation
 
 ```bash
-# PyPI smoke test
-varly verify --demo
+varly verify --demo          # smoke test (PASS)
+varly try                    # PASS + FAIL + diff regression
+```
 
-# Full bundled demo (PASS + FAIL + diff regression)
-varly try
+From a clone:
 
-# Full local demo (requires git clone)
+```bash
 uv run python scripts/demo_60s.py
 ```
 
@@ -81,7 +102,7 @@ In-repo usage:
 - uses: ./.github/actions/verify-trace
 ```
 
-See [Releasing](RELEASING.md) for maintainer release steps.
+Full CI guide: [workflows/team-ci.md](workflows/team-ci.md) · Maintainer releases: [RELEASING.md](RELEASING.md)
 
 ---
 
@@ -92,13 +113,14 @@ See [Releasing](RELEASING.md) for maintainer release steps.
 | `looks like a capture trace, but --source 'air' was used` | Wrong adapter | Add `--source capture` |
 | `verify requires trace_file and --contract` | Missing args | Pass both or use `--demo` |
 | `Unable to read contract file` | Policy path wrong | Use `bundled_policy("mvp")` or clone repo for `examples/policies/` |
+| `Unknown bundled policy` | Pack not in wheel | Copy from `examples/policies/` (e.g. `api-guard.yaml`) |
 
 ---
 
 ## Next steps
 
-- **[Getting started](GETTING_STARTED.md)** — pip-only path: your agent, policies, viewer (beta testers start here)
-- [Quick start](../README.md#quick-start-5-minutes)
-- [Capture recipe](recipes/capture-run-recorder.md)
+- **[Getting started](GETTING_STARTED.md)** — full product guide (start here)
+- [LangGraph quickstart](LANGGRAPH_QUICKSTART.md)
+- [Policy reference](policies/README.md)
+- [Cookbook](cookbook/README.md)
 - [Viewer](VIEWER.md)
-- [Getting started](GETTING_STARTED.md) · [Early feedback log](FEEDBACK.md) · [Product development roadmap](PRODUCT_DEV_ROADMAP.md)

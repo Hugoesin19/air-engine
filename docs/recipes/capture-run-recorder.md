@@ -4,22 +4,22 @@
 **Stack:** `varly.capture.RunRecorder` → `verify --source capture`  
 **Cost:** Zero API calls (this recipe uses a deterministic mock agent).
 
+**Overview:** [Getting started — RunRecorder path](GETTING_STARTED.md#path-b--runrecorder-any-python-agent)
+
 **Prefer automatic capture?** See [LangGraph export](capture-langgraph-export.md) if you run LangGraph/LangChain with callbacks.  
-For OpenAI Responses JSON, see [architecture mappings](../architecture/README.md).  
-This recipe is the zero-dependency path proven in the [pilot](../../pilot/README.md).
+For OpenAI Responses JSON, see [architecture mappings](../architecture/README.md).
 
 ---
 
 ## Prerequisites
 
 - Python 3.12+
-- [uv](https://docs.astral.sh/uv/)
-- Clone of [varly](https://github.com/Hugoesin19/varly)
+- `pip install varly` (your project) **or** clone for the runnable example below
 
 ```bash
+# Optional: clone for examples/capture_recipe/run.py
 git clone https://github.com/Hugoesin19/varly.git
-cd varly
-uv sync
+cd varly && uv sync
 ```
 
 ---
