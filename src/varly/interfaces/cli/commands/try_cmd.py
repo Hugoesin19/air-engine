@@ -5,10 +5,9 @@ from __future__ import annotations
 import argparse
 import os
 import sys
-from collections.abc import Callable
+from collections.abc import Callable, Iterator
 from contextlib import contextmanager
 from pathlib import Path
-from typing import Iterator
 
 from varly.interfaces.cli.commands import diff, verify
 from varly.resources import bundled_fixture, bundled_policy
