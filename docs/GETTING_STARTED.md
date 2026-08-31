@@ -6,9 +6,9 @@
 
 ---
 
-## What Varly does 
+## What Varly does
 
-Varly checks a **finished agent run** against a **YAML policy** (tool allowlists, token limits, event order, etc.) and returns **PASS or FAIL** — deterministically, without another LLM judging the output.
+Varly checks a **finished agent run** against a **YAML policy** (tool allowlists, token limits, event order, etc.) and returns **PASS or FAIL** — reproducibly, without another LLM judging the output.
 
 Typical flow:
 
@@ -16,7 +16,18 @@ Typical flow:
 Your agent runs → you save a trace JSON → varly verify → PASS/FAIL
 ```
 
+### What Varly does / does not do
+
+| Varly **does** | Varly **does not** |
+|----------------|-------------------|
+| Gate **tool names**, call counts, tokens, duration | Judge if the answer text is "correct" |
+| Check run **structure** (tool returns, event order) | Replace `pytest` or manual QA |
+| **`diff`** regressions vs a baseline in CI | Run your agent or call APIs |
+| Same trace + policy → same PASS/FAIL | Guarantee identical LLM output each run |
+
 Useful when you want CI-style gates: “this PR must not introduce new contract violations.”
+
+**Recommended stack:** [LangGraph quickstart](LANGGRAPH_QUICKSTART.md) (automatic capture).
 
 ---
 
@@ -24,16 +35,48 @@ Useful when you want CI-style gates: “this PR must not introduce new contract 
 
 ```bash
 pip install varly
-varly verify --demo
+varly verify --demo          # PASS (smoke test)
+varly try                    # PASS + FAIL + REGRESSION (~1 min)
 ```
 
-Expect `PASS` and `violations: 0`. This only proves the install works.
-
-**`--demo` is not the product.** It is a bundled mock trace + policy. Everything below is the real usage.
+**`--demo` is not the product.** It only proves the install works. **`varly try`** shows PASS, FAIL, and regression gating with bundled fixtures.
 
 ---
 
-## Step 2 — Verify any trace file you already have
+## Step 2 — LangGraph (recommended)
+
+Automatic capture — no manual `record_*` hooks.
+
+```bash
+pip install "varly[langgraph]"
+```
+
+Full walkthrough: **[LangGraph quickstart](LANGGRAPH_QUICKSTART.md)**.
+
+Quick version (requires repo clone for the example script):
+
+```bash
+git clone https://github.com/Hugoesin19/varly.git && cd varly
+uv sync --group langgraph
+uv run python examples/langgraph_capture/run.py
+uv run varly verify examples/langgraph_capture/artifacts/run.json \
+  --contract examples/policies/mvp.yaml --source langgraph
+```
+
+In your own project, attach `LangGraphCallbackCollector` to `graph.invoke(..., config={"callbacks": [collector]})`, then `varly verify run.json --source langgraph`.
+
+| Scenario | Policy |
+|----------|--------|
+| Default tool agent | `mvp.yaml` |
+| Support bot | `support-bot.yaml` |
+| RAG | `rag.yaml` |
+| Many tools | `tool-heavy.yaml` |
+
+CI template: [`examples/starter-ci/`](../examples/starter-ci/README.md).
+
+---
+
+## Step 3 — Verify any trace file you already have
 
 If you have a JSON trace (from LangGraph export, OpenAI Responses, or Varly capture):
 
@@ -61,6 +104,7 @@ python -c "from varly.resources import bundled_policy; print(bundled_policy('mvp
 | Name | Use |
 |------|-----|
 | `mvp` | Default CI gate |
+| `live` | Real API captures (120s duration cap) |
 | `strict` | Tighter production limits |
 | `dev` | Relaxed for local debugging |
 
@@ -74,7 +118,7 @@ varly verify my_run.json \
 
 ---
 
-## Step 3 — Try it with your own Python agent
+## Step 4 — Custom Python agent (`RunRecorder`)
 
 You do **not** need to clone the repo. `RunRecorder` is included in `pip install varly`.
 
@@ -125,22 +169,6 @@ Full hook reference: [capture recipe](recipes/capture-run-recorder.md) (examples
 
 ---
 
-## Step 4 — LangGraph users
-
-```bash
-pip install "varly[langgraph]"
-```
-
-Wire `LangGraphCallbackCollector` around your graph, export JSON, then:
-
-```bash
-varly verify run.json --contract policy.yaml --source langgraph
-```
-
-Recipe with copy-paste code: [capture-langgraph-export.md](recipes/capture-langgraph-export.md).
-
----
-
 ## Step 5 — View results in the browser
 
 ```bash
@@ -170,12 +198,13 @@ Exit `0` = no regression. Exit `1` = new violations.
 | Task | `pip install` only | Clone repo |
 |------|-------------------|------------|
 | Smoke test (`--demo`) | ✅ | ✅ |
+| Full demo (`varly try`) | ✅ | ✅ |
 | Verify your own traces | ✅ | ✅ |
 | `RunRecorder` in your project | ✅ | ✅ |
 | LangGraph capture | ✅ with `[langgraph]` extra | ✅ |
 | Viewer | ✅ | ✅ |
 | Cookbook fixtures + examples | ❌ | ✅ |
-| GitHub Action CI template | ❌ | ✅ (or copy from docs) |
+| CI workflow template | Copy [`starter-ci`](../examples/starter-ci/README.md) | ✅ |
 
 Clone when you want ready-made examples: [cookbook](cookbook/README.md).
 
@@ -208,5 +237,5 @@ No form — a short message or a 15-minute call is enough.
 
 ## Related
 
-- [Install](INSTALL.md) · [Cookbook](cookbook/README.md) · [Viewer](VIEWER.md)
+- [LangGraph quickstart](LANGGRAPH_QUICKSTART.md) · [Install](INSTALL.md) · [Cookbook](cookbook/README.md) · [Viewer](VIEWER.md)
 - [Policy reference](policies/README.md) · [Team CI](workflows/team-ci.md)

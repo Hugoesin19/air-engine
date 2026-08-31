@@ -11,7 +11,7 @@ pip install varly
 varly verify --demo
 ```
 
-Bundled inside the wheel: `mvp` / `strict` / `dev` policies and a mock capture fixture.
+Bundled inside the wheel: `mvp` / `strict` / `dev` / `live` policies and mock capture fixture.
 
 Policies path when installed:
 
@@ -53,6 +53,9 @@ varly verify --demo
 ```bash
 # PyPI smoke test
 varly verify --demo
+
+# Full bundled demo (PASS + FAIL + diff regression)
+varly try
 
 # Full local demo (requires git clone)
 uv run python scripts/demo_60s.py
@@ -98,4 +101,4 @@ See [Releasing](RELEASING.md) for maintainer release steps.
 - [Quick start](../README.md#quick-start-5-minutes)
 - [Capture recipe](recipes/capture-run-recorder.md)
 - [Viewer](VIEWER.md)
-- [Product development roadmap](PRODUCT_DEV_ROADMAP.md)
+- [Getting started](GETTING_STARTED.md) · [Early feedback log](FEEDBACK.md) · [Product development roadmap](PRODUCT_DEV_ROADMAP.md)

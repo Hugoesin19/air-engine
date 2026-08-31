@@ -1,16 +1,20 @@
 ﻿# Varly
 
-> Deterministic contract verification for AI agent runs.
+> Contract gates in CI for AI agent runs — without LLM-as-judge.
 
-AIR (Analysis Intermediate Representation) is the internal trace format. Varly verifies completed agent runs against YAML contracts — without LLM-as-judge.
+Varly verifies **completed** agent runs against YAML policies (tool allowlists, invocation caps, structure, limits) and returns reproducible PASS/FAIL. Same trace + same policy → same result every time. It does **not** assert that the LLM output text is identical run-to-run.
+
+AIR (Analysis Intermediate Representation) is the internal trace format.
 
 ## What is it?
 
-varly is a **post-mortem verification infrastructure** for software systems with non-deterministic components (LLMs, multi-agent workflows).
+varly is **post-mortem contract verification** for agent runs: after your agent finishes, you check whether the run respected the rules you defined in YAML.
 
-It does not execute your agents. It observes completed executions, translates them into a provider-agnostic intermediate representation (AIR), and evaluates **properties and invariants** defined in contracts — not exact string matches.
+It does not execute your agents. It reads a trace of what happened (tools used, call counts, tokens, event order) and evaluates **structural and behavioral invariants** — not whether the answer “sounds right.”
 
-The goal is to bring CI-style regression detection to probabilistic systems: deterministic, reproducible diagnostics that can gate merges before production.
+**Complements** manual pre-prod review and `pytest`; **does not replace** them. **Differs from** LLM-as-judge evals (no second model scoring outputs).
+
+Typical use: gate PRs in CI — `verify` on a captured run, `diff` against a baseline when behavior regresses.
 
 ## Quick start (5 minutes)
 
@@ -20,12 +24,26 @@ Prerequisites: **Python 3.12+**.
 
 ```bash
 pip install varly
-varly verify --demo
+varly verify --demo    # smoke test (PASS only)
+varly try              # PASS + FAIL + regression demo (~1 min)
 ```
 
-Expect `PASS` and `violations: 0`.
+Expect `PASS` on `--demo`. `try` walks through PASS, FAIL, and `diff` REGRESSION using bundled fixtures.
 
-> **`--demo` is only a smoke test.** To verify your own agent runs, see **[Getting started](docs/GETTING_STARTED.md)** (`RunRecorder`, LangGraph, policies, viewer — all work with `pip install`).
+> **`--demo` is only a smoke test.** For the full picture run **`varly try`**.  
+> **LangGraph teams:** [LangGraph quickstart](docs/LANGGRAPH_QUICKSTART.md) · **Others:** [Getting started](docs/GETTING_STARTED.md)
+
+### LangGraph in 3 commands (from clone)
+
+```bash
+pip install "varly[langgraph]"
+git clone https://github.com/Hugoesin19/varly.git && cd varly
+uv sync --group langgraph && uv run python examples/langgraph_capture/run.py
+uv run varly verify examples/langgraph_capture/artifacts/run.json \
+  --contract examples/policies/mvp.yaml --source langgraph
+```
+
+Expect **PASS**. CI template: [`examples/starter-ci/`](examples/starter-ci/README.md).
 
 ### Develop from source
 
@@ -47,7 +65,7 @@ uv run varly verify examples/demo_agent/artifacts/mock_run.json \
 
 You should see `PASS` and `violations: 0`. Run the full test suite with `uv run pytest`.
 
-**Install options:** [docs/INSTALL.md](docs/INSTALL.md) · **60s demo:** `uv run python scripts/demo_60s.py` · **Viewer:** `uv run varly view --trace … --contract … --source capture`
+**Install options:** [docs/INSTALL.md](docs/INSTALL.md) · **[Getting started](docs/GETTING_STARTED.md)** (beta testers) · **60s demo:** `uv run python scripts/demo_60s.py` · **Viewer:** `uv run varly view --trace … --contract … --source capture`
 
 More examples (canonical AIR traces, LangGraph/OpenAI fixtures, CI reports, `diff`) are below.
 
@@ -127,7 +145,8 @@ uv run varly verify examples/fixtures/recorded/openai_responses_search.json \
 
 - [MVP Roadmap](docs/MVP_ROADMAP.md) — Sprints 0–5 (complete)
 - [Product Roadmap](docs/PRODUCT_ROADMAP.md) — post-MVP plan (Sprints 6+)
-- [Product Development Roadmap](docs/PRODUCT_DEV_ROADMAP.md) — **active** product phases (P1–P5)
+- [Product Development Roadmap](docs/PRODUCT_DEV_ROADMAP.md) — product phases P0–P4 (complete)
+- [**Active plan**](docs/PLAN.md) — **C1–C4** (post-feedback, what to build next)
 - [Next Steps Roadmap](docs/NEXT_STEPS_ROADMAP.md) — adoption steps 1–6 (complete)
 - [Install guide](docs/INSTALL.md) — `uv`, `pip`, GitHub Action
 - [Onboarding checklist](docs/ONBOARDING.md) — first PASS/FAIL on a fresh machine
@@ -278,7 +297,7 @@ varly is an **open-source product under active development**, started as a Final
 
 - **MVP:** complete (AIR core, contracts, adapters, CLI)
 - **v1:** complete (capture, CI, policy packs, reports, `diff`, viewer)
-- **Now:** product phases P1–P5 — [Product Development Roadmap](docs/PRODUCT_DEV_ROADMAP.md)
+- **Now:** [Active plan](docs/PLAN.md) (C1–C4) — ship v1.1.0, LangGraph golden path, richer policies
 - **Later:** contract DSL, enterprise ingest, scalable verification
 
 This repository is the source of truth for design and implementation. Contributions and feedback are welcome under the license below.

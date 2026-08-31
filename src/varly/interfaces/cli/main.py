@@ -17,6 +17,9 @@ def build_parser() -> argparse.ArgumentParser:
     verify.register(subparsers)
     diff.register(subparsers)
     view.register(subparsers)
+    from varly.interfaces.cli.commands import try_cmd
+
+    try_cmd.register(subparsers)
     return parser
 
 

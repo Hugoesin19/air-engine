@@ -19,12 +19,13 @@ Manual fallback: `UV_PUBLISH_TOKEN` from PyPI → `uv publish --token "$TOKEN"`
    uv build
    pip install dist/varly-*.whl
    varly verify --demo
+   varly try
    ```
 3. Commit and push `main`
 4. Tag and push:
    ```bash
-   git tag -a v1.0.0 -m "v1.0.0: first PyPI release"
-   git push origin v1.0.0
+   git tag -a v1.1.0 -m "v1.1.0: varly try, bundled fixtures, live policy"
+   git push origin v1.1.0
    ```
 5. GitHub Actions **Publish to PyPI** runs on the tag
 6. Create a [GitHub Release](https://github.com/Hugoesin19/varly/releases) from the tag (copy CHANGELOG section)
@@ -32,11 +33,12 @@ Manual fallback: `UV_PUBLISH_TOKEN` from PyPI → `uv publish --token "$TOKEN"`
 ## Verify PyPI install
 
 ```bash
-pip install varly==1.0.0
+pip install varly==1.1.0
 varly verify --demo
+varly try
 ```
 
-Expect `PASS` and `violations: 0`.
+Expect `PASS` on `--demo`. `try` runs PASS, FAIL, and regression.
 
 ## GitHub Action for consumers
 

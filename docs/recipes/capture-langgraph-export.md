@@ -20,7 +20,7 @@ cd varly
 uv sync --group langgraph
 ```
 
-Or after `pip install varly[langgraph]`.
+Or after `pip install "varly[langgraph]"` — see [LangGraph quickstart](../LANGGRAPH_QUICKSTART.md).
 
 ---
 

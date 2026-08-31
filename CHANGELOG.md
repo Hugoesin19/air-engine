@@ -4,6 +4,26 @@ All notable changes to varly are documented here.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/). Versioning aims at [SemVer](https://semver.org/).
 
+## [1.1.0] — 2026-08-31
+
+Product phase **C1** — self-serve trial from PyPI without cloning the repo.
+
+### Added
+
+- **`varly try`** — bundled PASS, FAIL, and `diff` regression demo (`pip install` only)
+- Bundled fixtures: `trace_valid_minimal`, `trace_invalid_missing_tool_return`
+- Bundled **`live`** policy (120s duration cap for real API captures)
+- [Getting started](docs/GETTING_STARTED.md) — pip-first path for beta testers
+- [PLAN.md](docs/PLAN.md) — post-feedback roadmap (C1–C4)
+- [FEEDBACK.md](docs/FEEDBACK.md) — early validation log
+
+### Changed
+
+- README positioning: **contract gates in CI** (not “deterministic agent outputs”)
+- LangGraph auto-capture, cookbook, viewer causal graph, team CI docs (shipped since 1.0.0)
+
+[1.1.0]: https://github.com/Hugoesin19/varly/compare/v1.0.0...v1.1.0
+
 ## [1.0.0] — 2026-08-29
 
 First **PyPI** release. Product phases P0–P6 complete; distribution (P1) ships here.

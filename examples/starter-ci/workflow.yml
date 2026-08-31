@@ -1,0 +1,39 @@
+# Varly contract gate — copy to .github/workflows/varly.yml in your project.
+name: varly gate
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  verify-agent-run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install varly
+        run: pip install "varly[langgraph]"
+
+      # TODO: replace with your trace export script
+      - name: Generate agent trace
+        run: |
+          python scripts/export_langgraph_run.py --output artifacts/run.json
+
+      - name: Verify against contract
+        run: |
+          varly verify artifacts/run.json \
+            --contract policies/mvp.yaml \
+            --source langgraph
+
+      # Optional regression gate on PRs — uncomment when you have a baseline trace
+      # - name: Diff vs baseline (PR only)
+      #   if: github.event_name == 'pull_request'
+      #   run: |
+      #     varly diff baselines/golden_run.json artifacts/run.json \
+      #       --contract policies/mvp.yaml \
+      #       --source langgraph

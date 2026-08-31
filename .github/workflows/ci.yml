@@ -153,4 +153,5 @@ jobs:
         run: |
           pip install dist/varly-*.whl
           varly verify --demo
+          varly try
           varly --help

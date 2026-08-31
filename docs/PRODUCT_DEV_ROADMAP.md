@@ -1,10 +1,11 @@
 ﻿# Product Development Roadmap
 
-> **Active roadmap** — primary goal is a **shippable OSS product** for developers (and a foundation enterprises can adopt later).  
-> The TFG is satisfied by documenting what exists; this file drives **what to build next**.
+> **Historical phases P0–P4** (complete). **Active plan:** [PLAN.md](PLAN.md) (C1–C4, post-feedback).  
+> Primary goal: a **shippable OSS product** for developers (and a foundation enterprises can adopt later).  
+> The TFG is satisfied by documenting what exists; [PLAN.md](PLAN.md) drives **what to build next**.
 
-**Last updated:** 2026-08-29  
-**Current phase:** **P4 — Team readiness** ✅  
+**Last updated:** 2026-08-31  
+**Current phase:** **P4 — Team readiness** ✅ → continue in [PLAN.md](PLAN.md) **C1**  
 **North star:** A developer installs varly, captures a real agent run with minimal friction, and gets PASS/FAIL + regression gates in CI — without LLM-as-judge.
 
 **Completed foundation:** Engine v1 (Sprints 0–12) · Adoption steps 1–6 · [Next Steps archive](NEXT_STEPS_ROADMAP.md)
@@ -142,6 +143,8 @@ Only after P1–P3 and **real usage signal** (even 1–2 external teams).
 
 | Date | Phase | Completed | Next |
 |------|-------|-----------|------|
+| 2026-08-31 | — | [PLAN.md](PLAN.md) — C1–C4 post-feedback roadmap | C1 — v1.1.0 + `varly try` |
+| 2026-08-31 | — | Early feedback log ([FEEDBACK.md](FEEDBACK.md)); README positioning (contract gates) | PLAN.md |
 | 2026-08-29 | P4 | Team CI guide, batch verify script, exit codes, README section | User feedback / P5 later |
 | 2026-08-29 | P3 | Cookbook, viewer causal graph, policy packs, CLI hints | P4 — team readiness |
 | 2026-08-29 | P2 | LangGraph auto-capture: collector, example, recipe, CI | P3 — developer experience |
