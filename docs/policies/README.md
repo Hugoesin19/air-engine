@@ -90,6 +90,8 @@ invariants:
 | `max_llm_invocations` | `max` | integer (≥ 0) | Max number of `llm_invoke` nodes |
 | `max_tool_calls` | `max` | integer (≥ 0) | Max number of `tool_call` nodes |
 | `tool_name_allowlist` | `allowed` | list of strings | Every `tool_call` `name` must be in this list |
+| `tool_args_keys_allowlist` | `allowed` | list of strings | Every `tool_call` `args_json` key must be in this list (requires capture) |
+| `tool_arg_equals` | `key`, `value` | string + primitive | Every `tool_call` must include `key` with exact `value` in `args_json` |
 | `required_event_sequence` | `sequence` | list of strings | Listed `event_type` values must appear in that order (subsequence of canonical order) |
 
 #### Example
@@ -123,6 +125,7 @@ invariants:
 | Support / FAQ bots | `support-bot.yaml` |
 | RAG with retrieval tools | `rag.yaml` |
 | Agents with many tools | `tool-heavy.yaml` |
+| API endpoint / tool arg keys | `api-guard.yaml` |
 | Cost/latency regression detection | `strict.yaml` |
 | Iterating locally with verbose agents | `dev.yaml` |
 | Custom business rules | Copy a pack and edit `invariants` |

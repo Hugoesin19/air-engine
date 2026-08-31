@@ -87,7 +87,7 @@ Copy the workflow template from [`examples/starter-ci/`](../examples/starter-ci/
 Or use the published action (pin to a release tag):
 
 ```yaml
-- uses: Hugoesin19/varly/.github/actions/verify-trace@v1.1.0
+- uses: Hugoesin19/varly/.github/actions/verify-trace@v1.2.0
   with:
     trace-file: artifacts/run.json
     contract-file: policies/mvp.yaml

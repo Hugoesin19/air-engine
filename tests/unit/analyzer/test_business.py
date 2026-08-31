@@ -108,6 +108,72 @@ def test_tool_name_allowlist_rejects_unknown_tool() -> None:
     assert "shell" in diagnostic.violations[0].message
 
 
+def _tool_call_trace(args_json: str | None) -> Trace:
+    labels: dict[str, str] = {"event_type": "tool_call", "name": "search"}
+    if args_json is not None:
+        labels["args_json"] = args_json
+    return Trace(
+        air_schema_version=AIR_SCHEMA_VERSION,
+        trace_id=TraceId("trace-args"),
+        root_id=NodeId("n-00"),
+        nodes=(
+            Node(id=NodeId("n-00"), labels={"event_type": "run_start"}),
+            Node(id=NodeId("n-01"), labels=labels),
+            Node(id=NodeId("n-02"), labels={"event_type": "run_end"}),
+        ),
+        control_edges=(
+            ControlEdge(
+                id=EdgeId("e-00"),
+                source=NodeId("n-00"),
+                target=NodeId("n-01"),
+                kind=ControlEdgeKind.CAUSES,
+            ),
+            ControlEdge(
+                id=EdgeId("e-01"),
+                source=NodeId("n-01"),
+                target=NodeId("n-02"),
+                kind=ControlEdgeKind.CAUSES,
+            ),
+        ),
+        referential_edges=(),
+    )
+
+
+def test_tool_args_keys_allowlist_rejects_unknown_key() -> None:
+    trace = _tool_call_trace('{"query":"x","debug":true}')
+    contract = Contract.with_defaults(
+        (
+            InvariantSpec(
+                id="tool_args_keys_allowlist",
+                params={"allowed": ("query", "endpoint")},
+            ),
+        ),
+    )
+    diagnostic = verify_trace(trace, contract)
+    assert diagnostic.passed is False
+    assert diagnostic.violations[0].invariant_id == "tool_args_keys_allowlist"
+
+
+def test_tool_arg_equals_rejects_wrong_endpoint() -> None:
+    trace = _tool_call_trace(
+        '{"query":"x","endpoint":"https://evil.example.com"}',
+    )
+    contract = Contract.with_defaults(
+        (
+            InvariantSpec(
+                id="tool_arg_equals",
+                params={
+                    "key": "endpoint",
+                    "value": "https://api.example.com/search",
+                },
+            ),
+        ),
+    )
+    diagnostic = verify_trace(trace, contract)
+    assert diagnostic.passed is False
+    assert diagnostic.violations[0].invariant_id == "tool_arg_equals"
+
+
 def test_required_event_sequence_fails_on_wrong_order() -> None:
     trace = _linear_trace(("run_start", "tool_call", "llm_invoke", "run_end"))
     contract = Contract.with_defaults(

@@ -12,6 +12,7 @@ from varly.adapters._mapping import (
 )
 from varly.adapters._payload import build_air_payload
 from varly.adapters.errors import AdapterValidationError
+from varly.capture.args import args_to_json_label, normalize_tool_args
 from varly.core.trace import Trace
 from varly.parser import build_trace
 
@@ -67,6 +68,17 @@ def adapt_sequential_events(
         tokens = _extract_tokens(event, tokens_field)
         if tokens is not None and event_type == "llm_invoke":
             labels["tokens"] = tokens
+
+        if event_type == "tool_call":
+            raw_args = event.get("args")
+            if raw_args is not None:
+                try:
+                    normalized_args = normalize_tool_args(raw_args)
+                except ValueError as exc:
+                    msg = f"events[{index}].args: {exc}"
+                    raise AdapterValidationError(msg) from exc
+                if normalized_args:
+                    labels["args_json"] = args_to_json_label(normalized_args)
 
         nodes.append({"id": event_id, "labels": labels})
         normalized_types.append(event_type)

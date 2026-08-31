@@ -4,6 +4,26 @@ All notable changes to varly are documented here.
 
 Format follows [Keep a Changelog](https://keepachangelog.com/). Versioning aims at [SemVer](https://semver.org/).
 
+## [1.2.0] — 2026-08-31
+
+Product phase **C3** — tool argument capture and parameter-level policy gates.
+
+### Added
+
+- **`record_tool_call(..., args=...)`** — optional tool argument capture in `RunRecorder`
+- LangGraph capture extracts tool args from callback payloads (`args_json` on AIR labels)
+- New invariants: **`tool_args_keys_allowlist`**, **`tool_arg_equals`**
+- Example policy [`api-guard.yaml`](examples/policies/api-guard.yaml) — endpoint + arg key constraints
+- Cookbook scenario 4 — `tool_args_valid.json` / `tool_args_invalid.json` fixtures
+- Tests: `test_args.py`, `test_tool_args.py`, `test_cookbook_tool_args.py`
+
+### Changed
+
+- Capture event log docs — `args` field on `tool_call` steps
+- `examples/capture_recipe` records args on tool calls
+
+[1.2.0]: https://github.com/Hugoesin19/varly/compare/v1.1.0...v1.2.0
+
 ## [1.1.0] — 2026-08-31
 
 Product phase **C1** — self-serve trial from PyPI without cloning the repo.

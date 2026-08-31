@@ -1,6 +1,6 @@
 [project]
 name = "varly"
-version = "1.1.0"
+version = "1.2.0"
 description = "Deterministic runtime verification engine for AI agents."
 readme = "README.md"
 license = "MIT"

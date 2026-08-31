@@ -5,6 +5,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+from varly.capture.args import PrimitiveArg, normalize_tool_args
 from varly.capture.model import (
     CAPTURE_EVENT_LOG_VERSION,
     CaptureRead,
@@ -55,12 +56,15 @@ class RunRecorder:
         step_id: str,
         timestamp_ms: int | float,
         name: str,
+        args: dict[str, PrimitiveArg] | None = None,
     ) -> None:
+        normalized_args = normalize_tool_args(args) if args is not None else None
         self.record_step(
             step_id=step_id,
             event_type="tool_call",
             timestamp_ms=timestamp_ms,
             name=name,
+            args=normalized_args,
         )
 
     def record_tool_output(
@@ -92,6 +96,7 @@ class RunRecorder:
         timestamp_ms: int | float,
         name: str | None = None,
         total_tokens: int | float | None = None,
+        args: dict[str, PrimitiveArg] | None = None,
     ) -> None:
         if not step_id:
             msg = "step_id must be non-empty"
@@ -110,6 +115,9 @@ class RunRecorder:
         ):
             msg = "total_tokens must be numeric when provided"
             raise ValueError(msg)
+        if args is not None and event_type != "tool_call":
+            msg = "args are only supported on tool_call steps"
+            raise ValueError(msg)
 
         self._steps.append(
             CaptureStep(
@@ -118,6 +126,7 @@ class RunRecorder:
                 timestamp_ms=timestamp_ms,
                 name=name,
                 total_tokens=total_tokens,
+                args=args,
             )
         )
         self._step_ids.add(step_id)

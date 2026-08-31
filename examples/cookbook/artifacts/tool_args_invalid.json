@@ -1,0 +1,40 @@
+{
+  "format_version": "capture-event-log-1.0.0",
+  "run_id": "cookbook-tool-args-invalid",
+  "steps": [
+    {
+      "id": "step-001",
+      "event_type": "run_start",
+      "timestamp_ms": 0
+    },
+    {
+      "id": "step-002",
+      "event_type": "llm_call",
+      "timestamp_ms": 100,
+      "total_tokens": 50
+    },
+    {
+      "id": "step-003",
+      "event_type": "tool_call",
+      "timestamp_ms": 200,
+      "name": "search",
+      "args": {
+        "query": "capital of France",
+        "endpoint": "https://api.example.com/search",
+        "debug": true
+      }
+    },
+    {
+      "id": "step-004",
+      "event_type": "tool_output",
+      "timestamp_ms": 300,
+      "name": "search"
+    },
+    {
+      "id": "step-005",
+      "event_type": "run_end",
+      "timestamp_ms": 400
+    }
+  ],
+  "reads": []
+}

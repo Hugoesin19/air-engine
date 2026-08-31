@@ -50,6 +50,7 @@ format.
 | `timestamp_ms` | number | yes | Wall-clock offset in milliseconds |
 | `name` | string | no | Human-readable tool or resource name |
 | `total_tokens` | number | no | Token usage for LLM calls |
+| `args` | object | no | Primitive JSON map of tool call arguments (`tool_call` only) |
 
 ### Supported `event_type` values in 1.0.0
 

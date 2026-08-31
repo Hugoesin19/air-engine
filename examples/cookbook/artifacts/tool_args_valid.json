@@ -1,22 +1,22 @@
 {
   "format_version": "capture-event-log-1.0.0",
-  "run_id": "capture-recipe-c50a6986",
+  "run_id": "cookbook-tool-args-valid",
   "steps": [
     {
       "id": "step-001",
       "event_type": "run_start",
-      "timestamp_ms": 0.001
+      "timestamp_ms": 0
     },
     {
       "id": "step-002",
       "event_type": "llm_call",
-      "timestamp_ms": 0.014,
-      "total_tokens": 120
+      "timestamp_ms": 100,
+      "total_tokens": 50
     },
     {
       "id": "step-003",
       "event_type": "tool_call",
-      "timestamp_ms": 0.02,
+      "timestamp_ms": 200,
       "name": "search",
       "args": {
         "query": "capital of France",
@@ -26,29 +26,14 @@
     {
       "id": "step-004",
       "event_type": "tool_output",
-      "timestamp_ms": 0.035,
+      "timestamp_ms": 300,
       "name": "search"
     },
     {
       "id": "step-005",
-      "event_type": "llm_call",
-      "timestamp_ms": 0.04,
-      "total_tokens": 80
-    },
-    {
-      "id": "step-006",
       "event_type": "run_end",
-      "timestamp_ms": 0.045
+      "timestamp_ms": 400
     }
   ],
-  "reads": [
-    {
-      "source": "step-003",
-      "target": "step-002"
-    },
-    {
-      "source": "step-004",
-      "target": "step-005"
-    }
-  ]
+  "reads": []
 }

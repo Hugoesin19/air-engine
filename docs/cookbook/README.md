@@ -66,6 +66,26 @@ See [baseline workflow](../workflows/baseline.md) for team CI.
 
 ---
 
+## Scenario 4 — Tool argument gates (`api-guard`)
+
+**Use case:** Enforce allowed tool argument keys and a fixed endpoint value (finer than tool-name allowlists).
+
+```bash
+uv run varly verify examples/cookbook/artifacts/tool_args_valid.json \
+  --contract examples/policies/api-guard.yaml --source capture
+
+uv run varly verify examples/cookbook/artifacts/tool_args_invalid.json \
+  --contract examples/policies/api-guard.yaml --source capture
+```
+
+Expect **PASS** then **FAIL** (`debug` arg key is not allowed).
+
+**Policy:** [`api-guard.yaml`](../examples/policies/api-guard.yaml) — `tool_args_keys_allowlist` + `tool_arg_equals`.
+
+Capture args in your agent with `RunRecorder.record_tool_call(..., args={...})`.
+
+---
+
 ## Policy packs by scenario
 
 | Scenario | Policy | File |
@@ -74,6 +94,7 @@ See [baseline workflow](../workflows/baseline.md) for team CI.
 | Customer support bot | `support-bot` | [`support-bot.yaml`](../examples/policies/support-bot.yaml) |
 | RAG / retrieval agents | `rag` | [`rag.yaml`](../examples/policies/rag.yaml) |
 | Many tools (orchestrator) | `tool-heavy` | [`tool-heavy.yaml`](../examples/policies/tool-heavy.yaml) |
+| API endpoint / arg keys | `api-guard` | [`api-guard.yaml`](../examples/policies/api-guard.yaml) |
 | Tight production guardrails | `strict` | [`strict.yaml`](../examples/policies/strict.yaml) |
 | Local debugging | `dev` | [`dev.yaml`](../examples/policies/dev.yaml) |
 

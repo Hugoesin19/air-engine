@@ -5,7 +5,7 @@
 > This file drives **what to build next** to make Varly genuinely useful.
 
 **Last updated:** 2026-08-31  
-**Current phase:** **C2 — LangGraph golden path** ✅ (C1 PyPI tag pending)  
+**Current phase:** **C4** — TFG memoria (C3 shipped in v1.2.0)  
 **Evidence:** [FEEDBACK.md](FEEDBACK.md)
 
 ---
@@ -65,7 +65,7 @@ Secondary path: any Python agent via `RunRecorder` (manual hooks). Not the prima
 | **P0–P4** | Engine + OSS foundation | PyPI, LangGraph, cookbook, team CI | ✅ Done |
 | **C1** | Ship & first value | Anyone understands product in 5 min from pip | ✅ Code done (PyPI tag pending) |
 | **C2** | LangGraph golden path | One flawless stack: capture → verify → CI | ✅ Docs + starter CI |
-| **C3** | Richer policies (optional) | Tool args + parameter-level gates | ⬜ If C2 insufficient |
+| **C3** | Richer policies (optional) | Tool args + parameter-level gates | ✅ Done |
 | **C4** | TFG memoria | Document product + validation + limits | ⬜ Parallel |
 
 **Paused:** SaaS, real-time hard stops, enterprise (P5), OpenAI auto-capture, contract DSL v2, topology editor.
@@ -113,7 +113,7 @@ LangGraph agent → LangGraphCallbackCollector → run.json
 - [x] **Starter CI** template — [`examples/starter-ci/`](../examples/starter-ci/README.md)
 - [x] Link policy packs to scenarios (`rag`, `support-bot`, `tool-heavy`) from golden-path docs
 - [x] Document “what Varly does / does not do” table in GETTING_STARTED (expectations)
-- [ ] Pin GitHub Action examples to `v1.1.0` after PyPI tag is published
+- [x] Pin GitHub Action examples to `v1.2.0` after PyPI tag is published
 
 **Done when:** Someone with LangGraph follows docs only and has a green CI gate in one session.
 
@@ -127,10 +127,10 @@ LangGraph agent → LangGraphCallbackCollector → run.json
 
 ### Scope (minimal)
 
-- [ ] `record_tool_call(..., args=...)` in `RunRecorder` (+ LangGraph capture if feasible)
-- [ ] One new invariant (e.g. `tool_args_keys_allowlist` or JSON-schema hook per tool name)
-- [ ] Cookbook example + test
-- [ ] Docs: what is captured, what policies can check
+- [x] `record_tool_call(..., args=...)` in `RunRecorder` (+ LangGraph capture if feasible)
+- [x] One new invariant (e.g. `tool_args_keys_allowlist` or JSON-schema hook per tool name)
+- [x] Cookbook example + test
+- [x] Docs: what is captured, what policies can check
 
 **Out of scope for C3:** Full JSON Schema engine, arbitrary endpoint URL matching, real-time enforcement.
 
@@ -194,6 +194,7 @@ We are **not** waiting for N more survey responses to execute C1–C2.
 
 | Date | Phase | Completed | Next |
 |------|-------|-----------|------|
+| 2026-08-31 | C3 | Tool args capture, `tool_args_keys_allowlist`, `tool_arg_equals`, v1.2.0 bump | Publish `v1.2.0` → C4 |
 | 2026-08-31 | C2 | LangGraph quickstart, starter-ci template, GETTING_STARTED reorder | Publish `v1.1.0` → C3/C4 |
 | 2026-08-31 | C1 | `varly try`, bundled fixtures, `live` policy, v1.1.0 bump | C2 |
 | 2026-08-29 | P4 | Team CI, batch verify, cookbook, LangGraph capture | Validation → this plan |

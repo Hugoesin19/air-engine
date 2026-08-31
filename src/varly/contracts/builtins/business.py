@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from collections.abc import Callable
 
+from varly.capture.args import args_from_json_label
 from varly.contracts.errors import InvalidInvariantParamError
 from varly.contracts.model import InvariantSpec
 from varly.core.ordering import canonical_linear_extension
@@ -151,9 +152,78 @@ def evaluate_required_event_sequence(
     return (message,)
 
 
+def _require_scalar_param(
+    spec: InvariantSpec, key: str
+) -> str | int | float | bool | None:
+    value = spec.params.get(key)
+    if value is None:
+        msg = f"Invariant {spec.id!r} requires param {key!r}"
+        raise InvalidInvariantParamError(msg)
+    if not isinstance(value, (str, int, float, bool)):
+        msg = f"Invariant {spec.id!r} param {key!r} must be a primitive JSON value"
+        raise InvalidInvariantParamError(msg)
+    return value
+
+
+def evaluate_tool_args_keys_allowlist(
+    trace: Trace,
+    spec: InvariantSpec,
+) -> tuple[str, ...]:
+    """Fail when a ``tool_call`` includes argument keys outside ``allowed``."""
+    allowed = _require_string_tuple(spec, "allowed")
+    allowed_set = frozenset(allowed)
+    messages: list[str] = []
+    for node in trace.nodes:
+        if _event_type(node.labels) != _TOOL_CALL:
+            continue
+        args = args_from_json_label(node.labels.get("args_json"))
+        if args is None:
+            continue
+        for key in args:
+            if key not in allowed_set:
+                messages.append(
+                    f"ToolCall arg key {key!r} is not in allowlist at node: {node.id}"
+                )
+    return tuple(messages)
+
+
+def evaluate_tool_arg_equals(
+    trace: Trace,
+    spec: InvariantSpec,
+) -> tuple[str, ...]:
+    """Fail when a ``tool_call`` arg ``key`` is missing or not equal to ``value``."""
+    key = _require_scalar_param(spec, "key")
+    if not isinstance(key, str) or not key:
+        msg = f"Invariant {spec.id!r} param 'key' must be a non-empty string"
+        raise InvalidInvariantParamError(msg)
+    expected = _require_scalar_param(spec, "value")
+    messages: list[str] = []
+    for node in trace.nodes:
+        if _event_type(node.labels) != _TOOL_CALL:
+            continue
+        args = args_from_json_label(node.labels.get("args_json"))
+        if args is None:
+            messages.append(
+                "ToolCall is missing args_json for required key "
+                f"{key!r} at node: {node.id}"
+            )
+            continue
+        if key not in args:
+            messages.append(f"ToolCall arg {key!r} is missing at node: {node.id}")
+            continue
+        if args[key] != expected:
+            messages.append(
+                f"ToolCall arg {key!r}={args[key]!r} expected {expected!r} "
+                f"at node: {node.id}"
+            )
+    return tuple(messages)
+
+
 BUSINESS_EVALUATORS: dict[str, InvariantEvaluator] = {
     "max_llm_invocations": evaluate_max_llm_invocations,
     "max_tool_calls": evaluate_max_tool_calls,
     "tool_name_allowlist": evaluate_tool_name_allowlist,
+    "tool_args_keys_allowlist": evaluate_tool_args_keys_allowlist,
+    "tool_arg_equals": evaluate_tool_arg_equals,
     "required_event_sequence": evaluate_required_event_sequence,
 }

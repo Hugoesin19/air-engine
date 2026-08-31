@@ -24,6 +24,7 @@ Your agent runs → you save a trace JSON → varly verify → PASS/FAIL
 | Check run **structure** (tool returns, event order) | Replace `pytest` or manual QA |
 | **`diff`** regressions vs a baseline in CI | Run your agent or call APIs |
 | Same trace + policy → same PASS/FAIL | Guarantee identical LLM output each run |
+| **`tool_args_keys_allowlist`** / **`tool_arg_equals`** on captured args | Full JSON Schema or arbitrary endpoint rules (partial support via args) |
 
 Useful when you want CI-style gates: “this PR must not introduce new contract violations.”
 
@@ -143,7 +144,12 @@ recorder.record_run_start(step_id="step-001", timestamp_ms=ts())
 recorder.record_llm_call(step_id="step-002", timestamp_ms=ts(), total_tokens=150)
 
 # before / after each tool call
-recorder.record_tool_call(step_id="step-003", timestamp_ms=ts(), tool_name="search")
+recorder.record_tool_call(
+    step_id="step-003",
+    timestamp_ms=ts(),
+    name="search",
+    args={"query": "capital of France", "endpoint": "https://api.example.com/search"},
+)
 recorder.record_tool_output(step_id="step-004", timestamp_ms=ts(), tool_name="search")
 
 recorder.record_run_end(step_id="step-005", timestamp_ms=ts())

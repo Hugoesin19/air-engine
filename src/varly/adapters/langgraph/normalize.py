@@ -6,6 +6,11 @@ from collections.abc import Mapping
 from typing import Any
 
 from varly.adapters.errors import AdapterValidationError
+from varly.capture.args import (
+    PrimitiveArg,
+    normalize_tool_args,
+    parse_tool_input_string,
+)
 
 LANGGRAPH_RUN_V1 = "langgraph.run.v1"
 
@@ -96,14 +101,16 @@ def normalize_callbacks_payload(payload: Mapping[str, Any]) -> dict[str, Any]:
                 timestamp_ms += 100
         elif event_name == "on_tool_start":
             name = _callback_name(item, index, "on_tool_start")
-            events.append(
-                {
-                    "id": item_run_id,
-                    "type": "on_tool_start",
-                    "name": name,
-                    "timestamp_ms": timestamp_ms,
-                }
-            )
+            event_payload: dict[str, Any] = {
+                "id": item_run_id,
+                "type": "on_tool_start",
+                "name": name,
+                "timestamp_ms": timestamp_ms,
+            }
+            tool_args = _tool_args_from_callback(item)
+            if tool_args:
+                event_payload["args"] = tool_args
+            events.append(event_payload)
             if last_llm_id is not None:
                 reads.append({"source": item_run_id, "target": last_llm_id})
             timestamp_ms += 300
@@ -169,6 +176,18 @@ def _callback_name(item: Mapping[str, Any], index: int, event_name: str) -> str:
         return name
     msg = f"events[{index}] {event_name} requires a non-empty name"
     raise AdapterValidationError(msg)
+
+
+def _tool_args_from_callback(item: Mapping[str, Any]) -> dict[str, PrimitiveArg] | None:
+    data = item.get("data")
+    if not isinstance(data, Mapping):
+        return None
+    raw_input = data.get("input")
+    if isinstance(raw_input, str):
+        return parse_tool_input_string(raw_input)
+    if isinstance(raw_input, Mapping):
+        return normalize_tool_args(raw_input)
+    return None
 
 
 def _tokens_from_callback(item: Mapping[str, Any]) -> int | float | None:

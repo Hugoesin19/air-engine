@@ -51,7 +51,7 @@ jobs:
       - name: Run your agent (example)
         run: python your_agent/run.py --output artifacts/run.json
 
-      - uses: Hugoesin19/varly/.github/actions/verify-trace@v1.0.0
+      - uses: Hugoesin19/varly/.github/actions/verify-trace@v1.2.0
         with:
           trace-file: artifacts/run.json
           contract-file: policies/mvp.yaml

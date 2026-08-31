@@ -2,7 +2,8 @@
 
 from __future__ import annotations
 
-from dataclasses import asdict, dataclass
+from dataclasses import asdict, dataclass, field
+from typing import Any
 
 CAPTURE_EVENT_LOG_VERSION = "capture-event-log-1.0.0"
 
@@ -16,6 +17,7 @@ class CaptureStep:
     timestamp_ms: int | float
     name: str | None = None
     total_tokens: int | float | None = None
+    args: dict[str, Any] | None = field(default=None, compare=False)
 
     def to_dict(self) -> dict[str, object]:
         payload = asdict(self)

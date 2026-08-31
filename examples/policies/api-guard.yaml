@@ -1,0 +1,20 @@
+# API guard policy — tool name + argument key/value constraints.
+air_schema_version: "1.0.0"
+invariants:
+  - id: no_causal_cycles
+  - id: root_reachability
+  - id: no_orphans
+  - id: tool_call_has_return
+  - id: tool_name_allowlist
+    params:
+      allowed:
+        - search
+  - id: tool_args_keys_allowlist
+    params:
+      allowed:
+        - query
+        - endpoint
+  - id: tool_arg_equals
+    params:
+      key: endpoint
+      value: "https://api.example.com/search"

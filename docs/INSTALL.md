@@ -68,7 +68,7 @@ uv run python scripts/demo_60s.py
 Pin the composite action to a release tag:
 
 ```yaml
-- uses: Hugoesin19/varly/.github/actions/verify-trace@v1.0.0
+- uses: Hugoesin19/varly/.github/actions/verify-trace@v1.2.0
   with:
     trace-file: path/to/run.json
     contract-file: examples/policies/mvp.yaml

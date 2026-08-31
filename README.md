@@ -231,7 +231,7 @@ jobs:
           python-version: "3.12"
       - run: pip install varly
       - run: python your_agent/run.py --output artifacts/run.json
-      - uses: Hugoesin19/varly/.github/actions/verify-trace@v1.0.0
+      - uses: Hugoesin19/varly/.github/actions/verify-trace@v1.2.0
         with:
           trace-file: artifacts/run.json
           contract-file: policies/mvp.yaml
@@ -297,7 +297,7 @@ varly is an **open-source product under active development**, started as a Final
 
 - **MVP:** complete (AIR core, contracts, adapters, CLI)
 - **v1:** complete (capture, CI, policy packs, reports, `diff`, viewer)
-- **Now:** [Active plan](docs/PLAN.md) (C1–C4) — ship v1.1.0, LangGraph golden path, richer policies
+- **Now:** [Active plan](docs/PLAN.md) (C1–C4) — v1.2.0 shipped (tool args policies); next: TFG memoria (C4)
 - **Later:** contract DSL, enterprise ingest, scalable verification
 
 This repository is the source of truth for design and implementation. Contributions and feedback are welcome under the license below.

@@ -53,6 +53,10 @@ def run_agent(recorder: RunRecorder, *, clock: float) -> str:
         step_id="step-003",
         timestamp_ms=ts(),
         name=tool_name,
+        args={
+            "query": "capital of France",
+            "endpoint": "https://api.example.com/search",
+        },
     )
 
     # HOOK: after the tool returns (same name as tool_call)
