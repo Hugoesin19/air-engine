@@ -3,11 +3,17 @@
 from __future__ import annotations
 
 import argparse
+import os
 import sys
+from collections.abc import Callable
+from contextlib import contextmanager
 from pathlib import Path
+from typing import Iterator
 
 from varly.interfaces.cli.commands import diff, verify
 from varly.resources import bundled_fixture, bundled_policy
+
+StepHandler = Callable[[argparse.Namespace], int]
 
 
 def register(subparsers: argparse._SubParsersAction[argparse.ArgumentParser]) -> None:
@@ -18,7 +24,27 @@ def register(subparsers: argparse._SubParsersAction[argparse.ArgumentParser]) ->
     parser.set_defaults(handler=run)
 
 
-def _step(label: str, handler, args: argparse.Namespace, *, expect: int) -> int:
+@contextmanager
+def _suppress_github_annotations() -> Iterator[None]:
+    """Expected FAIL/REGRESSION steps must not emit CI error annotations."""
+    previous = os.environ.get("GITHUB_ACTIONS")
+    os.environ["GITHUB_ACTIONS"] = "false"
+    try:
+        yield
+    finally:
+        if previous is None:
+            os.environ.pop("GITHUB_ACTIONS", None)
+        else:
+            os.environ["GITHUB_ACTIONS"] = previous
+
+
+def _step(
+    label: str,
+    handler: StepHandler,
+    args: argparse.Namespace,
+    *,
+    expect: int,
+) -> int:
     print(f"\n==> {label}", flush=True)
     exit_code = handler(args)
     if exit_code != expect:
@@ -38,7 +64,7 @@ def run(_args: argparse.Namespace) -> int:
     baseline: Path = bundled_fixture("trace_valid_minimal")
     broken: Path = bundled_fixture("trace_invalid_missing_tool_return")
 
-    steps: list[tuple[str, object, argparse.Namespace, int]] = [
+    steps: list[tuple[str, StepHandler, argparse.Namespace, int]] = [
         (
             "Verify bundled mock capture (expect PASS)",
             verify.run,
@@ -95,9 +121,10 @@ def run(_args: argparse.Namespace) -> int:
         ),
     ]
 
-    for label, handler, step_args, expect in steps:
-        if _step(label, handler, step_args, expect=expect) != 0:
-            return 1
+    with _suppress_github_annotations():
+        for label, handler, step_args, expect in steps:
+            if _step(label, handler, step_args, expect=expect) != 0:
+                return 1
 
     print(
         "\nTry complete: PASS, FAIL, and REGRESSION behaved as expected.",
